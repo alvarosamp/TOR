@@ -3,189 +3,548 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="TOR - Soluções avançadas em telecomunicações e tecnologia. Conectando o futuro através de inovação.">
-    <meta name="keywords" content="telecomunicações, tecnologia, conectividade, internet, redes">
-    <title>TOR - Telecomunicações & Tecnologia</title>
+    <meta name="description" content="TOR - Fornecimento de equipamentos de telecomunicações para licitações públicas. Switches, SFPs, transceivers e muito mais para órgãos públicos e empresas.">
+    <meta name="keywords" content="licitação, telecomunicações, switch, SFP, transceiver, equipamentos, órgãos públicos, pregão eletrônico, compras governamentais">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="TOR - Equipamentos de Telecom para Licitações">
+    <meta property="og:description" content="Soluções em equipamentos de telecomunicações para o setor público.">
+    <meta property="og:type" content="website">
+    <title>TOR | Equipamentos de Telecomunicações para Licitações</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Navigation Bar -->
-    <nav class="navbar">
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
         <div class="container">
-            <div class="navbar-brand">
-                <h1 class="logo">TOR</h1>
-                <span class="tagline">Conectando o Futuro</span>
-            </div>
+            <a href="#home" class="navbar-brand">
+                <img src="assets/images/tor.jpg" alt="TOR Logo" class="nav-logo" id="nav-logo-img">
+            </a>
             <ul class="nav-menu" id="navMenu">
-                <li><a href="#home">Início</a></li>
-                <li><a href="#services">Serviços</a></li>
-                <li><a href="#about">Sobre</a></li>
-                <li><a href="#technologies">Tecnologias</a></li>
-                <li><a href="#contact">Contato</a></li>
+                <li><a href="#home" class="nav-link" id="nav-home">Início</a></li>
+                <li><a href="#about" class="nav-link" id="nav-about">Sobre</a></li>
+                <li><a href="#products" class="nav-link" id="nav-products">Produtos</a></li>
+                <li><a href="#licitacao" class="nav-link" id="nav-licitacao">Licitações</a></li>
+                <li><a href="#diferenciais" class="nav-link" id="nav-diferenciais">Diferenciais</a></li>
+                <li><a href="#contact" class="nav-link nav-cta" id="nav-contact">Fale Conosco</a></li>
             </ul>
-            <div class="hamburger" id="hamburger">
+            <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
                 <span></span>
                 <span></span>
                 <span></span>
-            </div>
+            </button>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <header class="hero" id="home">
-        <div class="hero-content">
-            <h2>Transformando a Conectividade</h2>
-            <p>Soluções inteligentes em telecomunicações para o mundo digital</p>
-            <a href="#contact" class="cta-button">Conheça Nossas Soluções</a>
-        </div>
-        <div class="hero-image">
-            <img src="assets/images/tor.jpg" alt="TOR Tecnologia">
-        </div>
-    </header>
-
-    <!-- Services Section -->
-    <section class="services" id="services">
+    <section class="hero" id="home">
+        <div class="hero-bg-overlay"></div>
+        <div class="hero-particles" id="particles"></div>
         <div class="container">
-            <h2 class="section-title">Nossos Serviços</h2>
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">📡</div>
-                    <h3>Conectividade 5G</h3>
-                    <p>Redes de alta velocidade com tecnologia 5G para conectar seus negócios no futuro</p>
+            <div class="hero-content">
+                <div class="hero-badge" id="hero-badge">
+                    <span class="badge-dot"></span>
+                    Especialistas em Licitação
                 </div>
-                <div class="service-card">
-                    <div class="service-icon">🔒</div>
-                    <h3>Segurança de Rede</h3>
-                    <p>Proteção robusta contra ameaças cibernéticas com infraestrutura de segurança avançada</p>
+                <h1 class="hero-title" id="hero-title">
+                    Equipamentos de<br>
+                    <span class="highlight">Telecom</span> para<br>
+                    Licitação
+                </h1>
+                <p class="hero-subtitle" id="hero-subtitle">
+                    Switches, SFPs e Transceivers com documentação técnica completa, prontos para qualquer processo licitatório — público ou privado.
+                </p>
+                <div class="hero-actions" id="hero-actions">
+                    <a href="#products" class="btn btn-primary" id="btn-produtos">Ver Produtos</a>
+                    <a href="#contact" class="btn btn-outline" id="btn-contato">Solicitar Proposta</a>
                 </div>
-                <div class="service-card">
-                    <div class="service-icon">☁️</div>
-                    <h3>Cloud Solutions</h3>
-                    <p>Soluções em nuvem escaláveis para empresas de qualquer tamanho</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">📊</div>
-                    <h3>Análise de Dados</h3>
-                    <p>Insights inteligentes através de análise avançada de dados em tempo real</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">🌐</div>
-                    <h3>Interconexão Global</h3>
-                    <p>Cobertura internacional com infraestrutura distribuída em múltiplas regiões</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">🤝</div>
-                    <h3>Suporte 24/7</h3>
-                    <p>Equipe técnica sempre disponível para garantir a continuidade dos seus serviços</p>
+                <div class="hero-stats" id="hero-stats">
+                    <div class="hero-stat">
+                        <span class="stat-number" data-target="200">0</span><span class="stat-suffix">+</span>
+                        <span class="stat-label">Licitações Vencidas</span>
+                    </div>
+                    <div class="hero-stat-divider"></div>
+                    <div class="hero-stat">
+                        <span class="stat-number" data-target="98">0</span><span class="stat-suffix">%</span>
+                        <span class="stat-label">Taxa de Aprovação</span>
+                    </div>
+                    <div class="hero-stat-divider"></div>
+                    <div class="hero-stat">
+                        <span class="stat-number" data-target="50">0</span><span class="stat-suffix">+</span>
+                        <span class="stat-label">Órgãos Atendidos</span>
+                    </div>
                 </div>
             </div>
+            <div class="hero-visual" id="hero-visual">
+                <div class="product-showcase">
+                    <div class="showcase-card active" id="showcase-switch">
+                        <div class="showcase-icon">🔀</div>
+                        <h3>Switches</h3>
+                        <p>Gerenciáveis e não-gerenciáveis para redes corporativas</p>
+                        <span class="showcase-tag">Para Licitação</span>
+                    </div>
+                    <div class="showcase-card" id="showcase-sfp">
+                        <div class="showcase-icon">💡</div>
+                        <h3>SFP / SFP+</h3>
+                        <p>Módulos ópticos multimodo e monomodo certificados</p>
+                        <span class="showcase-tag">Para Licitação</span>
+                    </div>
+                    <div class="showcase-card" id="showcase-transceiver">
+                        <div class="showcase-icon">📡</div>
+                        <h3>Transceivers</h3>
+                        <p>Compatibilidade garantida com as principais marcas</p>
+                        <span class="showcase-tag">Para Licitação</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-scroll-indicator">
+            <div class="scroll-dot"></div>
         </div>
     </section>
 
     <!-- About Section -->
     <section class="about" id="about">
         <div class="container">
-            <div class="about-content">
-                <div class="about-text">
-                    <h2 class="section-title">Sobre a TOR</h2>
-                    <p>A TOR é uma empresa líder em soluções de telecomunicações e tecnologia, comprometida em fornecer conectividade de ponta e serviços inovadores para empresas e indivíduos em todo o mundo.</p>
-                    <p>Com mais de uma década de experiência, nos posicionamos na vanguarda das inovações tecnológicas, oferecendo infraestrutura robusta e suporte técnico excepcional.</p>
-                    <p>Nossa missão é conectar pessoas, negócios e ideias através de tecnologia confiável e transformadora.</p>
-                    <div class="about-stats">
-                        <div class="stat">
-                            <h4>500+</h4>
-                            <p>Clientes Ativos</p>
+            <div class="about-grid">
+                <div class="about-image-col">
+                    <div class="about-image-wrapper">
+                        <div class="about-logo-card">
+                            <img src="assets/images/tor.jpg" alt="TOR" class="about-logo">
                         </div>
-                        <div class="stat">
-                            <h4>99.9%</h4>
-                            <p>Disponibilidade</p>
+                        <div class="about-floating-card" id="about-card-1">
+                            <span class="fc-icon">📄</span>
+                            <div>
+                                <strong>Licitação</strong>
+                                <p>Pública ou privada</p>
+                            </div>
                         </div>
-                        <div class="stat">
-                            <h4>24/7</h4>
-                            <p>Suporte</p>
+                        <div class="about-floating-card fc-bottom" id="about-card-2">
+                            <span class="fc-icon">📋</span>
+                            <div>
+                                <strong>Documentação</strong>
+                                <p>Completa para pregões</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="about-image">
-                    <img src="assets/images/tor.jpg" alt="Equipe TOR">
+                <div class="about-text-col">
+                    <div class="section-label" id="label-sobre">Sobre a TOR</div>
+                    <h2 class="section-title" id="title-sobre">
+                        Seu parceiro confiável no fornecimento para licitações
+                    </h2>
+                    <p class="about-desc">
+                        A TOR nasceu com um propósito claro: simplificar o processo de fornecimento de equipamentos de telecomunicações em processos licitatórios. Entendemos as particularidades desse ambiente e estamos preparados para atender todas as exigências técnicas e documentais.
+                    </p>
+                    <p class="about-desc">
+                        Trabalhamos com switches, SFPs e transceivers de alta qualidade, com toda a documentação necessária para participação em pregões eletrônicos, garantindo conformidade com as exigências dos editais.
+                    </p>
+                    <div class="about-features">
+                        <div class="about-feature" id="af-1">
+                            <div class="feature-check">✓</div>
+                            <span>Atestados de capacidade técnica</span>
+                        </div>
+                        <div class="about-feature" id="af-2">
+                            <div class="feature-check">✓</div>
+                            <span>Fichas técnicas e catálogos</span>
+                        </div>
+                        <div class="about-feature" id="af-3">
+                            <div class="feature-check">✓</div>
+                            <span>Notas fiscais e garantias</span>
+                        </div>
+                        <div class="about-feature" id="af-4">
+                            <div class="feature-check">✓</div>
+                            <span>Suporte no pós-venda</span>
+                        </div>
+                        <div class="about-feature" id="af-5">
+                            <div class="feature-check">✓</div>
+                            <span>Agilidade na entrega</span>
+                        </div>
+                        <div class="about-feature" id="af-6">
+                            <div class="feature-check">✓</div>
+                            <span>Preços competitivos para licitação</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Technologies Section -->
-    <section class="technologies" id="technologies">
+    <!-- Products Section -->
+    <section class="products" id="products">
         <div class="container">
-            <h2 class="section-title">Tecnologias</h2>
-            <p class="section-subtitle">Infraestrutura moderna baseada em tecnologias de ponta</p>
-            <div class="tech-grid">
-                <div class="tech-item">
-                    <h3>5G/4G LTE</h3>
-                    <p>Redes móveis de última geração</p>
+            <div class="section-header">
+                <div class="section-label" id="label-products">Nossos Produtos</div>
+                <h2 class="section-title centered" id="title-products">
+                    Equipamentos prontos para qualquer licitação
+                </h2>
+                <p class="section-desc" id="desc-products">
+                    Switches, SFPs e Transceivers com especificações técnicas detalhadas e documentação completa para o seu processo licitatório.
+                </p>
+            </div>
+            <div class="products-grid products-grid-3">
+
+                <!-- SWITCHES -->
+                <div class="product-card" id="prod-switch">
+                    <div class="product-top">
+                        <div class="product-icon-wrap red">
+                            <span class="product-icon">🔀</span>
+                        </div>
+                        <h3 class="product-name">Switches</h3>
+                        <p class="product-desc">
+                            Trabalhamos com switches gerenciáveis e não-gerenciáveis, Layer 2 e Layer 3. Indicamos a melhor opção conforme o edital.
+                        </p>
+                    </div>
+                    <div class="product-variants">
+                        <div class="variant-group">
+                            <span class="variant-label">Gerenciáveis</span>
+                            <ul class="product-specs">
+                                <li>Layer 2 — VLANs, QoS, STP, LACP</li>
+                                <li>Layer 3 — Roteamento estático e dinâmico (OSPF, BGP)</li>
+                                <li>PoE / PoE+ — até 30W por porta</li>
+                                <li>Uplinks SFP+ 10G / 25G</li>
+                                <li>SNMP, CLI, interface web</li>
+                            </ul>
+                        </div>
+                        <div class="variant-divider"></div>
+                        <div class="variant-group">
+                            <span class="variant-label">Não-Gerenciáveis</span>
+                            <ul class="product-specs">
+                                <li>Plug-and-play, zero configuração</li>
+                                <li>10/100/1000 Mbps por porta</li>
+                                <li>5, 8, 16, 24 e 48 portas</li>
+                                <li>Baixo consumo e fanless</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <a href="#contact" class="product-link" id="link-switch">Solicitar Cotação →</a>
                 </div>
-                <div class="tech-item">
-                    <h3>Fiber Optic</h3>
-                    <p>Comunicação por fibra óptica de alta velocidade</p>
+
+                <!-- SFP -->
+                <div class="product-card featured" id="prod-sfp">
+                    <div class="product-top">
+                        <div class="product-icon-wrap dark">
+                            <span class="product-icon">💡</span>
+                        </div>
+                        <h3 class="product-name">Módulos SFP</h3>
+                        <p class="product-desc">
+                            Módulos ópticos e de cobre para expansão de rede. Compatíveis com Cisco, Huawei, MikroTik, TP-Link e outras marcas.
+                        </p>
+                    </div>
+                    <div class="product-variants">
+                        <div class="variant-group">
+                            <span class="variant-label">Velocidades disponíveis</span>
+                            <ul class="product-specs">
+                                <li>1G SFP — multimodo (OM1/OM2) e monomodo (OS2)</li>
+                                <li>10G SFP+ — OM3, OM4, OS2, DAC</li>
+                                <li>25G SFP28 — curta e longa distância</li>
+                                <li>100G QSFP28 — para links de backbone</li>
+                            </ul>
+                        </div>
+                        <div class="variant-divider"></div>
+                        <div class="variant-group">
+                            <span class="variant-label">Recursos técnicos</span>
+                            <ul class="product-specs">
+                                <li>DDM / DOM — monitoramento em tempo real</li>
+                                <li>Multimodo (LC duplex) e monomodo</li>
+                                <li>Cobre (RJ45) disponível</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <a href="#contact" class="product-link" id="link-sfp">Solicitar Cotação →</a>
                 </div>
-                <div class="tech-item">
-                    <h3>Edge Computing</h3>
-                    <p>Computação no edge para latência mínima</p>
+
+                <!-- TRANSCEIVERS -->
+                <div class="product-card" id="prod-transceiver">
+                    <div class="product-top">
+                        <div class="product-icon-wrap red">
+                            <span class="product-icon">📡</span>
+                        </div>
+                        <h3 class="product-name">Transceivers</h3>
+                        <p class="product-desc">
+                            Transceivers de alta densidade para links de alta velocidade. Compatibilidade testada e certificada com os principais equipamentos.
+                        </p>
+                    </div>
+                    <div class="product-variants">
+                        <div class="variant-group">
+                            <span class="variant-label">Formatos disponíveis</span>
+                            <ul class="product-specs">
+                                <li>QSFP+ — 40G, curta e longa distância</li>
+                                <li>QSFP28 — 100G, SR4, LR4, CWDM4</li>
+                                <li>CFP / CFP2 — 100G para equipamentos legados</li>
+                                <li>DAC / AOC — cabos de alta velocidade diretos</li>
+                            </ul>
+                        </div>
+                        <div class="variant-divider"></div>
+                        <div class="variant-group">
+                            <span class="variant-label">Compatibilidade</span>
+                            <ul class="product-specs">
+                                <li>Cisco, Juniper, Arista, Huawei</li>
+                                <li>MikroTik, TP-Link, D-Link e outros</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <a href="#contact" class="product-link" id="link-transceiver">Solicitar Cotação →</a>
                 </div>
-                <div class="tech-item">
-                    <h3>IoT Solutions</h3>
-                    <p>Internet das Coisas conectada e inteligente</p>
+
+            </div>
+
+            <!-- CTA row abaixo dos cards -->
+            <div class="products-cta-row" id="prod-custom">
+                <div class="pcta-text">
+                    <span class="pcta-icon">💼</span>
+                    <div>
+                        <strong>Tem um edital específico?</strong>
+                        <p>Envie as especificações e a TOR prepara a cotação técnica completa para você participar do processo.</p>
+                    </div>
                 </div>
-                <div class="tech-item">
-                    <h3>AI/Machine Learning</h3>
-                    <p>Inteligência artificial para otimização de redes</p>
+                <a href="#contact" class="btn btn-primary" id="btn-edital">Enviar Edital</a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Licitação Section -->
+    <section class="licitacao" id="licitacao">
+        <div class="licitacao-bg"></div>
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label light" id="label-lic">Como Trabalhamos</div>
+                <h2 class="section-title centered white" id="title-lic">
+                    Do edital à entrega — a TOR cuida de tudo
+                </h2>
+                <p class="section-desc light" id="desc-lic">
+                    Nosso processo é pensado para facilitar a vida do gestor público e da empresa contratada.
+                </p>
+            </div>
+            <div class="process-steps">
+                <div class="process-step" id="step-1">
+                    <div class="step-number">01</div>
+                    <div class="step-content">
+                        <h3>Análise do Edital</h3>
+                        <p>Você nos envia o edital ou o termo de referência e nossa equipe identifica todos os itens que podemos fornecer.</p>
+                    </div>
                 </div>
-                <div class="tech-item">
-                    <h3>Blockchain</h3>
-                    <p>Segurança e transparência em transações</p>
+                <div class="process-connector"></div>
+                <div class="process-step" id="step-2">
+                    <div class="step-number">02</div>
+                    <div class="step-content">
+                        <h3>Proposta Detalhada</h3>
+                        <p>Elaboramos uma proposta comercial completa com especificações técnicas, preços e prazos de entrega.</p>
+                    </div>
+                </div>
+                <div class="process-connector"></div>
+                <div class="process-step" id="step-3">
+                    <div class="step-number">03</div>
+                    <div class="step-content">
+                        <h3>Documentação Técnica</h3>
+                        <p>Fornecemos toda a documentação necessária: fichas técnicas, catálogos, declarações e atestados.</p>
+                    </div>
+                </div>
+                <div class="process-connector"></div>
+                <div class="process-step" id="step-4">
+                    <div class="step-number">04</div>
+                    <div class="step-content">
+                        <h3>Entrega e Garantia</h3>
+                        <p>Após a adjudicação, entregamos os equipamentos no prazo acordado, com nota fiscal e garantia.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lic-info-cards">
+                <div class="lic-info-card" id="lic-card-1">
+                    <span class="lic-card-icon">📑</span>
+                    <h4>Compras.gov</h4>
+                    <p>Cadastro ativo e habilitado para participar de pregões no Compras.gov.br</p>
+                </div>
+                <div class="lic-info-card" id="lic-card-2">
+                    <span class="lic-card-icon">🔏</span>
+                    <h4>SICAF Regular</h4>
+                    <p>Documentação fiscal e trabalhista sempre em dia para não perder nenhuma oportunidade</p>
+                </div>
+                <div class="lic-info-card" id="lic-card-3">
+                    <span class="lic-card-icon">⚡</span>
+                    <h4>Resposta Rápida</h4>
+                    <p>Cotações entregues em até 24 horas para não perder prazos de licitação</p>
+                </div>
+                <div class="lic-info-card" id="lic-card-4">
+                    <span class="lic-card-icon">🤝</span>
+                    <h4>Subcontratação</h4>
+                    <p>Parceria com empresas que já possuem contrato, fornecendo os itens necessários</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Call to Action Section -->
-    <section class="cta-section">
+    <!-- Diferenciais Section -->
+    <section class="diferenciais" id="diferenciais">
         <div class="container">
-            <h2>Pronto para Transformar sua Conectividade?</h2>
-            <p>Experimente a diferença de trabalhar com uma empresa focada em inovação e excelência</p>
-            <a href="#contact" class="cta-button-white">Solicitar Demonstração</a>
+            <div class="section-header">
+                <div class="section-label" id="label-dif">Por que a TOR</div>
+                <h2 class="section-title centered" id="title-dif">
+                    Diferenciais que nos destacam
+                </h2>
+            </div>
+            <div class="diferenciais-grid">
+                <div class="diferencial-card" id="dif-1">
+                    <div class="dif-icon-wrap">
+                        <span>🎯</span>
+                    </div>
+                    <h3>Foco em Telecom Pública</h3>
+                    <p>100% das nossas operações são voltadas para o setor público. Conhecemos as especificidades dos editais de telecomunicações.</p>
+                </div>
+                <div class="diferencial-card" id="dif-2">
+                    <div class="dif-icon-wrap">
+                        <span>📦</span>
+                    </div>
+                    <h3>Estoque Disponível</h3>
+                    <p>Mantemos estoque dos itens mais solicitados em licitações, garantindo agilidade na entrega após empenho.</p>
+                </div>
+                <div class="diferencial-card" id="dif-3">
+                    <div class="dif-icon-wrap">
+                        <span>💰</span>
+                    </div>
+                    <h3>Preço Competitivo</h3>
+                    <p>Trabalhamos com margens ajustadas para que sua proposta seja a mais competitiva no pregão.</p>
+                </div>
+                <div class="diferencial-card" id="dif-4">
+                    <div class="dif-icon-wrap">
+                        <span>📄</span>
+                    </div>
+                    <h3>Documentação Completa</h3>
+                    <p>Entregamos toda a documentação técnica necessária para habilitação e conformidade com o edital.</p>
+                </div>
+                <div class="diferencial-card" id="dif-5">
+                    <div class="dif-icon-wrap">
+                        <span>🛡️</span>
+                    </div>
+                    <h3>Garantia Real</h3>
+                    <p>Produtos com garantia de 12 a 36 meses, com suporte técnico especializado durante todo o período.</p>
+                </div>
+                <div class="diferencial-card" id="dif-6">
+                    <div class="dif-icon-wrap">
+                        <span>🔄</span>
+                    </div>
+                    <h3>Assistência Pós-Venda</h3>
+                    <p>Apoio técnico contínuo para resolver eventuais dúvidas ou necessidades de substituição durante a garantia.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Banner -->
+    <section class="cta-banner" id="cta-banner">
+        <div class="container">
+            <div class="cta-banner-content">
+                <div class="cta-banner-text">
+                    <h2 id="cta-title">Tem uma licitação aberta?</h2>
+                    <p id="cta-desc">Envie o edital agora e receba uma proposta comercial completa em até 24 horas.</p>
+                </div>
+                <div class="cta-banner-actions">
+                    <a href="#contact" class="btn btn-white" id="btn-cta-proposta">Solicitar Proposta</a>
+                    <a href="https://wa.me/5511900000000" class="btn btn-whatsapp" id="btn-whatsapp" target="_blank" rel="noopener">
+                        <span>💬</span> WhatsApp
+                    </a>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- Contact Section -->
     <section class="contact" id="contact">
         <div class="container">
-            <h2 class="section-title">Entre em Contato</h2>
-            <div class="contact-content">
+            <div class="section-header">
+                <div class="section-label" id="label-contact">Fale Conosco</div>
+                <h2 class="section-title centered" id="title-contact">
+                    Entre em contato com nossa equipe
+                </h2>
+                <p class="section-desc" id="desc-contact">
+                    Seja para uma cotação rápida, dúvidas técnicas ou para enviar um edital — estamos prontos para atender.
+                </p>
+            </div>
+            <div class="contact-grid">
                 <div class="contact-info">
-                    <div class="info-item">
-                        <h3>📍 Localização</h3>
-                        <p>São Paulo, Brasil</p>
+                    <div class="contact-item" id="ci-localizacao">
+                        <div class="contact-item-icon">📍</div>
+                        <div>
+                            <h4>Localização</h4>
+                            <p>São Paulo, Brasil</p>
+                        </div>
                     </div>
-                    <div class="info-item">
-                        <h3>📞 Telefone</h3>
-                        <p>+55 (11) 3000-0000</p>
+                    <div class="contact-item" id="ci-telefone">
+                        <div class="contact-item-icon">📞</div>
+                        <div>
+                            <h4>Telefone / WhatsApp</h4>
+                            <p>+55 (11) 90000-0000</p>
+                        </div>
                     </div>
-                    <div class="info-item">
-                        <h3>📧 Email</h3>
-                        <p>contato@tor.com.br</p>
+                    <div class="contact-item" id="ci-email">
+                        <div class="contact-item-icon">📧</div>
+                        <div>
+                            <h4>E-mail</h4>
+                            <p>contato@tor.com.br</p>
+                        </div>
                     </div>
-                    <div class="info-item">
-                        <h3>🌐 Website</h3>
-                        <p>www.tor.com.br</p>
+                    <div class="contact-item" id="ci-horario">
+                        <div class="contact-item-icon">🕐</div>
+                        <div>
+                            <h4>Horário de Atendimento</h4>
+                            <p>Seg. a Sex. — 08h às 18h</p>
+                        </div>
+                    </div>
+                    <div class="contact-highlight" id="contact-highlight">
+                        <span class="ch-icon">⚡</span>
+                        <div>
+                            <strong>Cotação urgente?</strong>
+                            <p>Respondemos em até 24 horas úteis para editais com prazo curto.</p>
+                        </div>
                     </div>
                 </div>
-                <form class="contact-form" id="contactForm">
-                    <input type="text" placeholder="Seu Nome" required>
-                    <input type="email" placeholder="Seu Email" required>
-                    <input type="text" placeholder="Assunto">
-                    <textarea placeholder="Sua Mensagem" rows="5" required></textarea>
-                    <button type="submit" class="submit-btn">Enviar Mensagem</button>
-                </form>
+                <div class="contact-form-wrap">
+                    <form class="contact-form" id="contactForm" novalidate>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="input-nome">Nome *</label>
+                                <input type="text" id="input-nome" name="nome" placeholder="Seu nome completo" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="input-empresa">Empresa</label>
+                                <input type="text" id="input-empresa" name="empresa" placeholder="Nome da empresa">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="input-email">E-mail *</label>
+                                <input type="email" id="input-email" name="email" placeholder="seu@email.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="input-telefone">Telefone</label>
+                                <input type="tel" id="input-telefone" name="telefone" placeholder="(11) 90000-0000">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="input-assunto">Assunto *</label>
+                            <select id="input-assunto" name="assunto" required>
+                                <option value="" disabled selected>Selecione um assunto</option>
+                                <option value="cotacao">Solicitação de Cotação</option>
+                                <option value="edital">Envio de Edital</option>
+                                <option value="tecnico">Suporte Técnico</option>
+                                <option value="parceria">Parceria Comercial</option>
+                                <option value="outro">Outro</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="input-mensagem">Mensagem *</label>
+                            <textarea id="input-mensagem" name="mensagem" placeholder="Descreva sua necessidade, produtos de interesse ou envie detalhes do edital..." rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-full" id="btn-submit">
+                            <span id="submit-text">Enviar Mensagem</span>
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
     </section>
@@ -193,41 +552,65 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>TOR</h4>
-                    <p>Conectando o futuro através de tecnologia inovadora</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Serviços</h4>
-                    <ul>
-                        <li><a href="#services">Conectividade 5G</a></li>
-                        <li><a href="#services">Segurança</a></li>
-                        <li><a href="#services">Cloud</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Empresa</h4>
-                    <ul>
-                        <li><a href="#about">Sobre</a></li>
-                        <li><a href="#technologies">Tecnologias</a></li>
-                        <li><a href="#contact">Contato</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Redes Sociais</h4>
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <img src="assets/images/tor.jpg" alt="TOR" class="footer-logo">
+                    <p>Equipamentos de telecomunicações para o setor público. Do edital à entrega, com qualidade e agilidade.</p>
                     <div class="social-links">
-                        <a href="#" class="social-link">LinkedIn</a>
-                        <a href="#" class="social-link">Twitter</a>
-                        <a href="#" class="social-link">Facebook</a>
+                        <a href="#" class="social-link" id="social-linkedin" aria-label="LinkedIn">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                        </a>
+                        <a href="#" class="social-link" id="social-instagram" aria-label="Instagram">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                        </a>
+                        <a href="#" class="social-link" id="social-whatsapp" aria-label="WhatsApp">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-col">
+                        <h4>Produtos</h4>
+                        <ul>
+                            <li><a href="#products">Switches Gerenciáveis</a></li>
+                            <li><a href="#products">Switches Não-Gerenciáveis</a></li>
+                            <li><a href="#products">Módulos SFP / SFP+</a></li>
+                            <li><a href="#products">Transceivers</a></li>
+                            <li><a href="#products">Cabos e Acessórios</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Empresa</h4>
+                        <ul>
+                            <li><a href="#about">Sobre a TOR</a></li>
+                            <li><a href="#licitacao">Como Trabalhamos</a></li>
+                            <li><a href="#diferenciais">Diferenciais</a></li>
+                            <li><a href="#contact">Fale Conosco</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Licitações</h4>
+                        <ul>
+                            <li><a href="#licitacao">Processo de Compra</a></li>
+                            <li><a href="#licitacao">Documentação</a></li>
+                            <li><a href="#contact">Enviar Edital</a></li>
+                            <li><a href="#contact">Solicitar Cotação</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 TOR Telecomunicações. Todos os direitos reservados.</p>
+                <p>&copy; 2026 TOR — Equipamentos de Telecomunicações. Todos os direitos reservados.</p>
+                <p class="footer-cnpj">CNPJ: 00.000.000/0001-00</p>
             </div>
         </div>
     </footer>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/5511900000000" class="whatsapp-float" id="whatsapp-float" target="_blank" rel="noopener" aria-label="Fale conosco pelo WhatsApp">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        <span class="wf-tooltip">Fale no WhatsApp</span>
+    </a>
 
     <script src="script.js"></script>
 </body>

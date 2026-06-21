@@ -1,134 +1,267 @@
-// Mobile Menu Toggle
+/* ==========================================
+   TOR — script.js
+   ========================================== */
+
+/* ---- Navbar scroll behavior ---- */
+const navbar = document.getElementById('navbar');
+
+const handleNavbarScroll = () => {
+    if (window.scrollY > 40) {
+        navbar.classList.add('scrolled');
+    } else {
+        navbar.classList.remove('scrolled');
+    }
+};
+
+window.addEventListener('scroll', handleNavbarScroll, { passive: true });
+
+/* ---- Mobile menu ---- */
 const hamburger = document.getElementById('hamburger');
-const navMenu = document.getElementById('navMenu');
+const navMenu   = document.getElementById('navMenu');
 
 hamburger.addEventListener('click', () => {
-    navMenu.classList.toggle('active');
+    const isOpen = navMenu.classList.toggle('active');
     hamburger.classList.toggle('active');
+    hamburger.setAttribute('aria-expanded', isOpen.toString());
+    document.body.style.overflow = isOpen ? 'hidden' : '';
 });
 
-// Close menu when a link is clicked
-document.querySelectorAll('.nav-menu a').forEach(link => {
+document.querySelectorAll('.nav-link').forEach(link => {
     link.addEventListener('click', () => {
         navMenu.classList.remove('active');
         hamburger.classList.remove('active');
+        hamburger.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
     });
 });
 
-// Form Submission
-const contactForm = document.getElementById('contactForm');
-
-if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-
-        const formData = new FormData(contactForm);
-        const name = contactForm.querySelector('input[type="text"]').value;
-        const email = contactForm.querySelector('input[type="email"]').value;
-        const message = contactForm.querySelector('textarea').value;
-
-        // Simulate form submission
-        console.log('Form submitted:', { name, email, message });
-
-        // Show success message
-        const submitBtn = contactForm.querySelector('.submit-btn');
-        const originalText = submitBtn.textContent;
-        submitBtn.textContent = '✓ Mensagem Enviada!';
-        submitBtn.style.background = 'linear-gradient(135deg, #00c853, #1de9b6)';
-
-        // Reset form
-        contactForm.reset();
-
-        // Restore button after 3 seconds
-        setTimeout(() => {
-            submitBtn.textContent = originalText;
-            submitBtn.style.background = '';
-        }, 3000);
-    });
-}
-
-// Smooth Scroll
+/* ---- Smooth scroll (supplemental for older browsers) ---- */
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
-        e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
         if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
+            e.preventDefault();
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     });
 });
 
-// Add scroll animation for elements
+/* ---- Hero particles ---- */
+const particlesContainer = document.getElementById('particles');
+
+function createParticles() {
+    const count = 18;
+    for (let i = 0; i < count; i++) {
+        const p = document.createElement('div');
+        p.classList.add('particle');
+
+        const size = Math.random() * 5 + 2;
+        const left = Math.random() * 100;
+        const delay = Math.random() * 15;
+        const duration = Math.random() * 12 + 10;
+        const opacity = Math.random() * 0.5 + 0.2;
+
+        p.style.cssText = `
+            width: ${size}px;
+            height: ${size}px;
+            left: ${left}%;
+            animation-duration: ${duration}s;
+            animation-delay: -${delay}s;
+            opacity: ${opacity};
+        `;
+        particlesContainer.appendChild(p);
+    }
+}
+
+createParticles();
+
+/* ---- Showcase card cycling ---- */
+const showcaseCards = document.querySelectorAll('.showcase-card');
+let activeIndex = 0;
+
+function cycleCards() {
+    showcaseCards[activeIndex].classList.remove('active');
+    activeIndex = (activeIndex + 1) % showcaseCards.length;
+    showcaseCards[activeIndex].classList.add('active');
+}
+
+let cardInterval = setInterval(cycleCards, 3000);
+
+showcaseCards.forEach((card, idx) => {
+    card.addEventListener('click', () => {
+        clearInterval(cardInterval);
+        showcaseCards[activeIndex].classList.remove('active');
+        activeIndex = idx;
+        card.classList.add('active');
+        cardInterval = setInterval(cycleCards, 3000);
+    });
+});
+
+/* ---- Counter animation ---- */
+function animateCounter(el) {
+    const target = parseInt(el.dataset.target, 10);
+    const duration = 1800;
+    const start = performance.now();
+
+    function step(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        // ease out
+        const eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.floor(eased * target);
+        if (progress < 1) {
+            requestAnimationFrame(step);
+        } else {
+            el.textContent = target;
+        }
+    }
+
+    requestAnimationFrame(step);
+}
+
+/* ---- Intersection Observer for animations ---- */
 const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -100px 0px'
+    threshold: 0.15,
+    rootMargin: '0px 0px -60px 0px'
 };
 
-const observer = new IntersectionObserver((entries) => {
+// Fade-in elements
+const fadeObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-            observer.unobserve(entry.target);
+            entry.target.classList.add('visible');
+            fadeObserver.unobserve(entry.target);
         }
     });
 }, observerOptions);
 
-// Observe service cards, tech items, etc
-document.querySelectorAll('.service-card, .tech-item, .info-item').forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(20px)';
-    el.style.transition = 'all 0.6s ease';
-    observer.observe(el);
-});
+// Add classes and observe
+const fadeEls = [
+    { selector: '.product-card',      cls: 'fade-in',       delay: true },
+    { selector: '.diferencial-card',  cls: 'fade-in',       delay: true },
+    { selector: '.lic-info-card',     cls: 'fade-in',       delay: true },
+    { selector: '.process-step',      cls: 'fade-in',       delay: true },
+    { selector: '.about-text-col',    cls: 'fade-in-right', delay: false },
+    { selector: '.about-image-col',   cls: 'fade-in-left',  delay: false },
+    { selector: '.contact-info',      cls: 'fade-in-left',  delay: false },
+    { selector: '.contact-form-wrap', cls: 'fade-in-right', delay: false },
+    { selector: '.section-header',    cls: 'fade-in',       delay: false },
+];
 
-// Navbar background change on scroll
-window.addEventListener('scroll', () => {
-    const navbar = document.querySelector('.navbar');
-    if (window.scrollY > 50) {
-        navbar.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.15)';
-    } else {
-        navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
-    }
-});
-
-// Counter animation for stats
-const animateCounters = () => {
-    const stats = document.querySelectorAll('.stat h4');
-
-    stats.forEach(stat => {
-        const finalValue = parseInt(stat.textContent);
-        let currentValue = 0;
-
-        const increment = finalValue / 50;
-        const interval = setInterval(() => {
-            currentValue += increment;
-            if (currentValue >= finalValue) {
-                stat.textContent = stat.getAttribute('data-value') || finalValue + (stat.textContent.includes('%') ? '%' : '+');
-                clearInterval(interval);
-            } else {
-                stat.textContent = Math.floor(currentValue);
-            }
-        }, 30);
+fadeEls.forEach(({ selector, cls, delay }) => {
+    document.querySelectorAll(selector).forEach((el, i) => {
+        el.classList.add(cls);
+        if (delay) {
+            el.style.transitionDelay = `${i * 80}ms`;
+        }
+        fadeObserver.observe(el);
     });
-};
+});
 
-// Trigger counter animation when stats section is visible
-const statsSection = document.querySelector('.about-stats');
-if (statsSection) {
-    const statsObserver = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting) {
-            // Store original values as data attributes
-            statsSection.querySelectorAll('.stat h4').forEach(stat => {
-                stat.setAttribute('data-value', stat.textContent);
-            });
-            animateCounters();
-            statsObserver.unobserve(statsSection);
+// Counter observer (hero stats)
+const statNumbers = document.querySelectorAll('.stat-number[data-target]');
+const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            animateCounter(entry.target);
+            counterObserver.unobserve(entry.target);
         }
     });
+}, { threshold: 0.5 });
 
-    statsObserver.observe(statsSection);
+statNumbers.forEach(el => counterObserver.observe(el));
+
+/* ---- Contact form ---- */
+const contactForm = document.getElementById('contactForm');
+const submitBtn   = document.getElementById('btn-submit');
+const submitText  = document.getElementById('submit-text');
+
+if (contactForm) {
+    contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        // Basic validation
+        const nome = document.getElementById('input-nome').value.trim();
+        const email = document.getElementById('input-email').value.trim();
+        const assunto = document.getElementById('input-assunto').value;
+        const mensagem = document.getElementById('input-mensagem').value.trim();
+
+        if (!nome || !email || !assunto || !mensagem) {
+            showFormFeedback('Por favor, preencha todos os campos obrigatórios.', 'error');
+            return;
+        }
+
+        if (!isValidEmail(email)) {
+            showFormFeedback('Por favor, insira um e-mail válido.', 'error');
+            return;
+        }
+
+        // Simulate send
+        submitBtn.disabled = true;
+        submitText.textContent = 'Enviando...';
+
+        await sleep(1400);
+
+        submitText.textContent = '✓ Mensagem Enviada!';
+        submitBtn.style.background = 'linear-gradient(135deg, #00b894, #00cec9)';
+
+        showFormFeedback('Mensagem enviada! Entraremos em contato em breve.', 'success');
+        contactForm.reset();
+
+        setTimeout(() => {
+            submitText.textContent = 'Enviar Mensagem';
+            submitBtn.style.background = '';
+            submitBtn.disabled = false;
+        }, 4000);
+    });
 }
+
+function isValidEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function showFormFeedback(message, type) {
+    const existing = document.querySelector('.form-feedback');
+    if (existing) existing.remove();
+
+    const fb = document.createElement('div');
+    fb.classList.add('form-feedback');
+    fb.style.cssText = `
+        padding: 12px 18px;
+        border-radius: 8px;
+        font-size: 0.88rem;
+        font-weight: 600;
+        margin-top: -6px;
+        background: ${type === 'success' ? 'rgba(0,184,148,0.1)' : 'rgba(204,16,16,0.1)'};
+        border: 1px solid ${type === 'success' ? 'rgba(0,184,148,0.3)' : 'rgba(204,16,16,0.3)'};
+        color: ${type === 'success' ? '#00b894' : '#CC1010'};
+    `;
+    fb.textContent = message;
+    contactForm.appendChild(fb);
+
+    setTimeout(() => fb.remove(), 6000);
+}
+
+/* ---- Active nav link on scroll ---- */
+const sections = document.querySelectorAll('section[id]');
+const navLinks  = document.querySelectorAll('.nav-link');
+
+const activeLinkObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const id = entry.target.getAttribute('id');
+            navLinks.forEach(link => {
+                link.style.color = '';
+                if (link.getAttribute('href') === `#${id}`) {
+                    link.style.color = '#FF6B6B';
+                }
+            });
+        }
+    });
+}, { threshold: 0.4 });
+
+sections.forEach(s => activeLinkObserver.observe(s));

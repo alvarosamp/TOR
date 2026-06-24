@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Produto | TOR Tecnologia</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Top Bar -->
+    <div class="topbar">
+        <div class="container topbar-inner">
+            <div class="topbar-left">
+                <span>Atendimento B2B e Licitações</span>
+            </div>
+            <div class="topbar-right">
+                <a href="mailto:contato@tor.com.br">contato@tor.com.br</a>
+                <span class="topbar-divider">|</span>
+                <a href="tel:+5511900000000">+55 (11) 90000-0000</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header / Navbar -->
+    <header class="header">
+        <div class="container header-inner">
+            <div class="logo-container">
+                <a href="index.html">
+                    <img src="icons/tor.png" alt="TOR Tecnologia e Indústria" class="logo-img">
+                </a>
+            </div>
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="produtos.html" style="color: var(--primary-red);">Produtos</a></li>
+                    <li><a href="garantia.html">Garantia</a></li>
+                    <li><a href="parceiros.html">Parceiros</a></li>
+                    <li><a href="sobre.html">Quem Somos</a></li>
+                    <li><a href="suporte.html">Suporte</a></li>
+                </ul>
+            </nav>
+            <div class="header-action">
+                <a href="suporte.html" class="btn-primary">Solicitar Proposta</a>
+            </div>
+            <!-- Mobile Menu Toggle -->
+            <button class="mobile-toggle" id="mobile-toggle" aria-label="Abrir menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Nav -->
+    <div class="mobile-nav" id="mobile-nav">
+        <ul class="mobile-nav-list">
+            <li><a href="index.html">Início</a></li>
+            <li><a href="produtos.html">Produtos</a></li>
+            <li><a href="garantia.html">Garantia</a></li>
+            <li><a href="parceiros.html">Parceiros</a></li>
+            <li><a href="sobre.html">Quem Somos</a></li>
+            <li><a href="suporte.html" class="mobile-cta">Solicitar Proposta</a></li>
+        </ul>
+    </div>
+
+    <!-- Breadcrumb -->
+    <div style="background-color: var(--bg-gray); padding: 15px 0; border-bottom: 1px solid var(--border-color);">
+        <div class="container">
+            <p style="font-size: 13px; color: var(--text-light);">
+                <a href="index.html" style="color: var(--text-dark);">Início</a> &gt; 
+                <a href="produtos.html" style="color: var(--text-dark);">Produtos</a> &gt; 
+                <strong>Nome do Modelo do Produto</strong>
+            </p>
+        </div>
+    </div>
+
+    <!-- Product Details Section -->
+    <section class="section">
+        <div class="container">
+            <div class="product-detail-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 50px; margin-bottom: 60px;">
+                <!-- Product Image -->
+                <div class="product-detail-image" style="border: 1px solid var(--border-color); padding: 20px; display: flex; align-items: center; justify-content: center; background-color: var(--bg-white);">
+                    <!-- PLACEHOLDER DA FOTO OFICIAL DO PRODUTO AQUI -->
+                    <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Produto Oficial" style="max-width: 100%; height: auto;">
+                </div>
+
+                <!-- Product Info -->
+                <div class="product-detail-info">
+                    <h1 style="font-size: 32px; margin-bottom: 15px;">Switch Gerenciável Layer 3 - Modelo XYZ-1000</h1>
+                    <p style="font-size: 18px; color: var(--text-light); margin-bottom: 25px;">Equipamento robusto desenvolvido para data centers e núcleos de rede corporativos que exigem alta disponibilidade, roteamento dinâmico e ampla capacidade de comutação.</p>
+                    
+                    <h4 style="margin-bottom: 10px; font-size: 16px;">Destaques:</h4>
+                    <ul class="product-specs" style="margin-bottom: 30px;">
+                        <li>24 Portas 10/100/1000BASE-T</li>
+                        <li>4 Uplinks SFP+ 10GbE</li>
+                        <li>Roteamento BGP, OSPF e VRRP</li>
+                        <li>Fontes redundantes hot-swappable</li>
+                    </ul>
+
+                    <a href="suporte.html" class="btn-primary" style="font-size: 16px; padding: 15px 30px;">Solicitar Proposta deste Equipamento</a>
+                </div>
+            </div>
+
+            <!-- Technical Specifications Table -->
+            <div class="product-specs-full">
+                <div class="section-header">
+                    <h2>Especificações Técnicas Completas</h2>
+                    <hr class="header-line left">
+                </div>
+                
+                <table style="width: 100%; border-collapse: collapse; border: 1px solid var(--border-color); font-size: 14px;">
+                    <tbody>
+                        <tr style="background-color: var(--bg-gray);">
+                            <td style="padding: 15px; border: 1px solid var(--border-color); font-weight: 600; width: 30%;">Capacidade de Comutação</td>
+                            <td style="padding: 15px; border: 1px solid var(--border-color);">128 Gbps</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 15px; border: 1px solid var(--border-color); font-weight: 600;">Taxa de Encaminhamento</td>
+                            <td style="padding: 15px; border: 1px solid var(--border-color);">95.2 Mpps</td>
+                        </tr>
+                        <tr style="background-color: var(--bg-gray);">
+                            <td style="padding: 15px; border: 1px solid var(--border-color); font-weight: 600;">Tabela MAC</td>
+                            <td style="padding: 15px; border: 1px solid var(--border-color);">16K entradas</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 15px; border: 1px solid var(--border-color); font-weight: 600;">VLANs Suportadas</td>
+                            <td style="padding: 15px; border: 1px solid var(--border-color);">4K VLANs ativas (802.1Q)</td>
+                        </tr>
+                        <tr style="background-color: var(--bg-gray);">
+                            <td style="padding: 15px; border: 1px solid var(--border-color); font-weight: 600;">Segurança</td>
+                            <td style="padding: 15px; border: 1px solid var(--border-color);">ACL L2/L3/L4, 802.1X, RADIUS/TACACS+</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 15px; border: 1px solid var(--border-color); font-weight: 600;">Garantia</td>
+                            <td style="padding: 15px; border: 1px solid var(--border-color);">12 meses (Extensível)</td>
+                        </tr>
+                        <tr style="background-color: var(--bg-gray);">
+                            <td style="padding: 15px; border: 1px solid var(--border-color); font-weight: 600;">Documentação para Edital</td>
+                            <td style="padding: 15px; border: 1px solid var(--border-color);">Datasheet, Certificações Anatel e Declarações do Fabricante</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <img src="icons/tor.png" alt="TOR" class="footer-logo">
+                    <p>Equipamentos de telecomunicações corporativos e para o setor público. Do edital à entrega, com agilidade e conformidade.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Produtos</h4>
+                    <ul>
+                        <li><a href="produtos.html">Switches Gerenciáveis</a></li>
+                        <li><a href="produtos.html">Switches Não-Gerenciáveis</a></li>
+                        <li><a href="produtos.html">Módulos SFP e SFP+</a></li>
+                        <li><a href="produtos.html">Transceivers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>A Empresa</h4>
+                    <ul>
+                        <li><a href="sobre.html">Quem Somos</a></li>
+                        <li><a href="garantia.html">Garantia e Qualidade</a></li>
+                        <li><a href="parceiros.html">Parceiros Tecnológicos</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contato</h4>
+                    <p>Telefone: +55 (11) 90000-0000</p>
+                    <p>E-mail: contato@tor.com.br</p>
+                    <p>Santa Rita do Sapucaí, MG</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 TOR Tecnologia e Indústria. Todos os direitos reservados.</p>
+                <p>CNPJ: 00.000.000/0001-00</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Script for mobile menu toggle -->
+    <script>
+        const toggleBtn = document.getElementById('mobile-toggle');
+        const mobileNav = document.getElementById('mobile-nav');
+
+        toggleBtn.addEventListener('click', () => {
+            toggleBtn.classList.toggle('active');
+            mobileNav.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.mobile-nav-list a').forEach(link => {
+            link.addEventListener('click', () => {
+                toggleBtn.classList.remove('active');
+                mobileNav.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>

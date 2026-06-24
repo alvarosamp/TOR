@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TOR | Soluções em Equipamentos de Telecomunicações</title>
+    <title>Suporte e Vendas | TOR Tecnologia</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
@@ -40,7 +40,7 @@
                     <li><a href="garantia.html">Garantia</a></li>
                     <li><a href="parceiros.html">Parceiros</a></li>
                     <li><a href="sobre.html">Quem Somos</a></li>
-                    <li><a href="suporte.html">Suporte</a></li>
+                    <li><a href="suporte.html" style="color: var(--primary-red);">Suporte</a></li>
                 </ul>
             </nav>
             <div class="header-action">
@@ -67,47 +67,82 @@
         </ul>
     </div>
 
-    <!-- Hero Banner -->
-    <section class="hero-banner" id="home">
-        <!-- Placeholder for Data Center Image -->
-        <div class="hero-bg">
-            <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" alt="Datacenter e Servidores">
-            <div class="hero-overlay"></div>
-        </div>
-        <div class="container hero-content">
-            <h1>Infraestrutura de Rede e Telecom</h1>
-            <p>Fornecimento de equipamentos de alta performance para escalar, proteger e sustentar operações críticas. Soluções completas e certificadas para licitações e projetos privados.</p>
-            <div class="hero-buttons">
-                <a href="produtos.html" class="btn-primary">Conheça Nossas Soluções</a>
-                <a href="suporte.html" class="btn-secondary">Solicitar Proposta</a>
-            </div>
+    <!-- Page Header -->
+    <section class="page-header" style="background-color: var(--bg-dark); color: var(--bg-white); padding: 60px 0; text-align: center;">
+        <div class="container">
+            <h1 style="font-size: 36px; margin-bottom: 10px; color: var(--bg-white);">Suporte e Cotações</h1>
+            <p style="color: #CCCCCC;">Entre em contato com a equipe comercial ou suporte técnico</p>
         </div>
     </section>
 
-    <!-- Home Overview -->
-    <section class="section home-overview">
+    <!-- Support / Contact Form Section -->
+    <section class="section contact-section" id="contato">
         <div class="container">
-            <div class="section-header text-center">
-                <h2>Conectividade para Operações Críticas</h2>
-                <p>Uma vitrine rápida das frentes que a TOR atende em projetos corporativos e licitações.</p>
-                <hr class="header-line">
-            </div>
+            <div class="contact-page-grid" style="display: grid; grid-template-columns: 1fr 2fr; gap: 40px;">
+                
+                <!-- Contact Info -->
+                <div class="contact-info-sidebar" style="background-color: var(--bg-white); padding: 30px; border: 1px solid var(--border-color);">
+                    <h3 style="margin-bottom: 20px; font-size: 20px;">Nossos Contatos</h3>
+                    <hr class="header-line left" style="margin-bottom: 20px;">
+                    
+                    <div style="margin-bottom: 25px;">
+                        <h4 style="margin-bottom: 5px; font-size: 15px;">Telefone / WhatsApp</h4>
+                        <p style="margin-bottom: 0;">+55 (11) 90000-0000</p>
+                    </div>
 
-            <div class="overview-grid">
-                <div class="overview-item">
-                    <h3>Produtos</h3>
-                    <p>Switches, módulos SFP/SFP+ e transceivers com documentação técnica para editais e projetos privados.</p>
-                    <a href="produtos.html" class="text-link">Ver Produtos</a>
+                    <div style="margin-bottom: 25px;">
+                        <h4 style="margin-bottom: 5px; font-size: 15px;">E-mail Corporativo</h4>
+                        <p style="margin-bottom: 0;">contato@tor.com.br</p>
+                    </div>
+
+                    <div style="margin-bottom: 25px;">
+                        <h4 style="margin-bottom: 5px; font-size: 15px;">Horário de Atendimento</h4>
+                        <p style="margin-bottom: 0;">Seg. a Sex. — 08h às 18h</p>
+                    </div>
+
+                    <div>
+                        <h4 style="margin-bottom: 5px; font-size: 15px;">Sede</h4>
+                        <p style="margin-bottom: 0;">Rua Comendador Custódio Ribeiro 137, Sala 16<br>
+                        Santa Rita do Sapucaí, MG</p>
+                    </div>
                 </div>
-                <div class="overview-item">
-                    <h3>Garantia</h3>
-                    <p>Processos de qualidade, garantia mínima de 12 meses e RMA ágil para ambientes críticos.</p>
-                    <a href="garantia.html" class="text-link">Conhecer Garantia</a>
-                </div>
-                <div class="overview-item">
-                    <h3>Suporte</h3>
-                    <p>Equipe comercial e técnica pronta para analisar demandas, editais e especificações.</p>
-                    <a href="suporte.html" class="text-link">Falar com a TOR</a>
+
+                <!-- Contact Form -->
+                <div class="contact-form-container" style="margin: 0; max-width: 100%;">
+                    <h3 style="margin-bottom: 25px; font-size: 24px;">Envie sua solicitação ou edital</h3>
+                    <form class="corporate-form" id="contactForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Nome Completo *</label>
+                                <input type="text" placeholder="Insira seu nome" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Empresa / Órgão</label>
+                                <input type="text" placeholder="Insira o nome da organização">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>E-mail Corporativo *</label>
+                                <input type="email" placeholder="email@empresa.com.br" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Telefone</label>
+                                <input type="tel" placeholder="(00) 00000-0000">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Assunto / Número do Edital *</label>
+                            <input type="text" placeholder="Ex: Cotação Pregão Eletrônico 01/2026" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Mensagem *</label>
+                            <textarea rows="6" placeholder="Descreva os equipamentos desejados, tire dúvidas técnicas ou informe o link do edital para análise..." required></textarea>
+                        </div>
+                        <div class="form-submit" style="text-align: left;">
+                            <button type="submit" class="btn-primary">Enviar Solicitação de Proposta</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

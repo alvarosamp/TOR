@@ -8,32 +8,35 @@
 
 /* --- CSS Variables --- */
 :root {
-    --red:       #CC1010;
-    --red-dark:  #9B0000;
-    --red-light: #E53935;
-    --black:     #0A0A0A;
-    --dark:      #111111;
-    --dark-2:    #1A1A1A;
-    --dark-3:    #222222;
-    --gray-1:    #2D2D2D;
-    --gray-2:    #444;
-    --gray-3:    #777;
-    --gray-4:    #AAA;
-    --gray-5:    #DDD;
+    /* Corporate Red Accent */
+    --red:       #D7000F;
+    --red-dark:  #B3000C;
+    --red-light: #FF1A27;
+    
+    /* Neutrals */
+    --black:     #111111;
+    --dark:      #2A2A2A;
+    --dark-2:    #3A3A3A;
+    --dark-3:    #4A4A4A;
+    --gray-1:    #555555;
+    --gray-2:    #777777;
+    --gray-3:    #999999;
+    --gray-4:    #CCCCCC;
+    --gray-5:    #EAEAEA;
     --white:     #FFFFFF;
-    --off-white: #F8F8F8;
+    --off-white: #F4F6F8;
 
-    --font:      'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font:      'Inter', 'Open Sans', -apple-system, BlinkMacSystemFont, sans-serif;
 
-    --radius-sm: 6px;
-    --radius:    12px;
-    --radius-lg: 20px;
-    --radius-xl: 28px;
+    --radius-sm: 4px;
+    --radius:    8px;
+    --radius-lg: 16px;
+    --radius-xl: 24px;
 
-    --shadow-sm: 0 2px 8px rgba(0,0,0,0.12);
-    --shadow:    0 8px 30px rgba(0,0,0,0.18);
-    --shadow-lg: 0 20px 60px rgba(0,0,0,0.25);
-    --shadow-red: 0 8px 30px rgba(204,16,16,0.35);
+    --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+    --shadow:    0 8px 30px rgba(0,0,0,0.08);
+    --shadow-lg: 0 20px 60px rgba(0,0,0,0.12);
+    --shadow-red: 0 8px 24px rgba(215,0,15,0.25);
 
     --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-slow: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
@@ -235,25 +238,25 @@ ul {
 }
 
 /* ==========================================
-   NAVBAR
+   Navigation
    ========================================== */
 .navbar {
     position: fixed;
     top: 0;
     left: 0;
-    right: 0;
-    z-index: 1000;
+    width: 100%;
     padding: 16px 0;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--gray-5);
+    z-index: 1000;
     transition: var(--transition);
-    background: transparent;
 }
 
 .navbar.scrolled {
-    background: rgba(10, 10, 10, 0.97);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
     padding: 12px 0;
-    box-shadow: 0 4px 30px rgba(0,0,0,0.4);
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: var(--shadow-sm);
 }
 
 .navbar .container {
@@ -268,54 +271,50 @@ ul {
 }
 
 .nav-logo {
-    height: 40px;
+    height: 48px;
     width: auto;
     object-fit: contain;
     display: block;
-    /* Logo tem fundo branco — exibimos em container branco arredondado */
-    background: var(--white);
-    border-radius: var(--radius-sm);
-    padding: 5px 10px;
     transition: var(--transition);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
 }
 
 .navbar-brand:hover .nav-logo {
-    box-shadow: 0 4px 16px rgba(204,16,16,0.3);
     transform: scale(1.02);
 }
 
 .nav-menu {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 16px;
 }
 
 .nav-link {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     font-weight: 500;
-    color: rgba(255,255,255,0.8);
-    padding: 8px 14px;
+    color: var(--dark);
+    padding: 8px 16px;
     border-radius: var(--radius-sm);
     transition: var(--transition);
     white-space: nowrap;
 }
 
 .nav-link:hover {
-    color: var(--white);
-    background: rgba(255,255,255,0.08);
+    color: var(--red);
+    background: var(--off-white);
 }
 
 .nav-link.nav-cta {
     background: var(--red);
     color: var(--white);
-    padding: 9px 18px;
+    padding: 10px 24px;
     font-weight: 600;
+    border-radius: var(--radius);
 }
 
 .nav-link.nav-cta:hover {
-    background: var(--red-light);
-    transform: translateY(-1px);
+    background: var(--red-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-red);
 }
 
 .hamburger {

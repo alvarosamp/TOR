@@ -46,67 +46,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-/* ---- Hero particles ---- */
-const particlesContainer = document.getElementById('particles');
-
-function createParticles() {
-    const count = 18;
-    for (let i = 0; i < count; i++) {
-        const p = document.createElement('div');
-        p.classList.add('particle');
-
-        const size = Math.random() * 5 + 2;
-        const left = Math.random() * 100;
-        const delay = Math.random() * 15;
-        const duration = Math.random() * 12 + 10;
-        const opacity = Math.random() * 0.5 + 0.2;
-
-        p.style.cssText = `
-            width: ${size}px;
-            height: ${size}px;
-            left: ${left}%;
-            animation-duration: ${duration}s;
-            animation-delay: -${delay}s;
-            opacity: ${opacity};
-        `;
-        particlesContainer.appendChild(p);
-    }
-}
-
-createParticles();
-
-/* ---- Showcase card cycling ---- */
-const showcaseCards = document.querySelectorAll('.showcase-card');
-let activeIndex = 0;
-
-function cycleCards() {
-    showcaseCards[activeIndex].classList.remove('active');
-    activeIndex = (activeIndex + 1) % showcaseCards.length;
-    showcaseCards[activeIndex].classList.add('active');
-}
-
-let cardInterval = setInterval(cycleCards, 3000);
-
-showcaseCards.forEach((card, idx) => {
-    card.addEventListener('click', () => {
-        clearInterval(cardInterval);
-        showcaseCards[activeIndex].classList.remove('active');
-        activeIndex = idx;
-        card.classList.add('active');
-        cardInterval = setInterval(cycleCards, 3000);
-    });
-});
-
-/* ---- Counter animation ---- */
-function animateCounter(el) {
-    const target = parseInt(el.dataset.target, 10);
-    const duration = 1800;
-    const start = performance.now();
-
-    function step(now) {
-        const elapsed = now - start;
-        const progress = Math.min(elapsed / duration, 1);
-        // ease out
         const eased = 1 - Math.pow(1 - progress, 3);
         el.textContent = Math.floor(eased * target);
         if (progress < 1) {

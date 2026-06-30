@@ -190,11 +190,11 @@ p {
 
 .main-nav .nav-list {
     display: flex;
-    gap: 30px;
+    gap: 18px;
 }
 
 .main-nav .nav-list a {
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 600;
     text-transform: uppercase;
     color: var(--text-dark);
@@ -348,6 +348,10 @@ p {
     margin-bottom: 12px;
 }
 
+.overview-item.featured {
+    border-left: 4px solid var(--primary-red);
+}
+
 @media (max-width: 768px) {
     .overview-grid {
         grid-template-columns: 1fr;
@@ -388,6 +392,62 @@ p {
     gap: 30px;
 }
 
+.category-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 35px;
+}
+
+.category-tabs a {
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-white);
+    padding: 10px 16px;
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: uppercase;
+    color: var(--text-dark);
+}
+
+.category-tabs a:hover {
+    border-color: var(--primary-red);
+    color: var(--primary-red);
+}
+
+.category-block {
+    margin-top: 50px;
+}
+
+.category-block:first-of-type {
+    margin-top: 0;
+}
+
+.category-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 12px;
+}
+
+.category-title h3 {
+    font-size: 22px;
+    text-transform: uppercase;
+}
+
+.product-meta {
+    display: grid;
+    gap: 6px;
+    margin: 15px 0;
+    padding: 12px;
+    background-color: var(--bg-gray);
+    font-size: 13px;
+    color: var(--text-dark);
+}
+
 .product-card {
     background-color: var(--bg-white);
     border: 1px solid var(--border-color);
@@ -413,6 +473,10 @@ p {
 .product-info h3 {
     font-size: 18px;
     margin-bottom: 10px;
+}
+
+.product-info p:last-child {
+    margin-bottom: 0;
 }
 
 .product-specs {
@@ -495,6 +559,83 @@ p {
 .partners-logos img:hover {
     filter: grayscale(0%);
     opacity: 1;
+}
+
+/* ==========================================
+   Solutions and Content
+   ========================================== */
+.solutions-grid,
+.content-grid,
+.values-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 25px;
+}
+
+.solution-card,
+.content-card,
+.value-card,
+.landing-card {
+    background-color: var(--bg-white);
+    border: 1px solid var(--border-color);
+    padding: 28px;
+}
+
+.solution-card h3,
+.content-card h3,
+.value-card h3,
+.landing-card h3 {
+    font-size: 20px;
+    margin-bottom: 12px;
+}
+
+.solution-card .tag,
+.content-card .tag {
+    display: inline-block;
+    margin-bottom: 14px;
+    padding: 4px 8px;
+    background-color: var(--bg-gray);
+    color: var(--primary-red);
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.landing-section {
+    background-color: var(--bg-gray);
+}
+
+.landing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.cta-band {
+    background-color: var(--bg-dark);
+    color: var(--bg-white);
+    padding: 45px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 25px;
+}
+
+.cta-band h2,
+.cta-band p {
+    color: var(--bg-white);
+}
+
+.cta-band p {
+    margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+    .category-title,
+    .cta-band {
+        align-items: flex-start;
+        flex-direction: column;
+    }
 }
 
 /* ==========================================

@@ -448,6 +448,105 @@ p {
     color: var(--text-dark);
 }
 
+.catalog-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px;
+    margin-bottom: 35px;
+}
+
+.catalog-summary-item {
+    background-color: var(--bg-white);
+    border: 1px solid var(--border-color);
+    padding: 20px;
+}
+
+.catalog-summary-item strong {
+    display: block;
+    font-size: 24px;
+    color: var(--primary-red);
+}
+
+.catalog-list {
+    display: grid;
+    gap: 14px;
+}
+
+.catalog-item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 18px;
+    align-items: center;
+    background-color: var(--bg-white);
+    border: 1px solid var(--border-color);
+    padding: 18px;
+}
+
+.catalog-item h4 {
+    font-size: 17px;
+    margin-bottom: 6px;
+}
+
+.catalog-item p {
+    margin-bottom: 0;
+    font-size: 14px;
+}
+
+.catalog-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.catalog-badge {
+    display: inline-block;
+    padding: 4px 8px;
+    background-color: var(--bg-gray);
+    color: var(--text-dark);
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.catalog-badge.tor {
+    background-color: rgba(204, 0, 0, 0.1);
+    color: var(--primary-red);
+}
+
+.catalog-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.btn-small-outline {
+    display: inline-block;
+    border: 1px solid var(--border-color);
+    color: var(--text-dark);
+    padding: 9px 12px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    transition: border-color 0.2s, color 0.2s;
+}
+
+.btn-small-outline:hover {
+    border-color: var(--primary-red);
+    color: var(--primary-red);
+}
+
+@media (max-width: 768px) {
+    .catalog-item {
+        grid-template-columns: 1fr;
+    }
+
+    .catalog-actions {
+        justify-content: flex-start;
+    }
+}
+
 .product-card {
     background-color: var(--bg-white);
     border: 1px solid var(--border-color);

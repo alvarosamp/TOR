@@ -24,7 +24,7 @@
             <div class="topbar-right">
                 <a href="mailto:contato@tor.com.br">contato@tor.com.br</a>
                 <span class="topbar-divider">|</span>
-                <a href="tel:+5511900000000">+55 (11) 90000-0000</a>
+                <a href="tel:08000005978">0800 000 5978</a>
             </div>
         </div>
     </div>
@@ -93,7 +93,13 @@
                     
                     <div style="margin-bottom: 25px;">
                         <h4 style="margin-bottom: 5px; font-size: 15px;">Telefone / WhatsApp</h4>
-                        <p style="margin-bottom: 0;">+55 (11) 90000-0000</p>
+                        <p style="margin-bottom: 0;">0800 000 5978</p>
+                    </div>
+
+                    <div style="margin-bottom: 25px;">
+                        <h4 style="margin-bottom: 5px; font-size: 15px;">Telegram Business</h4>
+                        <p style="margin-bottom: 8px;">Atendimento rápido para dúvidas comerciais e catálogo.</p>
+                        <a href="https://t.me/share/url?url=https%3A%2F%2Ftor.com.br&text=Ol%C3%A1%2C%20gostaria%20de%20falar%20com%20a%20TOR%20Tecnologia%20sobre%20equipamentos%20de%20telecom." target="_blank" rel="noopener" class="text-link">Abrir Telegram</a>
                     </div>
 
                     <div style="margin-bottom: 25px;">
@@ -142,9 +148,50 @@
                                 <input type="tel" placeholder="(00) 00000-0000">
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label>Assunto / Número do Edital *</label>
-                            <input type="text" placeholder="Ex: Cotação Pregão Eletrônico 01/2026" required>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Tipo de Solicitação *</label>
+                                <select id="requestType" required>
+                                    <option value="">Selecione</option>
+                                    <option>Orçamento de produto</option>
+                                    <option>Análise de edital</option>
+                                    <option>Projeto de rede</option>
+                                    <option>Suporte técnico</option>
+                                    <option>Parceria comercial</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Produto de Interesse</label>
+                                <input type="text" id="productInterest" placeholder="Ex: SFPX10GRJ45100M">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Quantidade Estimada</label>
+                                <input type="number" min="1" placeholder="Ex: 20">
+                            </div>
+                            <div class="form-group">
+                                <label>Segmento</label>
+                                <select id="segmentInterest">
+                                    <option value="">Selecione</option>
+                                    <option>Governo / Licitação</option>
+                                    <option>Provedor de internet</option>
+                                    <option>Data center</option>
+                                    <option>Corporativo</option>
+                                    <option>Indústria</option>
+                                    <option>Segurança eletrônica</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Prazo Desejado</label>
+                                <input type="text" placeholder="Ex: urgente, 15 dias, próximo trimestre">
+                            </div>
+                            <div class="form-group">
+                                <label>Assunto / Número do Edital *</label>
+                                <input type="text" id="subjectField" placeholder="Ex: Cotação Pregão Eletrônico 01/2026" required>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label>Mensagem *</label>
@@ -187,7 +234,7 @@
                 </div>
                 <div class="footer-contact">
                     <h4>Contato</h4>
-                    <p>Telefone: +55 (11) 90000-0000</p>
+                    <p>Telefone: 0800 000 5978</p>
                     <p>E-mail: contato@tor.com.br</p>
                     <p>Santa Rita do Sapucaí, MG</p>
                 </div>
@@ -216,5 +263,7 @@
             });
         });
     </script>
+    <script src="form-enhancements.js"></script>
+    <script src="chatbot.js"></script>
 </body>
 </html>

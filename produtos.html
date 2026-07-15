@@ -23,7 +23,7 @@
             <div class="topbar-right">
                 <a href="mailto:contato@tor.com.br">contato@tor.com.br</a>
                 <span class="topbar-divider">|</span>
-                <a href="tel:+5511900000000">+55 (11) 90000-0000</a>
+                <a href="tel:08000005978">0800 000 5978</a>
             </div>
         </div>
     </div>
@@ -86,16 +86,16 @@
 
             <div class="catalog-summary">
                 <div class="catalog-summary-item">
-                    <strong>19</strong>
+                    <strong>18</strong>
                     <span>itens cadastrados no catálogo atual</span>
                 </div>
                 <div class="catalog-summary-item">
-                    <strong>12</strong>
-                    <span>produtos com datasheet TOR identificado</span>
+                    <strong>18</strong>
+                    <span>produtos com datasheet TOR correto</span>
                 </div>
                 <div class="catalog-summary-item">
-                    <strong>7</strong>
-                    <span>itens com datasheet de fabricante ou em validação</span>
+                    <strong>0</strong>
+                    <span>itens provisórios no catálogo atual</span>
                 </div>
             </div>
 
@@ -111,6 +111,47 @@
                     <button type="button" class="filter-button" data-filter="transceivers">Transceivers</button>
                     <button type="button" class="filter-button" data-filter="sfp">SFP</button>
                     <button type="button" class="filter-button" data-filter="qsfp">QSFP</button>
+                </div>
+            </div>
+
+            <div class="technical-filters" aria-label="Filtros técnicos do catálogo">
+                <div class="form-group">
+                    <label for="rateFilter">Taxa</label>
+                    <select id="rateFilter">
+                        <option value="todos">Todas</option>
+                        <option value="1g">1G</option>
+                        <option value="10g">10G</option>
+                        <option value="25g">25G</option>
+                        <option value="40g">40G</option>
+                        <option value="100g">100G</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="reachFilter">Alcance</label>
+                    <select id="reachFilter">
+                        <option value="todos">Todos</option>
+                        <option value="curto">Até 550 m</option>
+                        <option value="10km">10 km</option>
+                        <option value="20km">20 km</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="fiberFilter">Meio</label>
+                    <select id="fiberFilter">
+                        <option value="todos">Todos</option>
+                        <option value="smf">Fibra monomodo</option>
+                        <option value="mmf">Fibra multimodo</option>
+                        <option value="cobre">Cobre RJ45</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="connectorFilter">Conector</label>
+                    <select id="connectorFilter">
+                        <option value="todos">Todos</option>
+                        <option value="lc">LC</option>
+                        <option value="mpo">MPO/MTP</option>
+                        <option value="rj45">RJ45</option>
+                    </select>
                 </div>
             </div>
 
@@ -138,6 +179,7 @@
             <div class="spec-grid" id="modalSpecs"></div>
             <div class="modal-actions">
                 <a href="#" target="_blank" rel="noopener" class="btn-small-outline" id="modalPdf">Abrir Datasheet</a>
+                <a href="#" class="btn-small-outline" id="modalDetail">Página do Produto</a>
                 <a href="suporte.html" class="btn-primary" id="modalQuote">Solicitar Orçamento</a>
             </div>
         </div>
@@ -170,7 +212,7 @@
                 </div>
                 <div class="footer-contact">
                     <h4>Contato</h4>
-                    <p>Telefone: +55 (11) 90000-0000</p>
+                    <p>Telefone: 0800 000 5978</p>
                     <p>E-mail: contato@tor.com.br</p>
                     <p>Santa Rita do Sapucaí, MG</p>
                 </div>
@@ -197,329 +239,9 @@
                 mobileNav.classList.remove('active');
             });
         });
-
-        const products = [
-            {
-                name: 'PRE-QSFP-eSR4',
-                category: 'transceivers',
-                family: 'QSFP',
-                type: 'Transceiver óptico',
-                datasheetStatus: 'Datasheet TOR',
-                statusClass: 'tor',
-                pdf: 'https://drive.google.com/file/d/15OtcOGeEhqlop-ZKaZfFtMowhkCHmDe1/view?usp=sharing',
-                description: 'Transceiver QSFP para aplicações ópticas de alta capacidade.',
-                specs: {
-                    'Família': 'QSFP',
-                    'Aplicação': 'Alta capacidade',
-                    'Datasheet': 'TOR',
-                    'Origem do arquivo': 'PRE-QSFP-eSR4_TOR.pdf'
-                }
-            },
-            {
-                name: 'PRE-QSFP-SWDM4',
-                category: 'transceivers',
-                family: 'QSFP',
-                type: 'Transceiver óptico',
-                datasheetStatus: 'Datasheet TOR',
-                statusClass: 'tor',
-                pdf: 'https://drive.google.com/file/d/1lNn1WZawC1dQLvlmSxQ07XuZZB1NKC6_/view?usp=sharing',
-                description: 'Transceiver QSFP SWDM4 com documentação TOR.',
-                specs: {'Família': 'QSFP', 'Padrão': 'SWDM4', 'Datasheet': 'TOR', 'Origem do arquivo': 'PRE-QSFP-SWDM4_TOR.pdf'}
-            },
-            {
-                name: 'PRE-QSFP28-ER4',
-                category: 'transceivers',
-                family: 'QSFP',
-                type: 'Transceiver óptico',
-                datasheetStatus: 'Datasheet TOR',
-                statusClass: 'tor',
-                pdf: 'https://drive.google.com/file/d/1QwQgd47XdtJPix3x2ZDEvygrfiPFWBQh/view?usp=sharing',
-                description: 'Transceiver QSFP28 ER4 com datasheet TOR.',
-                specs: {'Família': 'QSFP28', 'Padrão': 'ER4', 'Datasheet': 'TOR', 'Origem do arquivo': 'PRE-QSFP28-ER4_TOR.pdf'}
-            },
-            {
-                name: 'PRE-QSFP28-LR4',
-                category: 'transceivers',
-                family: 'QSFP',
-                type: 'Transceiver óptico',
-                datasheetStatus: 'Datasheet TOR',
-                statusClass: 'tor',
-                pdf: 'https://drive.google.com/file/d/13LbZ4k-DD4Hmv0etArPMdNuZFRWU_W31/view?usp=sharing',
-                description: 'Transceiver QSFP28 LR4 com documentação TOR.',
-                specs: {'Família': 'QSFP28', 'Padrão': 'LR4', 'Datasheet': 'TOR', 'Origem do arquivo': 'PRE-QSFP28-LR4_TOR.pdf'}
-            },
-            {
-                name: 'PRE-QSFP28-SR4',
-                category: 'transceivers',
-                family: 'QSFP',
-                type: 'Transceiver óptico',
-                datasheetStatus: 'Datasheet TOR',
-                statusClass: 'tor',
-                pdf: 'https://drive.google.com/file/d/1o8eOaM2R7YK__fbwl0ogRmceIKDtmTcg/view?usp=sharing',
-                description: 'Transceiver QSFP28 SR4 com datasheet TOR.',
-                specs: {'Família': 'QSFP28', 'Padrão': 'SR4', 'Datasheet': 'TOR', 'Origem do arquivo': 'PRE-QSFP28-SR4_TOR.pdf'}
-            },
-            {
-                name: 'PRE-QSFP28-SWDM4',
-                category: 'transceivers',
-                family: 'QSFP',
-                type: 'Transceiver óptico',
-                datasheetStatus: 'Datasheet TOR',
-                statusClass: 'tor',
-                pdf: 'https://drive.google.com/file/d/1NfDrgq15sNRDfSAoYmSQwJAmNXe6wwxG/view?usp=sharing',
-                description: 'Transceiver QSFP28 SWDM4 com documentação TOR.',
-                specs: {'Família': 'QSFP28', 'Padrão': 'SWDM4', 'Datasheet': 'TOR', 'Origem do arquivo': 'PRE-QSFP28-SWDM4_TOR.pdf'}
-            },
-            {
-                name: 'PRE-SFP-SX',
-                category: 'transceivers',
-                family: 'SFP',
-                type: 'Módulo SFP',
-                datasheetStatus: 'Datasheet TOR',
-                statusClass: 'tor',
-                pdf: 'https://drive.google.com/file/d/1QTQ7Zg2F9W3UFYqLiDQN3zNPkI5Q_bLA/view?usp=sharing',
-                description: 'Módulo SFP SX com datasheet final TOR.',
-                specs: {'Família': 'SFP', 'Padrão': 'SX', 'Datasheet': 'TOR', 'Origem do arquivo': 'PRE-SFP-SX_TOR_final.pdf'}
-            },
-            {
-                name: 'PRE-SFP10G-B32-20',
-                category: 'transceivers',
-                family: 'SFP',
-                type: 'Módulo SFP10G',
-                datasheetStatus: 'Datasheet TOR',
-                statusClass: 'tor',
-                pdf: 'https://drive.google.com/file/d/1jEnxyXZAZxm_v9SY9W0pslwFQUz2cUUJ/view?usp=sharing',
-                description: 'Módulo SFP10G B32-20 com datasheet TOR.',
-                specs: {'Família': 'SFP10G', 'Modelo': 'B32-20', 'Datasheet': 'TOR', 'Origem do arquivo': 'PRE-SFP10G-B32-20_TOR.pdf'}
-            },
-            {
-                name: 'PRE-SFP10G-CU3003M',
-                category: 'transceivers',
-                family: 'SFP',
-                type: 'Cabo/módulo SFP10G',
-                datasheetStatus: 'Datasheet TOR',
-                statusClass: 'tor',
-                pdf: 'https://drive.google.com/file/d/1NESACUxIl2GLwppCX31-AbI5Jv-bANmT/view?usp=sharing',
-                description: 'Cabo/módulo SFP10G CU 3 m com datasheet TOR.',
-                specs: {'Família': 'SFP10G', 'Modelo': 'CU3003M', 'Comprimento': '3 m', 'Datasheet': 'TOR'}
-            },
-            {
-                name: 'PRE-SFP10G-SR',
-                category: 'transceivers',
-                family: 'SFP',
-                type: 'Módulo SFP10G',
-                datasheetStatus: 'Datasheet TOR',
-                statusClass: 'tor',
-                pdf: 'https://drive.google.com/file/d/1JH3-xuE891VilLe-AYpA17BCjs9151e7/view?usp=sharing',
-                description: 'Módulo SFP10G SR com datasheet TOR.',
-                specs: {'Família': 'SFP10G', 'Padrão': 'SR', 'Datasheet': 'TOR', 'Origem do arquivo': 'PRE-SFP10G-SR_TOR.pdf'}
-            },
-            {
-                name: 'PRE-SFP10G-T',
-                category: 'transceivers',
-                family: 'SFP',
-                type: 'Módulo SFP10G',
-                datasheetStatus: 'Datasheet TOR',
-                statusClass: 'tor',
-                pdf: 'https://drive.google.com/file/d/1h9ZIAo0f8fGhHCYY_Ak2TaYbXTw48gHY/view?usp=sharing',
-                description: 'Módulo SFP10G-T com datasheet final TOR.',
-                specs: {'Família': 'SFP10G', 'Interface': 'RJ45 / cobre', 'Datasheet': 'TOR', 'Origem do arquivo': 'PRE-SFP10G-T_TOR_final_v3.pdf'}
-            },
-            {
-                name: 'PRE-SFP25G-LR',
-                category: 'transceivers',
-                family: 'SFP',
-                type: 'Módulo SFP25G',
-                datasheetStatus: 'Datasheet TOR',
-                statusClass: 'tor',
-                pdf: 'https://drive.google.com/file/d/1cVZocpEiUKgn1RjRC6r9cyJVvNeVmKXB/view?usp=sharing',
-                description: 'Módulo SFP25G LR com datasheet TOR.',
-                specs: {'Família': 'SFP25G', 'Padrão': 'LR', 'Datasheet': 'TOR', 'Origem do arquivo': 'PRE-SFP25G-LR_TOR.pdf'}
-            },
-            {
-                name: 'PRE-QSFP28-ER4',
-                category: 'transceivers',
-                family: 'QSFP',
-                type: 'Transceiver óptico',
-                datasheetStatus: 'Datasheet fabricante',
-                statusClass: '',
-                pdf: 'https://drive.google.com/file/d/1QW0z373fpzM6x1A2pI1ZgKJuc0zBxZPw/view?usp=sharing',
-                description: 'Versão com datasheet do fabricante para consulta técnica provisória.',
-                specs: {'Família': 'QSFP28', 'Padrão': 'ER4', 'Datasheet': 'Fabricante/chinês', 'Origem do arquivo': 'PRE-QSFP28-ER4.pdf'}
-            },
-            {
-                name: 'PRE-SFP-TM',
-                category: 'transceivers',
-                family: 'SFP',
-                type: 'Módulo SFP',
-                datasheetStatus: 'Datasheet fabricante',
-                statusClass: '',
-                pdf: 'https://drive.google.com/file/d/1OdponDpwIW11AUT4Fhf-MN02Ci3XLL7a/view?usp=sharing',
-                description: 'Item com datasheet atual do fabricante/chinês para consulta técnica provisória.',
-                specs: {'Família': 'SFP', 'Modelo': 'TM', 'Datasheet': 'Fabricante/chinês', 'Origem do arquivo': 'PRE-SFP-TM-ok.pdf'}
-            },
-            {
-                name: 'PRE-SFP25G-LR com etiqueta TOR',
-                category: 'transceivers',
-                family: 'SFP',
-                type: 'Módulo SFP25G',
-                datasheetStatus: 'Em validação',
-                statusClass: '',
-                pdf: 'https://drive.google.com/file/d/1j4AbKlsvuTEyE4eeqoDxXjJ79izzD-Vs/view?usp=sharing',
-                description: 'Arquivo provisório com etiqueta TOR; manter em validação antes de classificar como datasheet TOR principal.',
-                specs: {'Família': 'SFP25G', 'Padrão': 'LR', 'Status': 'Em validação', 'Origem do arquivo': 'PRE-SFP25G-LR_TOR_etiqueta_TOR.pdf'}
-            },
-            {
-                name: 'QSFP40G850NM100M',
-                category: 'transceivers',
-                family: 'QSFP',
-                type: 'Transceiver QSFP40G',
-                datasheetStatus: 'Datasheet fabricante',
-                statusClass: '',
-                pdf: 'https://drive.google.com/file/d/1kZnuAhOgCO_zbfMZAIATaXxR6_K4-Myb/view?usp=sharing',
-                description: 'Transceiver QSFP40G 850 nm 100 m com datasheet do fabricante.',
-                specs: {'Família': 'QSFP40G', 'Comprimento de onda': '850 nm', 'Alcance': '100 m', 'Datasheet': 'Fabricante/chinês'}
-            },
-            {
-                name: 'QSFP40GLR410KM',
-                category: 'transceivers',
-                family: 'QSFP',
-                type: 'Transceiver QSFP40G',
-                datasheetStatus: 'Datasheet fabricante',
-                statusClass: '',
-                pdf: 'https://drive.google.com/file/d/18COh2Od5uA6Kj6xfGG4kJujbIS0CCGq4/view?usp=sharing',
-                description: 'Transceiver QSFP40G LR4 10 km com datasheet do fabricante.',
-                specs: {'Família': 'QSFP40G', 'Padrão': 'LR4', 'Alcance': '10 km', 'Datasheet': 'Fabricante/chinês'}
-            },
-            {
-                name: 'SFP1G850NM550M',
-                category: 'transceivers',
-                family: 'SFP',
-                type: 'Módulo SFP1G',
-                datasheetStatus: 'Datasheet fabricante',
-                statusClass: '',
-                pdf: 'https://drive.google.com/file/d/1l3nog4pLRcpFpVfe1Xd99dzOskj9VolG/view?usp=sharing',
-                description: 'Módulo SFP 1G 850 nm 550 m com datasheet do fabricante.',
-                specs: {'Família': 'SFP1G', 'Comprimento de onda': '850 nm', 'Alcance': '550 m', 'Datasheet': 'Fabricante/chinês'}
-            },
-            {
-                name: 'SFP1GRJ45100M',
-                category: 'transceivers',
-                family: 'SFP',
-                type: 'Módulo SFP1G RJ45',
-                datasheetStatus: 'Datasheet fabricante',
-                statusClass: '',
-                pdf: 'https://drive.google.com/file/d/1OoVkdbLLSt6iW30Ahfs_quzgZVBqfYH9/view?usp=sharing',
-                description: 'Módulo SFP 1G RJ45 100 m com datasheet do fabricante.',
-                specs: {'Família': 'SFP1G', 'Interface': 'RJ45', 'Alcance': '100 m', 'Datasheet': 'Fabricante/chinês'}
-            }
-        ];
-
-        const catalogGrid = document.getElementById('catalogGrid');
-        const catalogEmpty = document.getElementById('catalogEmpty');
-        const catalogResults = document.getElementById('catalogResults');
-        const catalogSearch = document.getElementById('catalogSearch');
-        const filterButtons = document.querySelectorAll('.filter-button');
-        const productModal = document.getElementById('productModal');
-        const modalClose = document.getElementById('modalClose');
-        const modalTitle = document.getElementById('modalTitle');
-        const modalDescription = document.getElementById('modalDescription');
-        const modalBadges = document.getElementById('modalBadges');
-        const modalSpecs = document.getElementById('modalSpecs');
-        const modalPdf = document.getElementById('modalPdf');
-        const modalQuote = document.getElementById('modalQuote');
-        let activeFilter = 'todos';
-
-        const matchesFilter = (product) => {
-            if (activeFilter === 'todos') return true;
-            if (activeFilter === 'sfp') return product.family === 'SFP';
-            if (activeFilter === 'qsfp') return product.family === 'QSFP';
-            return product.category === activeFilter;
-        };
-
-        const matchesSearch = (product) => {
-            const term = catalogSearch.value.trim().toLowerCase();
-            if (!term) return true;
-            return [
-                product.name,
-                product.category,
-                product.family,
-                product.type,
-                product.datasheetStatus,
-                product.description,
-                ...Object.values(product.specs)
-            ].join(' ').toLowerCase().includes(term);
-        };
-
-        const renderCatalog = () => {
-            const visibleProducts = products.filter((product) => matchesFilter(product) && matchesSearch(product));
-            catalogGrid.innerHTML = visibleProducts.map((product, index) => `
-                <button type="button" class="catalog-card" data-index="${products.indexOf(product)}">
-                    <span class="catalog-card-type">${product.type}</span>
-                    <h4>${product.name}</h4>
-                    <p>${product.description}</p>
-                    <span class="catalog-card-hint">Clique para ver especificações</span>
-                    <div class="catalog-badges">
-                        <span class="catalog-badge ${product.statusClass}">${product.datasheetStatus}</span>
-                        <span class="catalog-badge">${product.family}</span>
-                    </div>
-                </button>
-            `).join('');
-
-            catalogResults.textContent = `${visibleProducts.length} item(ns) encontrado(s)`;
-            catalogEmpty.hidden = visibleProducts.length > 0;
-
-            document.querySelectorAll('.catalog-card').forEach((card) => {
-                card.addEventListener('click', () => openProduct(Number(card.dataset.index)));
-            });
-        };
-
-        const openProduct = (index) => {
-            const product = products[index];
-            modalTitle.textContent = product.name;
-            modalDescription.textContent = product.description;
-            modalBadges.innerHTML = `
-                <span class="catalog-badge ${product.statusClass}">${product.datasheetStatus}</span>
-                <span class="catalog-badge">${product.family}</span>
-                <span class="catalog-badge">${product.type}</span>
-            `;
-            modalSpecs.innerHTML = Object.entries(product.specs).map(([label, value]) => `
-                <div class="spec-item">
-                    <strong>${label}</strong>
-                    <span>${value}</span>
-                </div>
-            `).join('');
-            modalPdf.href = product.pdf;
-            modalQuote.href = `suporte.html?produto=${encodeURIComponent(product.name)}`;
-            productModal.hidden = false;
-            document.body.style.overflow = 'hidden';
-            modalClose.focus();
-        };
-
-        const closeProduct = () => {
-            productModal.hidden = true;
-            document.body.style.overflow = '';
-        };
-
-        filterButtons.forEach((button) => {
-            button.addEventListener('click', () => {
-                filterButtons.forEach((item) => item.classList.remove('active'));
-                button.classList.add('active');
-                activeFilter = button.dataset.filter;
-                renderCatalog();
-            });
-        });
-
-        catalogSearch.addEventListener('input', renderCatalog);
-        modalClose.addEventListener('click', closeProduct);
-        productModal.addEventListener('click', (event) => {
-            if (event.target === productModal) closeProduct();
-        });
-        document.addEventListener('keydown', (event) => {
-            if (event.key === 'Escape' && !productModal.hidden) closeProduct();
-        });
-
-        renderCatalog();
     </script>
+    <script src="catalog-data.js"></script>
+    <script src="catalog.js"></script>
+    <script src="chatbot.js"></script>
 </body>
 </html>

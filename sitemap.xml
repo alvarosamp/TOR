@@ -17,6 +17,18 @@
         <priority>0.7</priority>
     </url>
     <url>
+        <loc>https://tor.com.br/landing-transceivers.html</loc>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://tor.com.br/landing-licitacoes.html</loc>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://tor.com.br/landing-wifi-corporativo.html</loc>
+        <priority>0.8</priority>
+    </url>
+    <url>
         <loc>https://tor.com.br/parceiros.html</loc>
         <priority>0.7</priority>
     </url>

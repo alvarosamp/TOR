@@ -3,11 +3,10 @@
 .codex
 node_modules
 npm-debug.log
-Dockerfile
-docker-compose.yml
 .dockerignore
 README.md
 PROJECT_SUMMARY.md
 QUICKSTART.md
 SETUP_LOCAL.md
 DEPLOYMENT_GUIDE.md
+data/leads.json

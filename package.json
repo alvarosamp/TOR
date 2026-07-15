@@ -1,0 +1,14 @@
+{
+  "name": "tor-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Site institucional TOR Tecnologia com backend simples para catálogo, orçamento e integrações.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

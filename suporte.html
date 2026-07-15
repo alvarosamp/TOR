@@ -131,27 +131,27 @@
                         <div class="form-row">
                             <div class="form-group">
                                 <label>Nome Completo *</label>
-                                <input type="text" placeholder="Insira seu nome" required>
+                                <input type="text" name="name" placeholder="Insira seu nome" required>
                             </div>
                             <div class="form-group">
                                 <label>Empresa / Órgão</label>
-                                <input type="text" placeholder="Insira o nome da organização">
+                                <input type="text" name="organization" placeholder="Insira o nome da organização">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group">
                                 <label>E-mail Corporativo *</label>
-                                <input type="email" placeholder="email@empresa.com.br" required>
+                                <input type="email" name="email" placeholder="email@empresa.com.br" required>
                             </div>
                             <div class="form-group">
                                 <label>Telefone</label>
-                                <input type="tel" placeholder="(00) 00000-0000">
+                                <input type="tel" name="phone" placeholder="(00) 00000-0000">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group">
                                 <label>Tipo de Solicitação *</label>
-                                <select id="requestType" required>
+                                <select id="requestType" name="requestType" required>
                                     <option value="">Selecione</option>
                                     <option>Orçamento de produto</option>
                                     <option>Análise de edital</option>
@@ -162,17 +162,17 @@
                             </div>
                             <div class="form-group">
                                 <label>Produto de Interesse</label>
-                                <input type="text" id="productInterest" placeholder="Ex: SFPX10GRJ45100M">
+                                <input type="text" id="productInterest" name="product" placeholder="Ex: SFPX10GRJ45100M">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group">
                                 <label>Quantidade Estimada</label>
-                                <input type="number" min="1" placeholder="Ex: 20">
+                                <input type="number" name="quantity" min="1" placeholder="Ex: 20">
                             </div>
                             <div class="form-group">
                                 <label>Segmento</label>
-                                <select id="segmentInterest">
+                                <select id="segmentInterest" name="segment">
                                     <option value="">Selecione</option>
                                     <option>Governo / Licitação</option>
                                     <option>Provedor de internet</option>
@@ -186,16 +186,16 @@
                         <div class="form-row">
                             <div class="form-group">
                                 <label>Prazo Desejado</label>
-                                <input type="text" placeholder="Ex: urgente, 15 dias, próximo trimestre">
+                                <input type="text" name="deadline" placeholder="Ex: urgente, 15 dias, próximo trimestre">
                             </div>
                             <div class="form-group">
                                 <label>Assunto / Número do Edital *</label>
-                                <input type="text" id="subjectField" placeholder="Ex: Cotação Pregão Eletrônico 01/2026" required>
+                                <input type="text" id="subjectField" name="subject" placeholder="Ex: Cotação Pregão Eletrônico 01/2026" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label>Mensagem *</label>
-                            <textarea rows="6" placeholder="Descreva os equipamentos desejados, tire dúvidas técnicas ou informe o link do edital para análise..." required></textarea>
+                            <textarea rows="6" name="message" placeholder="Descreva os equipamentos desejados, tire dúvidas técnicas ou informe o link do edital para análise..." required></textarea>
                         </div>
                         <div class="form-submit" style="text-align: left;">
                             <button type="submit" class="btn-primary">Enviar Solicitação de Proposta</button>

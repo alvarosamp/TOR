@@ -1129,6 +1129,26 @@ p {
     margin-top: 20px;
 }
 
+.form-feedback {
+    margin-top: 18px;
+    padding: 12px 14px;
+    border: 1px solid var(--border-color);
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.form-feedback.success {
+    border-color: #1f8f4d;
+    background-color: #edf8f1;
+    color: #176a3a;
+}
+
+.form-feedback.error {
+    border-color: var(--primary-red);
+    background-color: #fff1f1;
+    color: var(--primary-red);
+}
+
 @media (max-width: 768px) {
     .corporate-form .form-row {
         grid-template-columns: 1fr;

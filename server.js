@@ -102,6 +102,7 @@ app.get('/api/catalog/:code', async (req, res, next) => {
 
 app.post('/api/quote', async (req, res, next) => {
     try {
+        await ensureDataFiles();
         const lead = sanitizeLead(req.body || {});
         const validationError = validateLead(lead);
 

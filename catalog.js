@@ -1,5 +1,21 @@
-(function () {
-    const products = window.TOR_CATALOG_PRODUCTS || [];
+(async function () {
+    const loadProducts = async () => {
+        if (Array.isArray(window.TOR_CATALOG_PRODUCTS) && window.TOR_CATALOG_PRODUCTS.length > 0) {
+            return window.TOR_CATALOG_PRODUCTS;
+        }
+
+        try {
+            const response = await fetch('/api/catalog');
+            if (!response.ok) throw new Error('Catalog API unavailable');
+            const data = await response.json();
+            return data.products || [];
+        } catch (error) {
+            console.error('Não foi possível carregar o catálogo.', error);
+            return [];
+        }
+    };
+
+    const products = await loadProducts();
     const catalogGrid = document.getElementById('catalogGrid');
     const catalogEmpty = document.getElementById('catalogEmpty');
     const catalogResults = document.getElementById('catalogResults');

@@ -155,7 +155,12 @@
                 <span>${value}</span>
             </div>
         `).join('');
-        modalPdf.href = product.pdf;
+        if (product.pdf) {
+            modalPdf.href = product.pdf;
+            modalPdf.hidden = false;
+        } else {
+            modalPdf.hidden = true;
+        }
         if (modalDetail) modalDetail.href = productUrl(product);
         modalQuote.href = `suporte.html?produto=${encodeURIComponent(product.name)}`;
         productModal.hidden = false;

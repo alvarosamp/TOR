@@ -5,7 +5,7 @@ module.exports = function handler(req, res) {
     }
 
     const payload = req.body || {};
-    const required = ['name', 'email', 'requestType', 'subject', 'message'];
+    const required = ['name', 'email', 'requestType', 'subject', 'message', 'lgpdConsent'];
     const missing = required.filter((field) => !payload[field]);
 
     if (missing.length > 0) {

@@ -1390,3 +1390,99 @@ p {
 .chat-actions a:hover {
     color: var(--primary-red);
 }
+
+/* Admin and LGPD */
+.legal-content {
+    max-width: 900px;
+}
+
+.legal-content h2,
+.legal-content h3 {
+    margin-top: 26px;
+    margin-bottom: 10px;
+}
+
+.legal-note {
+    margin-top: 18px;
+    color: var(--text-light);
+    font-size: 13px;
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.checkbox-group input {
+    width: auto;
+    margin-top: 3px;
+}
+
+.admin-body {
+    background-color: var(--bg-gray);
+}
+
+.admin-shell {
+    width: min(1180px, calc(100% - 32px));
+    margin: 32px auto;
+}
+
+.admin-header,
+.admin-login,
+.admin-panel,
+.admin-section,
+.admin-card {
+    background-color: var(--bg-white);
+    border: 1px solid var(--border-color);
+}
+
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    align-items: center;
+    padding: 28px;
+    margin-bottom: 18px;
+}
+
+.admin-header h1 {
+    margin-bottom: 6px;
+}
+
+.admin-login,
+.admin-panel,
+.admin-section {
+    padding: 28px;
+}
+
+.admin-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 22px;
+}
+
+.admin-products,
+.admin-leads {
+    display: grid;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.admin-card {
+    padding: 18px;
+}
+
+.admin-card textarea {
+    resize: vertical;
+}
+
+@media (max-width: 768px) {
+    .admin-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}

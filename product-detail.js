@@ -78,7 +78,14 @@
     }
 
     const pdf = document.getElementById('productPdf');
-    if (pdf) pdf.href = product.pdf;
+    if (pdf) {
+        if (product.pdf) {
+            pdf.href = product.pdf;
+            pdf.hidden = false;
+        } else {
+            pdf.hidden = true;
+        }
+    }
 
     const quote = document.getElementById('productQuote');
     if (quote) quote.href = `suporte.html?produto=${encodeURIComponent(product.name)}`;

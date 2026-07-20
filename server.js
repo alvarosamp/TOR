@@ -8,6 +8,8 @@ const PORT = Number(process.env.PORT || 8765);
 const ROOT = __dirname;
 const DATA_DIR = path.join(ROOT, 'data');
 const LEADS_FILE = path.join(DATA_DIR, 'leads.json');
+const CATALOG_FILE = path.join(DATA_DIR, 'catalog-products.json');
+const SITE_SETTINGS_FILE = path.join(DATA_DIR, 'site-settings.json');
 
 app.use(express.json({ limit: '1mb' }));
 app.use(express.urlencoded({ extended: true }));
@@ -19,14 +21,40 @@ async function ensureDataFiles() {
     } catch {
         await fs.writeFile(LEADS_FILE, '[]\n', 'utf8');
     }
+    try {
+        await fs.access(SITE_SETTINGS_FILE);
+    } catch {
+        await fs.writeFile(SITE_SETTINGS_FILE, JSON.stringify({
+            email: 'governo@tor.tec.br',
+            phone: '0800 000 5978',
+            linkedin: 'https://www.linkedin.com/company/tor-tecnologia-e-industria/',
+            instagram: 'https://www.instagram.com/tor.tec/'
+        }, null, 2) + '\n', 'utf8');
+    }
 }
 
 async function readCatalog() {
+    try {
+        const savedCatalog = JSON.parse(await fs.readFile(CATALOG_FILE, 'utf8'));
+        if (Array.isArray(savedCatalog)) return savedCatalog;
+    } catch {
+        // Fallback to versioned catalog-data.js when there is no admin override.
+    }
     const catalogSource = await fs.readFile(path.join(ROOT, 'catalog-data.js'), 'utf8');
     const sandbox = { window: {} };
     vm.createContext(sandbox);
     vm.runInContext(catalogSource, sandbox, { timeout: 1000 });
     return sandbox.window.TOR_CATALOG_PRODUCTS || [];
+}
+
+function requireAdmin(req, res, next) {
+    const expected = process.env.ADMIN_TOKEN || 'tor-admin-local';
+    const token = req.get('x-admin-token') || req.query.token;
+    if (token !== expected) {
+        res.status(401).json({ error: 'Acesso administrativo não autorizado.' });
+        return;
+    }
+    next();
 }
 
 function sanitizeLead(payload) {
@@ -43,6 +71,7 @@ function sanitizeLead(payload) {
         'deadline',
         'subject',
         'message',
+        'lgpdConsent',
         'source'
     ];
 
@@ -55,7 +84,7 @@ function sanitizeLead(payload) {
 }
 
 function validateLead(lead) {
-    const required = ['name', 'email', 'requestType', 'subject', 'message'];
+    const required = ['name', 'email', 'requestType', 'subject', 'message', 'lgpdConsent'];
     const missing = required.filter((field) => !lead[field]);
     if (missing.length > 0) {
         return `Campos obrigatórios ausentes: ${missing.join(', ')}`;
@@ -132,16 +161,58 @@ app.post('/api/quote', async (req, res, next) => {
     }
 });
 
-app.get('/api/leads', async (req, res, next) => {
+app.get('/api/leads', requireAdmin, async (req, res, next) => {
     try {
-        const token = req.get('x-admin-token');
-        if (!process.env.ADMIN_TOKEN || token !== process.env.ADMIN_TOKEN) {
-            res.status(401).json({ error: 'Acesso não autorizado.' });
-            return;
-        }
-
+        await ensureDataFiles();
         const leads = JSON.parse(await fs.readFile(LEADS_FILE, 'utf8'));
         res.json({ total: leads.length, leads });
+    } catch (error) {
+        next(error);
+    }
+});
+
+app.get('/api/admin/catalog', requireAdmin, async (req, res, next) => {
+    try {
+        const catalog = await readCatalog();
+        res.json({ total: catalog.length, products: catalog });
+    } catch (error) {
+        next(error);
+    }
+});
+
+app.put('/api/admin/catalog', requireAdmin, async (req, res, next) => {
+    try {
+        if (!Array.isArray(req.body.products)) {
+            res.status(400).json({ error: 'Envie { products: [...] }.' });
+            return;
+        }
+        await ensureDataFiles();
+        await fs.writeFile(CATALOG_FILE, JSON.stringify(req.body.products, null, 2) + '\n', 'utf8');
+        res.json({ ok: true, total: req.body.products.length });
+    } catch (error) {
+        next(error);
+    }
+});
+
+app.get('/api/admin/settings', requireAdmin, async (req, res, next) => {
+    try {
+        await ensureDataFiles();
+        res.json(JSON.parse(await fs.readFile(SITE_SETTINGS_FILE, 'utf8')));
+    } catch (error) {
+        next(error);
+    }
+});
+
+app.put('/api/admin/settings', requireAdmin, async (req, res, next) => {
+    try {
+        await ensureDataFiles();
+        const allowed = ['email', 'phone', 'linkedin', 'instagram'];
+        const settings = {};
+        allowed.forEach((key) => {
+            settings[key] = String(req.body[key] || '').trim();
+        });
+        await fs.writeFile(SITE_SETTINGS_FILE, JSON.stringify(settings, null, 2) + '\n', 'utf8');
+        res.json({ ok: true, settings });
     } catch (error) {
         next(error);
     }

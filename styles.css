@@ -109,6 +109,26 @@ p {
     color: var(--primary-red-hover);
 }
 
+.social-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--primary-red);
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 13px;
+}
+
+.social-link:hover {
+    color: var(--primary-red-hover);
+}
+
+.social-link img {
+    width: 18px;
+    height: 18px;
+    flex: 0 0 18px;
+}
+
 /* --- Section Formatting --- */
 .section {
     padding: 60px 0;

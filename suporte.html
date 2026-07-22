@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Contato TOR Tecnologia para solicitações de orçamento, suporte técnico, análise de edital e atendimento comercial.">
+    <meta name="description" content="Contato TOR Tecnologia para solicitações de orçamento, suporte técnico, escolha de produto e atendimento comercial.">
     <meta property="og:title" content="Suporte e Vendas | TOR Tecnologia">
-    <meta property="og:description" content="Envie sua solicitação, edital ou demanda técnica para a equipe da TOR Tecnologia.">
+    <meta property="og:description" content="Envie sua solicitação ou demanda técnica para a equipe da TOR Tecnologia.">
     <meta property="og:type" content="website">
     <title>Suporte e Vendas | TOR Tecnologia</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,7 +19,7 @@
     <div class="topbar">
         <div class="container topbar-inner">
             <div class="topbar-left">
-                <span>Atendimento B2B e Licitações</span>
+                <span>Fabricação e Tecnologia em Telecom</span>
             </div>
             <div class="topbar-right">
                 <a href="mailto:governo@tor.tec.br">governo@tor.tec.br</a>
@@ -127,7 +127,7 @@
 
                 <!-- Contact Form -->
                 <div class="contact-form-container" style="margin: 0; max-width: 100%;">
-                    <h3 style="margin-bottom: 25px; font-size: 24px;">Envie sua solicitação ou edital</h3>
+                    <h3 style="margin-bottom: 25px; font-size: 24px;">Envie sua solicitação ou projeto</h3>
                     <form class="corporate-form" id="contactForm">
                         <div class="form-row">
                             <div class="form-group">
@@ -155,7 +155,7 @@
                                 <select id="requestType" name="requestType" required>
                                     <option value="">Selecione</option>
                                     <option>Orçamento de produto</option>
-                                    <option>Análise de edital</option>
+                                    <option>Licitação técnica</option>
                                     <option>Projeto de rede</option>
                                     <option>Suporte técnico</option>
                                     <option>Parceria comercial</option>
@@ -168,14 +168,10 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group">
-                                <label>Quantidade Estimada</label>
-                                <input type="number" name="quantity" min="1" placeholder="Ex: 20">
-                            </div>
-                            <div class="form-group">
                                 <label>Segmento</label>
                                 <select id="segmentInterest" name="segment">
                                     <option value="">Selecione</option>
-                                    <option>Governo / Licitação</option>
+                                    <option>Governo / Licitação técnica</option>
                                     <option>Provedor de internet</option>
                                     <option>Data center</option>
                                     <option>Corporativo</option>
@@ -183,20 +179,14 @@
                                     <option>Segurança eletrônica</option>
                                 </select>
                             </div>
-                        </div>
-                        <div class="form-row">
                             <div class="form-group">
-                                <label>Prazo Desejado</label>
-                                <input type="text" name="deadline" placeholder="Ex: urgente, 15 dias, próximo trimestre">
-                            </div>
-                            <div class="form-group">
-                                <label>Assunto / Número do Edital *</label>
-                                <input type="text" id="subjectField" name="subject" placeholder="Ex: Cotação Pregão Eletrônico 01/2026" required>
+                                <label>Assunto / Projeto *</label>
+                                <input type="text" id="subjectField" name="subject" placeholder="Ex: Cotação de módulos SFP para backbone" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label>Mensagem *</label>
-                            <textarea rows="6" name="message" placeholder="Descreva os equipamentos desejados, tire dúvidas técnicas ou informe o link do edital para análise..." required></textarea>
+                            <textarea rows="6" name="message" placeholder="Descreva os equipamentos desejados, aplicação, dúvidas técnicas ou requisitos do projeto..." required></textarea>
                         </div>
                         <div class="form-group checkbox-group">
                             <label>
@@ -219,14 +209,14 @@
             <div class="footer-grid">
                 <div class="footer-brand">
                     <img src="icons/tor.png" alt="TOR" class="footer-logo">
-                    <p>Equipamentos de telecomunicações corporativos e para o setor público. Do edital à entrega, com agilidade e conformidade.</p>
+                    <p>Equipamentos de telecomunicações fabricados para projetos públicos e privados, com qualidade, tecnologia confiável e preço justo.</p>
                 </div>
                 <div class="footer-links">
                     <h4>Produtos</h4>
                     <ul>
-                        <li><a href="produtos.html">Switches</a></li>
-                        <li><a href="produtos.html">Access Points</a></li>
-                        <li><a href="produtos.html">Transceivers</a></li>
+                        <li><a href="produtos.html?categoria=sfp">M?dulos SFP</a></li>
+                        <li><a href="produtos.html?categoria=qsfp">M?dulos QSFP</a></li>
+                        <li><a href="produtos.html">Cat?logo</a></li>
                         <li><a href="solucoes.html">Soluções</a></li>
                     </ul>
                 </div>
@@ -270,7 +260,7 @@
             });
         });
     </script>
-    <script src="form-enhancements.js"></script>
-    <script src="chatbot.js"></script>
+    <script src="form-enhancements.js?v=20260722-2"></script>
+    <script src="chatbot.js?v=20260722-2"></script>
 </body>
 </html>

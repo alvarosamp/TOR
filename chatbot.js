@@ -10,15 +10,15 @@
         },
         {
             keywords: ['orcamento', 'orçamento', 'cotacao', 'cotação', 'preco', 'preço', 'comprar'],
-            text: `Para orçamento, informe o modelo desejado e a quantidade. Você também pode ligar para ${PHONE_DISPLAY} ou usar o formulário de suporte.`
+            text: `Para orçamento, informe o modelo desejado e a aplicação do projeto. Você também pode ligar para ${PHONE_DISPLAY} ou usar o formulário de suporte.`
         },
         {
             keywords: ['edital', 'licitacao', 'licitação', 'governo', 'pregao', 'pregão'],
-            text: 'A TOR apoia análise de editais e documentação técnica. Envie o número do edital, lista de materiais e prazo de resposta pelo formulário de suporte.'
+            text: 'A TOR fabrica produtos para projetos públicos e privados, incluindo licitações técnicas. Com os itens já definidos, nossa equipe ajuda você a escolher o modelo TOR mais adequado.'
         },
         {
             keywords: ['garantia', 'rma', 'qualidade'],
-            text: 'A política atual trabalha com garantia mínima de 12 meses e apoio para RMA conforme projeto, produto e exigência do edital.'
+            text: 'A política atual trabalha com garantia mínima de 12 meses e apoio para RMA conforme projeto, produto e condições de aplicação.'
         },
         {
             keywords: ['telefone', '0800', 'contato', 'whatsapp', 'telegram'],
@@ -30,7 +30,7 @@
         const normalized = message.toLowerCase();
         const match = answers.find((item) => item.keywords.some((keyword) => normalized.includes(keyword)));
         if (match) return match.text;
-        return 'Posso ajudar com catálogo, datasheets, orçamento, edital, garantia e contato. Se preferir atendimento humano, fale pelo Telegram ou ligue para 0800 000 5978.';
+        return 'Posso ajudar com catálogo, datasheets, orçamento, projeto, garantia e contato. Se preferir atendimento humano, fale pelo Telegram ou ligue para 0800 000 5978.';
     };
 
     const widget = document.createElement('div');

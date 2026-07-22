@@ -8,7 +8,7 @@ window.TOR_CATALOG_PRODUCTS = [
         datasheetStatus: 'Datasheet TOR',
         statusClass: 'tor',
         pdf: 'assets/datasheets/QSFP100G850NM100M-ok.pdf',
-        description: 'Transceptor QSFP28 SR4 para aplicaÃ§Ãµes 100G sobre fibra multimodo OM4, com alcance de atÃ© 100 m.',
+        description: 'Transceptor QSFP28 SR4 para aplicações 100G sobre fibra multimodo OM4, com alcance de até 100 m.',
         specs: {
             'Taxa': '100 Gb/s',
             'Alcance': '100 m',
@@ -16,7 +16,7 @@ window.TOR_CATALOG_PRODUCTS = [
             'Conector': 'MPO/MTP',
             'Fibra': 'MMF OM4',
             'DDM': 'Sim',
-            'Temperatura': '0 Â°C a +70 Â°C'
+            'Temperatura': '0 °C a +70 °C'
         }
     },
     {
@@ -28,7 +28,7 @@ window.TOR_CATALOG_PRODUCTS = [
         datasheetStatus: 'Datasheet TOR',
         statusClass: 'tor',
         pdf: 'assets/datasheets/QSFP100GLR410KM-ok.pdf',
-        description: 'Transceptor QSFP28 LR4 para enlaces 100GBASE-LR4 em fibra monomodo G.652 atÃ© 10 km.',
+        description: 'Transceptor QSFP28 LR4 para enlaces 100GBASE-LR4 em fibra monomodo G.652 até 10 km.',
         specs: {
             'Taxa': '100 Gb/s',
             'Alcance': '10 km',
@@ -36,7 +36,7 @@ window.TOR_CATALOG_PRODUCTS = [
             'Conector': 'Duplex LC/UPC',
             'Fibra': 'SMF',
             'DDM': 'Sim',
-            'Temperatura': '0 Â°C a +70 Â°C'
+            'Temperatura': '0 °C a +70 °C'
         }
     },
     {
@@ -48,7 +48,7 @@ window.TOR_CATALOG_PRODUCTS = [
         datasheetStatus: 'Datasheet TOR',
         statusClass: 'tor',
         pdf: 'assets/datasheets/QSFP40G850NM100M-ok.pdf',
-        description: 'Transceptor QSFP+ SR4 para 40G em fibra multimodo, indicado para data centers e interconexÃ£o rack to rack.',
+        description: 'Transceptor QSFP+ SR4 para 40G em fibra multimodo, indicado para data centers e interconexões de alta capacidade.',
         specs: {
             'Taxa': '40 Gb/s',
             'Alcance': '70 m OM3 / 150 m OM4',
@@ -56,7 +56,7 @@ window.TOR_CATALOG_PRODUCTS = [
             'Conector': 'MPO/MTP',
             'Fibra': 'MMF',
             'DDM': 'Sim',
-            'Temperatura': '0 Â°C a +70 Â°C'
+            'Temperatura': '0 °C a +70 °C'
         }
     },
     {
@@ -68,7 +68,7 @@ window.TOR_CATALOG_PRODUCTS = [
         datasheetStatus: 'Datasheet TOR',
         statusClass: 'tor',
         pdf: 'assets/datasheets/QSFP40GLR410KM-ok.pdf',
-        description: 'Transceptor QSFP+ LR4 CWDM para 40G sobre fibra monomodo com alcance de atÃ© 10 km.',
+        description: 'Transceptor QSFP+ LR4 CWDM para 40G sobre fibra monomodo com alcance de até 10 km.',
         specs: {
             'Taxa': '40 Gb/s',
             'Alcance': '10 km',
@@ -76,7 +76,7 @@ window.TOR_CATALOG_PRODUCTS = [
             'Conector': 'Duplex LC',
             'Fibra': 'SMF',
             'DDM': 'Sim',
-            'Temperatura': '0 Â°C a +70 Â°C'
+            'Temperatura': '0 °C a +70 °C'
         }
     },
     {
@@ -88,7 +88,7 @@ window.TOR_CATALOG_PRODUCTS = [
         datasheetStatus: 'Datasheet TOR',
         statusClass: 'tor',
         pdf: 'assets/datasheets/SFP1G315510KM-ok.pdf',
-        description: 'Transceptor SFP BiDi para Gigabit Ethernet, transmissÃ£o em 1310 nm e recepÃ§Ã£o em 1550 nm.',
+        description: 'Transceptor SFP BiDi para Gigabit Ethernet, transmissão em 1310 nm e recepção em 1550 nm.',
         specs: {
             'Taxa': '1,25 Gb/s',
             'Alcance': '10 km',
@@ -96,7 +96,7 @@ window.TOR_CATALOG_PRODUCTS = [
             'Conector': 'Simplex LC/UPC',
             'Fibra': 'SMF',
             'DDM': 'Sim',
-            'Temperatura': '0 Â°C a +70 Â°C'
+            'Temperatura': '0 °C a +70 °C'
         }
     },
     {
@@ -108,7 +108,7 @@ window.TOR_CATALOG_PRODUCTS = [
         datasheetStatus: 'Datasheet TOR',
         statusClass: 'tor',
         pdf: 'assets/datasheets/SFP1G553110KM-ok.pdf',
-        description: 'Transceptor SFP BiDi para Gigabit Ethernet, transmissÃ£o em 1550 nm e recepÃ§Ã£o em 1310 nm.',
+        description: 'Transceptor SFP BiDi para Gigabit Ethernet, transmissão em 1550 nm e recepção em 1310 nm.',
         specs: {
             'Taxa': '1,25 Gb/s',
             'Alcance': '10 km',
@@ -116,7 +116,7 @@ window.TOR_CATALOG_PRODUCTS = [
             'Conector': 'Simplex LC/UPC',
             'Fibra': 'SMF',
             'DDM': 'Sim',
-            'Temperatura': '0 Â°C a +70 Â°C'
+            'Temperatura': '0 °C a +70 °C'
         }
     },
     {
@@ -128,7 +128,7 @@ window.TOR_CATALOG_PRODUCTS = [
         datasheetStatus: 'Datasheet TOR',
         statusClass: 'tor',
         pdf: 'assets/datasheets/SFP1G850NM550M-ok.pdf',
-        description: 'Transceptor SFP 1G 850 nm para enlaces multimodo de atÃ© 550 m.',
+        description: 'Transceptor SFP 1G 850 nm para enlaces multimodo de até 550 m.',
         specs: {
             'Taxa': '1,25 Gb/s',
             'Alcance': '550 m',
@@ -136,7 +136,7 @@ window.TOR_CATALOG_PRODUCTS = [
             'Conector': 'LC',
             'Fibra': 'MMF',
             'DDM': 'Sim',
-            'Temperatura': '0 Â°C a +70 Â°C'
+            'Temperatura': '0 °C a +70 °C'
         }
     },
     {
@@ -155,7 +155,7 @@ window.TOR_CATALOG_PRODUCTS = [
             'Interface': 'RJ45 / 10/100/1000BASE-T',
             'Cabo': 'Cat 5',
             'DDM': 'EEPROM / gerenciamento serial',
-            'Temperatura': '0 Â°C a +70 Â°C / opÃ§Ã£o industrial'
+            'Temperatura': '0 °C a +70 °C / opção industrial'
         }
     },
     {
@@ -175,7 +175,7 @@ window.TOR_CATALOG_PRODUCTS = [
             'Conector': 'Simplex LC/UPC',
             'Fibra': 'SMF',
             'DDM': 'Sim',
-            'Temperatura': '0 Â°C a +70 Â°C'
+            'Temperatura': '0 °C a +70 °C'
         }
     },
     {
@@ -195,7 +195,7 @@ window.TOR_CATALOG_PRODUCTS = [
             'Conector': 'Simplex LC/UPC',
             'Fibra': 'SMF',
             'DDM': 'Sim',
-            'Temperatura': '0 Â°C a +70 Â°C'
+            'Temperatura': '0 °C a +70 °C'
         }
     },
     {
@@ -215,7 +215,7 @@ window.TOR_CATALOG_PRODUCTS = [
             'Conector': 'Simplex LC/UPC',
             'Fibra': 'SMF',
             'DDM': 'Sim',
-            'Temperatura': '0 Â°C a +70 Â°C'
+            'Temperatura': '0 °C a +70 °C'
         }
     },
     {
@@ -235,7 +235,7 @@ window.TOR_CATALOG_PRODUCTS = [
             'Conector': 'Simplex LC/UPC',
             'Fibra': 'SMF',
             'DDM': 'Sim',
-            'Temperatura': '0 Â°C a +70 Â°C'
+            'Temperatura': '0 °C a +70 °C'
         }
     },
     {
@@ -247,7 +247,7 @@ window.TOR_CATALOG_PRODUCTS = [
         datasheetStatus: 'Datasheet TOR',
         statusClass: 'tor',
         pdf: 'assets/datasheets/SFPX10GD1310NM10KM-ok.pdf',
-        description: 'Transceptor SFP28 LR de alto desempenho para enlaces Ethernet de atÃ© 25,78 Gb/s em SMF.',
+        description: 'Transceptor SFP28 LR de alto desempenho para enlaces Ethernet de até 25,78 Gb/s em SMF.',
         specs: {
             'Taxa': '25,78 Gb/s',
             'Alcance': '10 km',
@@ -255,7 +255,7 @@ window.TOR_CATALOG_PRODUCTS = [
             'Conector': 'Duplex LC/UPC',
             'Fibra': 'SMF',
             'DDM': 'Sim',
-            'Temperatura': '0 Â°C a +70 Â°C'
+            'Temperatura': '0 °C a +70 °C'
         }
     },
     {
@@ -267,7 +267,7 @@ window.TOR_CATALOG_PRODUCTS = [
         datasheetStatus: 'Datasheet TOR',
         statusClass: 'tor',
         pdf: 'assets/datasheets/SFPX10GD850NM300M-ok.pdf',
-        description: 'Transceptor SFP28 SR para 25G Ethernet, 850 nm, alcance de atÃ© 300 m em OM4.',
+        description: 'Transceptor SFP28 SR para 25G Ethernet, 850 nm, alcance de até 300 m em OM4.',
         specs: {
             'Taxa': '25,78125 Gb/s',
             'Alcance': '70 m OM3 / 300 m OM4',
@@ -275,7 +275,7 @@ window.TOR_CATALOG_PRODUCTS = [
             'Conector': 'Duplex LC/UPC',
             'Fibra': 'MMF',
             'DDM': 'Sim',
-            'Temperatura': '0 Â°C a +70 Â°C'
+            'Temperatura': '0 °C a +70 °C'
         }
     },
     {
@@ -294,7 +294,7 @@ window.TOR_CATALOG_PRODUCTS = [
             'Interface': 'RJ45 cobre',
             'Cabo': 'Cat6A/Cat7 em 10G',
             'DDM': 'Sim',
-            'Temperatura': '0 Â°C a +70 Â°C'
+            'Temperatura': '0 °C a +70 °C'
         }
     },
     {
@@ -306,7 +306,7 @@ window.TOR_CATALOG_PRODUCTS = [
         datasheetStatus: 'Datasheet TOR',
         statusClass: 'tor',
         pdf: 'assets/datasheets/SFPX25G1310NM10KM-ok.pdf',
-        description: 'Transceptor SFP28 LR 1310 nm para 25GBASE-LR, alcance de atÃ© 10 km em SMF.',
+        description: 'Transceptor SFP28 LR 1310 nm para 25GBASE-LR, alcance de até 10 km em SMF.',
         specs: {
             'Taxa': '25,78 Gb/s',
             'Alcance': '10 km',
@@ -314,7 +314,7 @@ window.TOR_CATALOG_PRODUCTS = [
             'Conector': 'Duplex LC/UPC',
             'Fibra': 'SMF',
             'DDM': 'Sim',
-            'Temperatura': '0 Â°C a +70 Â°C'
+            'Temperatura': '0 °C a +70 °C'
         }
     },
     {
@@ -326,7 +326,7 @@ window.TOR_CATALOG_PRODUCTS = [
         datasheetStatus: 'Datasheet TOR',
         statusClass: 'tor',
         pdf: 'assets/datasheets/SFPX25G1310NM300M-ok.pdf',
-        description: 'Transceptor SFP+ 850 nm para 10G em fibra multimodo, alcance de atÃ© 300 m.',
+        description: 'Transceptor SFP+ 850 nm para 10G em fibra multimodo, alcance de até 300 m.',
         specs: {
             'Taxa': '10 Gb/s',
             'Alcance': '300 m',
@@ -334,7 +334,7 @@ window.TOR_CATALOG_PRODUCTS = [
             'Conector': 'Duplex LC/UPC',
             'Fibra': 'MMF',
             'DDM': 'Sim',
-            'Temperatura': '0 Â°C a +70 Â°C'
+            'Temperatura': '0 °C a +70 °C'
         }
     },
     {
@@ -346,7 +346,7 @@ window.TOR_CATALOG_PRODUCTS = [
         datasheetStatus: 'Datasheet TOR',
         statusClass: 'tor',
         pdf: 'assets/datasheets/SFPX25G850NM300M.pdf',
-        description: 'Transceptor SFP28 SR 850 nm para 25G Ethernet em fibra multimodo OM4 atÃ© 300 m.',
+        description: 'Transceptor SFP28 SR 850 nm para 25G Ethernet em fibra multimodo OM4 até 300 m.',
         specs: {
             'Taxa': '25 Gb/s',
             'Alcance': '70 m OM3 / 300 m OM4',
@@ -354,44 +354,44 @@ window.TOR_CATALOG_PRODUCTS = [
             'Conector': 'Duplex LC/UPC',
             'Fibra': 'MMF OM4',
             'DDM': 'Sim',
-            'Temperatura': '0 Â°C a +70 Â°C'
+            'Temperatura': '0 °C a +70 °C'
         }
     }    ,
     {
-        name: 'Switch Gerenciavel L2+ 24 portas Gigabit PoE',
+        name: 'Switch Gerenciável L2+ 24 Portas Gigabit PoE',
         code: 'TOR-SW24G-4SFP-POE',
         category: 'switches',
         family: 'Switch',
-        type: 'Switch PoE gerenciavel',
+        type: 'Switch PoE gerenciável',
         datasheetStatus: 'Datasheet sob consulta',
         statusClass: 'pending',
         pdf: '',
-        description: 'Switch gerenciavel para redes corporativas, cameras IP e access points, com 24 portas Gigabit PoE e uplinks SFP.',
+        description: 'Switch gerenciável para redes corporativas, câmeras IP e access points, com 24 portas Gigabit PoE e uplinks SFP.',
         specs: {
             'Portas': '24x 10/100/1000BASE-T PoE',
             'Uplinks': '4x SFP 1G',
             'Camada': 'L2+',
             'Recursos': 'VLAN, QoS, STP/RSTP, IGMP Snooping',
-            'Aplicacao': 'Wi-Fi corporativo, CFTV IP e redes de acesso',
+            'Aplicação': 'Wi-Fi corporativo, CFTV IP e redes de acesso',
             'Datasheet': 'Sob consulta comercial'
         }
     },
     {
-        name: 'Switch Gerenciavel L3 24 portas SFP+',
+        name: 'Switch Gerenciável L3 24 Portas SFP+',
         code: 'TOR-SW24SFP-4XG-L3',
         category: 'switches',
         family: 'Switch',
-        type: 'Switch de agregacao Layer 3',
+        type: 'Switch de agregação Layer 3',
         datasheetStatus: 'Datasheet sob consulta',
         statusClass: 'pending',
         pdf: '',
-        description: 'Switch de agregacao para provedores, data centers e redes corporativas com uplinks 10G e recursos Layer 3.',
+        description: 'Switch de agregação para provedores, data centers e redes corporativas com uplinks 10G e recursos Layer 3.',
         specs: {
             'Portas': '24x SFP 1G',
             'Uplinks': '4x SFP+ 10G',
             'Camada': 'L3',
             'Recursos': 'OSPF, VRRP, ACL, QoS, VLAN',
-            'Aplicacao': 'Agregacao, backbone e core de rede',
+            'Aplicação': 'Agregação, backbone e core de rede',
             'Datasheet': 'Sob consulta comercial'
         }
     },
@@ -404,13 +404,13 @@ window.TOR_CATALOG_PRODUCTS = [
         datasheetStatus: 'Datasheet sob consulta',
         statusClass: 'pending',
         pdf: '',
-        description: 'Switch industrial para ambientes severos, automacao, monitoramento e infraestrutura critica.',
+        description: 'Switch industrial para ambientes severos, automação, monitoramento e infraestrutura crítica.',
         specs: {
             'Portas': '8x Gigabit Ethernet',
             'Uplinks': '2x SFP 1G',
-            'Instalacao': 'Trilho DIN',
+            'Instalação': 'Trilho DIN',
             'Temperatura': 'Faixa industrial sob consulta',
-            'Aplicacao': 'Industria, energia, seguranca e telecom',
+            'Aplicação': 'Indústria, energia, segurança e telecom',
             'Datasheet': 'Sob consulta comercial'
         }
     },
@@ -423,13 +423,13 @@ window.TOR_CATALOG_PRODUCTS = [
         datasheetStatus: 'Datasheet sob consulta',
         statusClass: 'pending',
         pdf: '',
-        description: 'Access point Wi-Fi 6 para escritorios, escolas, orgaos publicos e ambientes de alta circulacao.',
+        description: 'Access point Wi-Fi 6 para escritórios, escolas, órgãos públicos e ambientes de alta circulação.',
         specs: {
-            'Padrao': 'Wi-Fi 6 / 802.11ax',
+            'Padrão': 'Wi-Fi 6 / 802.11ax',
             'Taxa': 'AX1800 sob consulta',
-            'Alimentacao': 'PoE',
-            'Recursos': 'SSID multiplo, VLAN, roaming e QoS',
-            'Aplicacao': 'Wi-Fi corporativo e publico',
+            'Alimentação': 'PoE',
+            'Recursos': 'SSID múltiplo, VLAN, roaming e QoS',
+            'Aplicação': 'Wi-Fi corporativo e público',
             'Datasheet': 'Sob consulta comercial'
         }
     },
@@ -442,13 +442,13 @@ window.TOR_CATALOG_PRODUCTS = [
         datasheetStatus: 'Datasheet sob consulta',
         statusClass: 'pending',
         pdf: '',
-        description: 'Access point externo para areas abertas, patios, condominios, cidades digitais e cobertura outdoor.',
+        description: 'Access point externo para áreas abertas, pátios, condomínios, cidades digitais e cobertura outdoor.',
         specs: {
-            'Padrao': 'Wi-Fi 5 / 802.11ac',
+            'Padrão': 'Wi-Fi 5 / 802.11ac',
             'Ambiente': 'Outdoor',
-            'Alimentacao': 'PoE',
-            'Protecao': 'Grau de protecao sob consulta',
-            'Aplicacao': 'Cidades digitais e areas externas',
+            'Alimentação': 'PoE',
+            'Proteção': 'Grau de proteção sob consulta',
+            'Aplicação': 'Cidades digitais e áreas externas',
             'Datasheet': 'Sob consulta comercial'
         }
     },
@@ -457,15 +457,15 @@ window.TOR_CATALOG_PRODUCTS = [
         code: 'TOR-ONU-GPON-1GE',
         category: 'outros',
         family: 'ONU',
-        type: 'Terminal optico GPON',
+        type: 'Terminal óptico GPON',
         datasheetStatus: 'Datasheet sob consulta',
         statusClass: 'pending',
         pdf: '',
-        description: 'ONU GPON para conectividade de acesso em projetos corporativos, provedores e redes publicas.',
+        description: 'ONU GPON para conectividade de acesso em projetos corporativos, provedores e redes públicas.',
         specs: {
-            'Interface optica': 'GPON',
+            'Interface óptica': 'GPON',
             'Portas': '1x Gigabit Ethernet',
-            'Aplicacao': 'Acesso FTTH/FTTx',
+            'Aplicação': 'Acesso FTTH/FTTx',
             'Gerenciamento': 'OMCI sob consulta',
             'Datasheet': 'Sob consulta comercial'
         }
@@ -479,12 +479,12 @@ window.TOR_CATALOG_PRODUCTS = [
         datasheetStatus: 'Datasheet sob consulta',
         statusClass: 'pending',
         pdf: '',
-        description: 'Gateway para pequenas e medias redes com multiplos links, balanceamento e politicas de seguranca.',
+        description: 'Gateway para pequenas e médias redes com múltiplos links, balanceamento e políticas de segurança.',
         specs: {
             'WAN': 'Multi-WAN sob consulta',
             'LAN': 'Gigabit Ethernet',
             'Recursos': 'Firewall, VPN, QoS e balanceamento',
-            'Aplicacao': 'Redes corporativas e filiais',
+            'Aplicação': 'Redes corporativas e filiais',
             'Datasheet': 'Sob consulta comercial'
         }
     }

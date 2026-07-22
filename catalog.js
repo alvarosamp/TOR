@@ -34,11 +34,13 @@
     const modalPdf = document.getElementById('modalPdf');
     const modalDetail = document.getElementById('modalDetail');
     const modalQuote = document.getElementById('modalQuote');
-    let activeFilter = 'todos';
+    const normalize = (value) => String(value || '').toLowerCase();
+    const allowedFilters = ['todos', 'sfp', 'qsfp'];
+    const requestedFilter = new URLSearchParams(window.location.search).get('categoria');
+    let activeFilter = allowedFilters.includes(normalize(requestedFilter)) ? normalize(requestedFilter) : 'todos';
 
     if (!catalogGrid) return;
 
-    const normalize = (value) => String(value || '').toLowerCase();
     const productUrl = (product) => `produto-detalhe.html?produto=${encodeURIComponent(product.code || product.name)}`;
 
     const productText = (product) => normalize([
@@ -56,7 +58,7 @@
         if (activeFilter === 'todos') return true;
         if (activeFilter === 'sfp') return product.family === 'SFP';
         if (activeFilter === 'qsfp') return product.family === 'QSFP';
-        return product.category === activeFilter;
+        return false;
     };
 
     const matchesSearch = (product) => {
@@ -104,7 +106,8 @@
     };
 
     const renderCatalog = () => {
-        const visibleProducts = products.filter((product) => (
+        const publicProducts = products.filter((product) => product.family === 'SFP' || product.family === 'QSFP');
+        const visibleProducts = publicProducts.filter((product) => (
             matchesFilter(product) && matchesSearch(product) && matchesTechnicalFilters(product)
         ));
 
@@ -131,6 +134,10 @@
         }).join('');
 
         catalogResults.textContent = `${visibleProducts.length} item(ns) encontrado(s)`;
+        catalogEmpty.innerHTML = `
+            <h4>Nenhum item encontrado</h4>
+            <p>Esse filtro ainda não tem produto disponível ou a busca não encontrou correspondências.</p>
+        `;
         catalogEmpty.hidden = visibleProducts.length > 0;
 
         document.querySelectorAll('.catalog-card').forEach((card) => {
@@ -174,6 +181,7 @@
     };
 
     filterButtons.forEach((button) => {
+        button.classList.toggle('active', button.dataset.filter === activeFilter);
         button.addEventListener('click', () => {
             filterButtons.forEach((item) => item.classList.remove('active'));
             button.classList.add('active');

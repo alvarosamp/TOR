@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Catálogo TOR de switches, access points e transceivers para redes corporativas, provedores, data centers e licitações.">
+    <meta name="description" content="Catálogo TOR de módulos ópticos SFP e QSFP para telecomunicações, interconexões, redes corporativas, provedores e data centers.">
     <meta property="og:title" content="Produtos | TOR Tecnologia">
     <meta property="og:description" content="Catálogo de equipamentos de telecomunicações com especificações resumidas e solicitação de orçamento.">
     <meta property="og:type" content="website">
@@ -18,7 +18,7 @@
     <div class="topbar">
         <div class="container topbar-inner">
             <div class="topbar-left">
-                <span>Atendimento B2B e Licitações</span>
+                <span>Fabricação e Tecnologia em Telecom</span>
             </div>
             <div class="topbar-right">
                 <a href="mailto:governo@tor.tec.br">governo@tor.tec.br</a>
@@ -72,18 +72,12 @@
     <section class="page-header">
         <div class="container">
             <h1>Produtos</h1>
-            <p>Catálogo por categorias para ambientes corporativos, provedores e processos licitatórios</p>
+            <p>Catálogo técnico de módulos ópticos para interconexões, provedores, data centers e redes corporativas</p>
         </div>
     </section>
 
     <section class="section products-section">
         <div class="container">
-            <div class="section-header text-center">
-                <h2>Catálogo de Produtos</h2>
-                <p>Equipamentos com especificações resumidas, fabricante, código e caminho direto para orçamento.</p>
-                <hr class="header-line">
-            </div>
-
             <div class="catalog-toolbar" aria-label="Filtros do catálogo">
                 <div class="catalog-search">
                     <label for="catalogSearch">Buscar produto</label>
@@ -91,10 +85,6 @@
                 </div>
                 <div class="catalog-filters">
                     <button type="button" class="filter-button active" data-filter="todos">Todos</button>
-                    <button type="button" class="filter-button" data-filter="switches">Switches</button>
-                    <button type="button" class="filter-button" data-filter="access-points">Access Points</button>
-                    <button type="button" class="filter-button" data-filter="transceivers">Transceivers</button>
-                    <button type="button" class="filter-button" data-filter="outros">Outros</button>
                     <button type="button" class="filter-button" data-filter="sfp">SFP</button>
                     <button type="button" class="filter-button" data-filter="qsfp">QSFP</button>
                 </div>
@@ -150,7 +140,7 @@
                 <div class="catalog-grid" id="catalogGrid"></div>
                 <div class="catalog-empty" id="catalogEmpty" hidden>
                     <h4>Nenhum item encontrado</h4>
-                    <p>Esse filtro ainda não tem produto cadastrado ou a busca não encontrou correspondências.</p>
+                    <p>Esse filtro ainda não tem produto disponível ou a busca não encontrou correspondências.</p>
                 </div>
             </div>
         </div>
@@ -176,14 +166,14 @@
             <div class="footer-grid">
                 <div class="footer-brand">
                     <img src="icons/tor.png" alt="TOR" class="footer-logo">
-                    <p>Equipamentos de telecomunicações corporativos e para o setor público. Do edital à entrega, com agilidade e conformidade.</p>
+                    <p>Equipamentos de telecomunicações fabricados para projetos públicos e privados, com qualidade, tecnologia confiável e preço justo.</p>
                 </div>
                 <div class="footer-links">
                     <h4>Produtos</h4>
                     <ul>
-                        <li><a href="produtos.html">Switches</a></li>
-                        <li><a href="produtos.html">Access Points</a></li>
-                        <li><a href="produtos.html">Transceivers</a></li>
+                        <li><a href="produtos.html?categoria=sfp">M?dulos SFP</a></li>
+                        <li><a href="produtos.html?categoria=qsfp">M?dulos QSFP</a></li>
+                        <li><a href="produtos.html">Cat?logo</a></li>
                         <li><a href="solucoes.html">Soluções</a></li>
                     </ul>
                 </div>
@@ -226,8 +216,8 @@
             });
         });
     </script>
-    <script src="catalog-data.js"></script>
-    <script src="catalog.js"></script>
-    <script src="chatbot.js"></script>
+    <script src="catalog-data.js?v=20260722-2"></script>
+    <script src="catalog.js?v=20260722-2"></script>
+    <script src="chatbot.js?v=20260722-2"></script>
 </body>
 </html>

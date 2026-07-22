@@ -2,6 +2,7 @@ const express = require('express');
 const fs = require('fs/promises');
 const path = require('path');
 const vm = require('vm');
+const { buildAssistantResponse } = require('./lib/catalog-assistant');
 
 const app = express();
 const PORT = Number(process.env.PORT || 8765);
@@ -156,6 +157,22 @@ app.post('/api/quote', async (req, res, next) => {
             id: record.id,
             message: 'Solicitação recebida. A equipe TOR entrará em contato.'
         });
+    } catch (error) {
+        next(error);
+    }
+});
+
+app.post('/api/chat', async (req, res, next) => {
+    try {
+        const message = String((req.body || {}).message || '').trim();
+        if (!message) {
+            res.status(400).json({ error: 'Envie uma mensagem para o assistente.' });
+            return;
+        }
+
+        const catalog = await readCatalog();
+        const response = await buildAssistantResponse(catalog, message);
+        res.json(response);
     } catch (error) {
         next(error);
     }

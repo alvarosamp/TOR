@@ -1349,6 +1349,56 @@ p {
     color: var(--bg-white);
 }
 
+.chat-products {
+    display: grid;
+    gap: 8px;
+    margin: 0 16px 10px;
+}
+
+.chat-product {
+    display: grid;
+    gap: 3px;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-white);
+    color: var(--text-dark);
+}
+
+.chat-product:hover {
+    border-color: var(--primary-red);
+}
+
+.chat-product strong,
+.chat-product span,
+.chat-product small {
+    display: block;
+}
+
+.chat-product small {
+    color: var(--text-gray);
+}
+
+.chat-suggestions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0 16px 14px;
+}
+
+.chat-suggestions a {
+    padding: 8px 10px;
+    border: 1px solid var(--primary-red);
+    background-color: var(--bg-white);
+    color: var(--primary-red);
+    font-weight: 700;
+    font-size: 12px;
+}
+
+.chat-suggestions a:hover {
+    background-color: var(--primary-red);
+    color: var(--bg-white);
+}
+
 .chat-form {
     display: grid;
     grid-template-columns: 1fr auto;

@@ -1,0 +1,185 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Dúvidas frequentes sobre produtos TOR, módulos ópticos SFP e QSFP, aplicação, conectividade, datasheet e cotação.">
+    <meta property="og:title" content="Dúvidas do Produto | TOR Tecnologia">
+    <meta property="og:description" content="Perguntas e respostas técnicas por item do catálogo TOR.">
+    <meta property="og:type" content="website">
+    <title>Dúvidas do Produto | TOR Tecnologia</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css?v=20260723-questions2">
+</head>
+<body>
+    <div class="topbar">
+        <div class="container topbar-inner">
+            <div class="topbar-left">
+                <span>Fabricação e Tecnologia em Telecom</span>
+            </div>
+            <div class="topbar-right">
+                <a href="mailto:governo@tor.tec.br">governo@tor.tec.br</a>
+                <span class="topbar-divider">|</span>
+                <a href="tel:08000005978">0800 000 5978</a>
+            </div>
+        </div>
+    </div>
+
+    <header class="header">
+        <div class="container header-inner">
+            <div class="logo-container">
+                <a href="index.html">
+                    <img src="icons/tor.png" alt="TOR Tecnologia e Indústria" class="logo-img">
+                </a>
+            </div>
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="produtos.html" style="color: var(--primary-red);">Produtos</a></li>
+                    <li><a href="solucoes.html">Soluções</a></li>
+                    <li><a href="conteudo.html">Conteúdo</a></li>
+                    <li><a href="parceiros.html">Parceiros</a></li>
+                    <li><a href="sobre.html">Quem Somos</a></li>
+                    <li><a href="suporte.html">Suporte</a></li>
+                </ul>
+            </nav>
+            <div class="header-action">
+                <a href="suporte.html" class="btn-primary">Solicitar Proposta</a>
+            </div>
+            <button class="mobile-toggle" id="mobile-toggle" aria-label="Abrir menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <div class="mobile-nav" id="mobile-nav">
+        <ul class="mobile-nav-list">
+            <li><a href="index.html">Início</a></li>
+            <li><a href="produtos.html">Produtos</a></li>
+            <li><a href="solucoes.html">Soluções</a></li>
+            <li><a href="conteudo.html">Conteúdo</a></li>
+            <li><a href="parceiros.html">Parceiros</a></li>
+            <li><a href="sobre.html">Quem Somos</a></li>
+            <li><a href="suporte.html" class="mobile-cta">Solicitar Proposta</a></li>
+        </ul>
+    </div>
+
+    <div class="breadcrumb-strip">
+        <div class="container">
+            <p>
+                <a href="index.html">Início</a> &gt;
+                <a href="produtos.html">Produtos</a> &gt;
+                <strong id="questionBreadcrumbProduct">Produto TOR</strong> &gt;
+                <span>Dúvidas</span>
+            </p>
+        </div>
+    </div>
+
+    <section class="question-hero-section">
+        <div class="container question-hero-grid">
+            <div class="question-product-card">
+                <img src="" alt="" id="questionProductImage" hidden>
+                <span id="questionProductImageNote">Imagem do datasheet</span>
+            </div>
+            <div class="question-product-info">
+                <span id="questionProductFamily">TOR</span>
+                <h1>Dúvidas sobre <strong id="questionProductTitle">Produto TOR</strong></h1>
+                <p id="questionProductDescription">Perguntas frequentes sobre aplicação, compatibilidade e cotação deste item.</p>
+                <div class="question-product-meta">
+                    <div>
+                        <span>Código</span>
+                        <strong id="questionProductCode">Produto TOR</strong>
+                    </div>
+                    <div>
+                        <span>Tipo</span>
+                        <strong id="questionProductType">Módulo óptico</strong>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <a href="produto-detalhe.html" class="btn-small-outline" id="questionProductDetail">Voltar ao Produto</a>
+                    <a href="suporte.html" class="btn-primary" id="questionProductSupport">Enviar Dúvida</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section question-page-section">
+        <div class="container">
+            <div class="question-spec-strip" id="questionSpecsGrid"></div>
+
+            <div class="question-page-header">
+                <div>
+                    <h2>Questions &amp; Answers</h2>
+                    <p id="questionResultCount">Dúvidas encontradas</p>
+                </div>
+                <a href="suporte.html" class="text-link" id="questionAskTop">Enviar dúvida técnica</a>
+            </div>
+
+            <div class="question-category-row" id="questionCategories"></div>
+            <div class="question-list" id="questionList"></div>
+        </div>
+    </section>
+
+    <section class="section question-cta-section">
+        <div class="container">
+            <div class="cta-band">
+                <div>
+                    <h2>Não encontrou sua dúvida?</h2>
+                    <p>Fale com a equipe TOR e informe o código do item para receber apoio sobre aplicação, compatibilidade e cotação.</p>
+                </div>
+                <a href="suporte.html" class="btn-primary" id="questionProductSupportBottom">Falar com a TOR</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <img src="icons/tor.png" alt="TOR" class="footer-logo">
+                    <p>Equipamentos de telecomunicações fabricados para projetos públicos e privados, com qualidade, tecnologia confiável e preço justo.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Produtos</h4>
+                    <ul>
+                        <li><a href="produtos.html?categoria=sfp">Módulos SFP</a></li>
+                        <li><a href="produtos.html?categoria=qsfp">Módulos QSFP</a></li>
+                        <li><a href="produtos.html">Catálogo</a></li>
+                        <li><a href="solucoes.html">Soluções</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>A Empresa</h4>
+                    <ul>
+                        <li><a href="sobre.html">Quem Somos</a></li>
+                        <li><a href="garantia.html">Garantia e Qualidade</a></li>
+                        <li><a href="parceiros.html">Parceiros Tecnológicos</a></li>
+                        <li><a href="trabalhe-conosco.html">Trabalhe Conosco</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contato</h4>
+                    <p>Telefone: 0800 000 5978</p>
+                    <p>E-mail: governo@tor.tec.br</p>
+                    <p>Santa Rita do Sapucaí, MG</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 TOR Tecnologia e Indústria. Todos os direitos reservados.</p>
+                <p>CNPJ: 00.000.000/0001-00</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="catalog-data.js?v=20260722-2"></script>
+    <script src="product-media.js?v=20260723-media2"></script>
+    <script src="product-questions.js?v=20260723-questions2"></script>
+    <script src="navigation.js?v=20260723-fs1"></script>
+    <script src="chatbot.js?v=20260722-3"></script>
+    <script src="language.js?v=20260723-i18n1"></script>
+</body>
+</html>

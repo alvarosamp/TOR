@@ -1,0 +1,387 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Detalhes técnicos de produto TOR para equipamentos de rede, switches, transceivers e infraestrutura de telecomunicações.">
+    <meta property="og:title" content="Detalhes do Produto | TOR Tecnologia">
+    <meta property="og:description" content="Exemplo de página técnica com destaques, especificações e solicitação de proposta.">
+    <meta property="og:type" content="website">
+    <title>Detalhes do Produto | TOR Tecnologia</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css?v=20260723-questions2">
+</head>
+<body>
+
+    <!-- Top Bar -->
+    <div class="topbar">
+        <div class="container topbar-inner">
+            <div class="topbar-left">
+                <span>Fabricação e Tecnologia em Telecom</span>
+            </div>
+            <div class="topbar-right">
+                <a href="mailto:governo@tor.tec.br">governo@tor.tec.br</a>
+                <span class="topbar-divider">|</span>
+                <a href="tel:08000005978">0800 000 5978</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header / Navbar -->
+    <header class="header">
+        <div class="container header-inner">
+            <div class="logo-container">
+                <a href="index.html">
+                    <img src="../icons/tor.png" alt="TOR Tecnologia e Indústria" class="logo-img">
+                </a>
+            </div>
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="produtos.html" style="color: var(--primary-red);">Produtos</a></li>
+                    <li><a href="solucoes.html">Soluções</a></li>
+                    <li><a href="conteudo.html">Conteúdo</a></li>
+                    <li><a href="parceiros.html">Parceiros</a></li>
+                    <li><a href="sobre.html">Quem Somos</a></li>
+                    <li><a href="suporte.html">Suporte</a></li>
+                </ul>
+            </nav>
+            <div class="header-action">
+                <a href="suporte.html" class="btn-primary">Solicitar Proposta</a>
+            </div>
+            <!-- Mobile Menu Toggle -->
+            <button class="mobile-toggle" id="mobile-toggle" aria-label="Abrir menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Nav -->
+    <div class="mobile-nav" id="mobile-nav">
+        <ul class="mobile-nav-list">
+            <li><a href="index.html">Início</a></li>
+            <li><a href="produtos.html">Produtos</a></li>
+            <li><a href="solucoes.html">Soluções</a></li>
+            <li><a href="conteudo.html">Conteúdo</a></li>
+            <li><a href="parceiros.html">Parceiros</a></li>
+            <li><a href="sobre.html">Quem Somos</a></li>
+            <li><a href="suporte.html" class="mobile-cta">Solicitar Proposta</a></li>
+        </ul>
+    </div>
+
+    <!-- Breadcrumb -->
+    <div style="background-color: var(--bg-gray); padding: 15px 0; border-bottom: 1px solid var(--border-color);">
+        <div class="container">
+            <p style="font-size: 13px; color: var(--text-light);">
+                <a href="index.html" style="color: var(--text-dark);">Início</a> &gt;
+                <a href="produtos.html" style="color: var(--text-dark);">Produtos</a> &gt;
+                <strong id="breadcrumbProduct">Produto TOR</strong>
+            </p>
+        </div>
+    </div>
+
+    <!-- Product Details Section -->
+    <section class="product-detail-section">
+        <div class="container">
+            <div class="product-hero-grid">
+                <div class="product-media-panel">
+                    <div class="product-photo-frame" id="productPhotoFrame" hidden>
+                        <img src="" alt="" id="productImage">
+                        <span id="productImageNote">Imagem do datasheet</span>
+                    </div>
+                    <div class="product-visual-placeholder" id="productVisualFallback">
+                        <span id="productVisualFamily">TOR</span>
+                        <strong id="productVisualCode">Produto</strong>
+                    </div>
+                    <div class="product-media-note">
+                        <span id="productFamilyLabel">Módulo óptico</span>
+                        <strong id="productCodeLabel">Produto TOR</strong>
+                    </div>
+                    <div class="product-gallery-thumbs" id="productGalleryThumbs" aria-label="Galeria do produto"></div>
+                </div>
+
+                <div class="product-detail-info">
+                    <div class="catalog-badges" id="productBadges"></div>
+                    <h1 id="productTitle">Produto TOR</h1>
+                    <p id="productDescription">Consulte as especificações técnicas do produto selecionado.</p>
+
+                    <div class="product-commercial-panel">
+                        <strong>Cotação sob consulta</strong>
+                        <span>Solicite preço, disponibilidade e condições comerciais para este item.</span>
+                        <a href="suporte.html" class="text-link" id="productQuoteInline">Solicitar cotação</a>
+                    </div>
+
+                    <div class="product-stat-grid" id="productSpecCards"></div>
+
+                    <div class="product-option-block">
+                        <span>Itens tecnicamente próximos</span>
+                        <div class="product-model-options" id="productModelOptions"></div>
+                    </div>
+
+                    <h4>Destaques</h4>
+                    <ul class="product-specs product-highlight-list" id="productHighlights">
+                        <li>Especificações extraídas do datasheet TOR</li>
+                    </ul>
+
+                    <div class="modal-actions">
+                        <a href="suporte.html" class="btn-primary" id="productQuote">Solicitar Proposta</a>
+                        <a href="#" target="_blank" rel="noopener" class="btn-small-outline" id="productPdf">Abrir Datasheet</a>
+                        <a href="produtos.html" class="btn-small-outline">Voltar ao Catálogo</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <nav class="product-anchor-nav" aria-label="Seções do produto">
+        <div class="container product-anchor-inner">
+            <a href="#specifications">Specifications</a>
+            <a href="#connectivity">Connectivity Solutions</a>
+            <a href="#features">Features</a>
+            <a href="#videos">Videos</a>
+            <a href="#qa">Q&amp;A</a>
+            <a href="#reviews">Reviews</a>
+            <a href="#resources">Resources</a>
+        </div>
+    </nav>
+
+    <section class="product-service-section">
+        <div class="container">
+            <div class="product-service-grid">
+                <article class="product-service-card">
+                    <span>01</span>
+                    <h3>Documentação técnica</h3>
+                    <ul>
+                        <li>Datasheet vinculado ao item quando disponível</li>
+                        <li>Especificações resumidas para comparação</li>
+                        <li>Código do produto preservado para cotação</li>
+                    </ul>
+                    <a href="#resources">Ver recursos</a>
+                </article>
+                <article class="product-service-card">
+                    <span>02</span>
+                    <h3>Compatibilidade de aplicação</h3>
+                    <ul>
+                        <li>Seleção por taxa, alcance, fibra e conector</li>
+                        <li>Modelos SFP e QSFP do catálogo TOR</li>
+                        <li>Orientação técnica para escolha do item</li>
+                    </ul>
+                    <a href="#connectivity">Ver aplicações</a>
+                </article>
+                <article class="product-service-card">
+                    <span>03</span>
+                    <h3>Contato com a TOR</h3>
+                    <ul>
+                        <li>Atendimento para projetos públicos e privados</li>
+                        <li>Retorno comercial para cotação</li>
+                        <li>0800 000 5978 para contato direto</li>
+                    </ul>
+                    <a href="suporte.html">Falar com a equipe</a>
+                </article>
+            </div>
+
+            <div class="product-promo-banner">
+                <img src="../assets/product-application-banner.png" alt="Interconexão óptica com switch genérico e módulos">
+                <div>
+                    <h3>Interconexões ópticas em redes de alta performance</h3>
+                    <p>Use os parâmetros do item para validar taxa, alcance, fibra e conector em equipamentos compatíveis.</p>
+                    <a href="#connectivity" class="text-link">Ver conectividade</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section product-detail-content" id="specifications">
+        <div class="container">
+            <div class="section-header">
+                <h2>Specifications</h2>
+                <p>Resumo técnico organizado a partir dos dados disponíveis no catálogo TOR.</p>
+                <hr class="header-line left">
+            </div>
+            <div class="product-table-wrap">
+                <table class="product-spec-table">
+                    <tbody id="productSpecsTable"></tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <section class="section product-detail-content alt" id="connectivity">
+        <div class="container">
+            <div class="section-header">
+                <h2>Connectivity Solutions</h2>
+                <p>Aplicações típicas para orientar a escolha do módulo dentro de projetos públicos e privados.</p>
+                <hr class="header-line left">
+            </div>
+            <div class="product-connectivity-stage" id="productConnectivityStage"></div>
+            <div class="product-info-grid" id="productConnectivity"></div>
+        </div>
+    </section>
+
+    <section class="section product-detail-content" id="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>Features</h2>
+                <p>Características importantes para validar compatibilidade, operação e documentação do item.</p>
+                <hr class="header-line left">
+            </div>
+            <div class="product-feature-layout">
+                <ul class="feature-checklist" id="productFeatures"></ul>
+                <figure class="product-testing-figure">
+                    <img src="../assets/product-testing-lab.png" alt="Ambiente técnico de testes ópticos">
+                    <figcaption>Imagem ilustrativa de ambiente de testes ópticos.</figcaption>
+                </figure>
+            </div>
+        </div>
+    </section>
+
+    <section class="section product-detail-content alt" id="videos">
+        <div class="container">
+            <div class="product-two-column">
+                <div>
+                    <div class="section-header">
+                        <h2>Videos</h2>
+                        <p>Área reservada para vídeos técnicos, demonstrações e materiais de aplicação TOR.</p>
+                        <hr class="header-line left">
+                    </div>
+                    <p>No momento, esta seção fica preparada para receber vídeos oficiais de instalação, testes ou apresentação do produto quando eles estiverem disponíveis.</p>
+                </div>
+                <div class="product-video-placeholder" aria-label="Vídeos em breve">
+                    <span>TOR</span>
+                    <strong>Vídeos técnicos em breve</strong>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section product-detail-content" id="qa">
+        <div class="container">
+            <div class="section-header">
+                <h2>Q&amp;A</h2>
+                <p>Perguntas rápidas para ajudar na validação do modelo antes da cotação.</p>
+                <hr class="header-line left">
+            </div>
+            <div class="qa-actions">
+                <a href="produto-duvidas.html" class="btn-small-outline" id="productQuestionsPage">Ver página de dúvidas</a>
+                <a href="suporte.html" class="text-link" id="productAskQuestion">Enviar dúvida técnica</a>
+            </div>
+            <div class="qa-list" id="productQa"></div>
+        </div>
+    </section>
+
+    <section class="section product-detail-content alt" id="reviews">
+        <div class="container">
+            <div class="section-header">
+                <h2>Reviews</h2>
+                <p>Área preparada para avaliações técnicas e relatos de aplicação conforme novos projetos forem documentados.</p>
+                <hr class="header-line left">
+            </div>
+            <div class="review-placeholder-grid">
+                <article>
+                    <strong>Avaliações técnicas</strong>
+                    <p>Sem avaliações públicas cadastradas para este item no momento.</p>
+                </article>
+                <article>
+                    <strong>Aplicações documentadas</strong>
+                    <p>Quando houver casos autorizados, esta seção poderá exibir contexto de uso e observações técnicas.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="section product-detail-content alt" id="resources">
+        <div class="container">
+            <div class="product-two-column">
+                <div>
+                    <div class="section-header">
+                        <h2>Resources</h2>
+                        <p>Documentos, páginas relacionadas e próximos passos para este produto.</p>
+                        <hr class="header-line left">
+                    </div>
+                    <div class="resource-links" id="productResources"></div>
+                </div>
+                <div>
+                    <h3>Itens tecnicamente próximos</h3>
+                    <div class="related-products" id="productRelated"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <img src="../icons/tor.png" alt="TOR" class="footer-logo">
+                    <p>Equipamentos de telecomunicações fabricados para projetos públicos e privados, com qualidade, tecnologia confiável e preço justo.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Produtos</h4>
+                    <ul>
+                        <li><a href="produtos.html?categoria=sfp">Módulos SFP</a></li>
+                        <li><a href="produtos.html?categoria=qsfp">Módulos QSFP</a></li>
+                        <li><a href="produtos.html">Catálogo</a></li>
+                        <li><a href="solucoes.html">Soluções</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>A Empresa</h4>
+                    <ul>
+                        <li><a href="sobre.html">Quem Somos</a></li>
+                        <li><a href="garantia.html">Garantia e Qualidade</a></li>
+                        <li><a href="parceiros.html">Parceiros Tecnológicos</a></li>
+                        <li><a href="trabalhe-conosco.html">Trabalhe Conosco</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contato</h4>
+                    <p>Telefone: 0800 000 5978</p>
+                    <p>E-mail: governo@tor.tec.br</p>
+                    <p>Santa Rita do Sapucaí, MG</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 TOR Tecnologia e Indústria. Todos os direitos reservados.</p>
+                <p>CNPJ: 00.000.000/0001-00</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="product-sticky-quote" aria-label="Barra rápida de cotação">
+        <div>
+            <span id="stickyProductName">Produto TOR</span>
+            <strong id="stickyProductCode">Código TOR</strong>
+        </div>
+        <a href="suporte.html" class="btn-primary" id="stickyProductQuote">Solicitar Cotação</a>
+    </div>
+
+    <!-- Script for mobile menu toggle -->
+    <script>
+        const toggleBtn = document.getElementById('mobile-toggle');
+        const mobileNav = document.getElementById('mobile-nav');
+
+        toggleBtn.addEventListener('click', () => {
+            toggleBtn.classList.toggle('active');
+            mobileNav.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.mobile-nav-list a').forEach(link => {
+            link.addEventListener('click', () => {
+                toggleBtn.classList.remove('active');
+                mobileNav.classList.remove('active');
+            });
+        });
+    </script>
+    <script src="../catalog-data.js?v=20260722-2"></script>
+    <script src="../product-media.js?v=20260723-media2"></script>
+    <script src="../product-detail.js?v=20260723-questions2"></script>
+    <script src="../navigation.js?v=20260723-fs1"></script>
+    <script src="../chatbot.js?v=20260722-3"></script>
+    <script src="../language.js?v=20260723-i18n1"></script>
+</body>
+</html>

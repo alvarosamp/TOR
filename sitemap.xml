@@ -56,4 +56,44 @@
         <loc>https://tor.com.br/produto-detalhe.html</loc>
         <priority>0.6</priority>
     </url>
+    <url>
+        <loc>https://tor.com.br/en/index.html</loc>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://tor.com.br/en/produtos.html</loc>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://tor.com.br/en/solucoes.html</loc>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://tor.com.br/en/conteudo.html</loc>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://tor.com.br/en/parceiros.html</loc>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://tor.com.br/en/sobre.html</loc>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://tor.com.br/en/garantia.html</loc>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://tor.com.br/en/suporte.html</loc>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://tor.com.br/en/privacidade.html</loc>
+        <priority>0.4</priority>
+    </url>
+    <url>
+        <loc>https://tor.com.br/en/trabalhe-conosco.html</loc>
+        <priority>0.4</priority>
+    </url>
 </urlset>

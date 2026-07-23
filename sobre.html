@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=20260723-questions2">
 </head>
 <body>
 
@@ -69,14 +69,29 @@
         </ul>
     </div>
 
-    <section class="page-header">
+    <section class="about-hero">
+        <img src="assets/tor-optical-hero.png" alt="Interconexões ópticas e tecnologia TOR">
+        <div class="about-hero-overlay"></div>
         <div class="container">
+            <span>Sobre a TOR</span>
             <h1>Quem Somos</h1>
-            <p>Fabricante em crescimento de produtos e soluções para telecomunicações</p>
+            <p>Fabricação e tecnologia para telecomunicações, com produtos para redes públicas e privadas.</p>
+            <a href="#contato" class="btn-primary">Falar com a TOR</a>
         </div>
     </section>
 
-    <section class="section about-section">
+    <nav class="about-anchor-nav" aria-label="Navegação institucional">
+        <div class="container about-anchor-inner">
+            <a href="#quem-somos">Quem Somos</a>
+            <a href="#por-que-tor">Por que a TOR</a>
+            <a href="#servicos">Nossos Serviços</a>
+            <a href="#aplicacoes">Aplicações</a>
+            <a href="#novidades">Conteúdo</a>
+            <a href="#contato">Contato</a>
+        </div>
+    </nav>
+
+    <section class="section about-section" id="quem-somos">
         <div class="container">
             <div class="about-grid">
                 <div class="about-map">
@@ -101,51 +116,174 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <section class="section landing-section">
-        <div class="container">
-            <div class="section-header text-center">
-                <h2>Nossa História</h2>
-                <p>A TOR nasce da experiência em tecnologia, indústria e desenvolvimento de produtos para ambientes que exigem confiabilidade.</p>
-                <hr class="header-line">
-            </div>
-            <div class="values-grid">
-                <div class="value-card">
-                    <h3>Inovação no mercado</h3>
-                    <p>Somos uma empresa em inovação constante, entendendo as necessidades do mercado público e privado para desenvolver equipamentos de telecomunicações mais acessíveis e confiáveis.</p>
+            <div class="about-metrics-grid">
+                <div>
+                    <strong>18</strong>
+                    <span>módulos ópticos TOR no catálogo</span>
                 </div>
-                <div class="value-card">
-                    <h3>Atuação consultiva</h3>
-                    <p>Auxiliamos o cliente a identificar o produto TOR mais adequado ao ambiente, considerando aplicação, compatibilidade e requisitos técnicos.</p>
+                <div>
+                    <strong>SFP/QSFP</strong>
+                    <span>famílias ópticas em destaque</span>
                 </div>
-                <div class="value-card">
-                    <h3>Crescimento sustentável</h3>
-                    <p>Nosso foco é desenvolver soluções e produtos que atendem às telecomunicações no mercado brasileiro, com qualidade, proximidade técnica e evolução constante.</p>
+                <div>
+                    <strong>0800</strong>
+                    <span>canal direto de atendimento</span>
+                </div>
+                <div>
+                    <strong>MG</strong>
+                    <span>sede em Santa Rita do Sapucaí</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="section">
+    <section class="section landing-section" id="por-que-tor">
         <div class="container">
             <div class="section-header text-center">
-                <h2>Missão, Visão e Valores</h2>
+                <h2>Por que a TOR</h2>
+                <p>Produtos fabricados para redes que precisam de desempenho, compatibilidade e clareza técnica.</p>
                 <hr class="header-line">
             </div>
             <div class="values-grid">
                 <div class="value-card">
-                    <h3>Missão</h3>
-                    <p>Fabricar produtos e desenvolver soluções de conectividade com qualidade técnica, agilidade e documentação clara para projetos públicos e privados.</p>
+                    <h3>Portfólio objetivo</h3>
+                    <p>O catálogo destaca módulos SFP e QSFP por taxa, alcance, conector e tipo de fibra para facilitar a comparação técnica.</p>
                 </div>
                 <div class="value-card">
-                    <h3>Visão</h3>
-                    <p>Ser referência nacional em equipamentos de telecomunicações de alta qualidade, com tecnologia confiável e preço justo para o mercado brasileiro.</p>
+                    <h3>Documentação de produto</h3>
+                    <p>Os produtos TOR possuem caminho direto para consulta do datasheet quando o documento está disponível no site.</p>
                 </div>
                 <div class="value-card">
-                    <h3>Valores</h3>
-                    <p>Confiabilidade, transparência, precisão técnica, compromisso com o cliente e responsabilidade em cada etapa do desenvolvimento e atendimento.</p>
+                    <h3>Atendimento próximo</h3>
+                    <p>Nossa equipe auxilia na escolha do melhor produto fabricado pela TOR para a demanda informada pelo cliente.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="servicos">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>Nossos Serviços</h2>
+                <p>Uma estrutura pensada para apoiar a compra e a aplicação dos produtos TOR.</p>
+                <hr class="header-line">
+            </div>
+            <div class="about-services-grid">
+                <article>
+                    <span>01</span>
+                    <h3>Fabricação de equipamentos</h3>
+                    <p>Desenvolvimento e fornecimento de produtos de telecomunicações para redes públicas e privadas.</p>
+                </article>
+                <article>
+                    <span>02</span>
+                    <h3>Catálogo técnico</h3>
+                    <p>Organização dos itens por família, velocidade, alcance, fibra e conector para facilitar a consulta.</p>
+                </article>
+                <article>
+                    <span>03</span>
+                    <h3>Datasheets</h3>
+                    <p>Disponibilização de informações técnicas para apoiar a análise do comprador.</p>
+                </article>
+                <article>
+                    <span>04</span>
+                    <h3>Atendimento especializado</h3>
+                    <p>Contato direto para dúvidas sobre produto, compatibilidade, cotação e disponibilidade.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="section about-applications-section" id="aplicacoes">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>Aplicações</h2>
+                <p>Áreas onde os equipamentos TOR podem ser aplicados conforme a necessidade técnica do projeto.</p>
+                <hr class="header-line">
+            </div>
+            <div class="about-application-grid">
+                <article>
+                    <img src="assets/product-testing-lab.png" alt="Ambiente técnico de testes">
+                    <div>
+                        <span>Provedores</span>
+                        <h3>Acesso, agregação e interconexões ópticas</h3>
+                        <p>Módulos ópticos para expansão de rede, enlaces entre equipamentos e crescimento do portfólio B2B.</p>
+                    </div>
+                </article>
+                <article>
+                    <img src="assets/tor-solutions-hero.png" alt="Infraestrutura de rede e data center">
+                    <div>
+                        <span>Data centers</span>
+                        <h3>Conectividade de alta capacidade</h3>
+                        <p>Produtos SFP e QSFP para ambientes que exigem maior velocidade, organização e confiabilidade.</p>
+                    </div>
+                </article>
+                <article>
+                    <img src="assets/images/hero_bg.png" alt="Rede corporativa e telecomunicações">
+                    <div>
+                        <span>Empresas e governo</span>
+                        <h3>Redes públicas e privadas</h3>
+                        <p>Equipamentos para projetos com requisitos técnicos definidos, documentação e atendimento comercial.</p>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="section about-news-section" id="novidades">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>Conteúdo e Novidades</h2>
+                <p>Canais para acompanhar materiais técnicos, atualizações e publicações institucionais da TOR.</p>
+                <hr class="header-line">
+            </div>
+            <div class="about-news-grid">
+                <a href="conteudo.html">
+                    <span>Conteúdo técnico</span>
+                    <strong>Guias e materiais para escolha de produtos</strong>
+                    <em>Acessar conteúdo</em>
+                </a>
+                <a href="https://www.linkedin.com/company/tor-tecnologia-e-industria/" target="_blank" rel="noopener">
+                    <span>LinkedIn</span>
+                    <strong>Atualizações institucionais da TOR</strong>
+                    <em>Abrir LinkedIn</em>
+                </a>
+                <a href="https://www.instagram.com/tor.tec/" target="_blank" rel="noopener">
+                    <span>Instagram</span>
+                    <strong>Publicações e novidades do dia a dia</strong>
+                    <em>Abrir Instagram</em>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section about-contact-section" id="contato">
+        <div class="container">
+            <div class="about-contact-grid">
+                <div>
+                    <div class="section-header">
+                        <h2>Contato</h2>
+                        <p>Fale com a TOR para cotação, dúvidas técnicas ou informações sobre produtos.</p>
+                        <hr class="header-line left">
+                    </div>
+                    <div class="address-box">
+                        <strong>TOR Tecnologia e Indústria</strong><br>
+                        Rua Comendador Custódio Ribeiro 137, Sala 16<br>
+                        Santa Rita do Sapucaí, Minas Gerais - CEP 37536-042, BR<br><br>
+                        <a href="tel:08000005978">0800 000 5978</a><br>
+                        <a href="mailto:governo@tor.tec.br">governo@tor.tec.br</a>
+                    </div>
+                    <div class="modal-actions">
+                        <a href="suporte.html" class="btn-primary">Solicitar Proposta</a>
+                        <a href="produtos.html" class="btn-small-outline">Ver Catálogo</a>
+                    </div>
+                </div>
+                <div class="about-map">
+                    <iframe
+                        title="Mapa da sede da TOR em Santa Rita do Sapucaí"
+                        src="https://www.google.com/maps?q=Rua%20Comendador%20Cust%C3%B3dio%20Ribeiro%20137%2C%20Sala%2016%2C%20Santa%20Rita%20do%20Sapuca%C3%AD%2C%20Minas%20Gerais%2C%2037536-042%2C%20Brasil&output=embed"
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
                 </div>
             </div>
         </div>
@@ -206,6 +344,8 @@
             });
         });
     </script>
+    <script src="navigation.js?v=20260723-fs1"></script>
     <script src="chatbot.js?v=20260722-3"></script>
+    <script src="language.js?v=20260723-i18n1"></script>
 </body>
 </html>

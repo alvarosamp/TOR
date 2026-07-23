@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=20260723-questions2">
 </head>
 <body>
 
@@ -149,6 +149,7 @@
     <div class="product-modal" id="productModal" hidden>
         <div class="product-modal-panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
             <button type="button" class="modal-close" id="modalClose" aria-label="Fechar detalhes">×</button>
+            <div class="modal-product-media" id="modalProductMedia" hidden></div>
             <div class="catalog-badges" id="modalBadges"></div>
             <h2 id="modalTitle"></h2>
             <p id="modalDescription"></p>
@@ -217,7 +218,10 @@
         });
     </script>
     <script src="catalog-data.js?v=20260722-2"></script>
-    <script src="catalog.js?v=20260722-2"></script>
+    <script src="product-media.js?v=20260723-media2"></script>
+    <script src="catalog.js?v=20260723-questions2"></script>
+    <script src="navigation.js?v=20260723-fs1"></script>
     <script src="chatbot.js?v=20260722-3"></script>
+    <script src="language.js?v=20260723-i18n1"></script>
 </body>
 </html>

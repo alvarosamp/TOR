@@ -34,6 +34,7 @@
     const modalPdf = document.getElementById('modalPdf');
     const modalDetail = document.getElementById('modalDetail');
     const modalQuote = document.getElementById('modalQuote');
+    const modalProductMedia = document.getElementById('modalProductMedia');
     const normalize = (value) => String(value || '').toLowerCase();
     const allowedFilters = ['todos', 'sfp', 'qsfp'];
     const requestedFilter = new URLSearchParams(window.location.search).get('categoria');
@@ -42,6 +43,7 @@
     if (!catalogGrid) return;
 
     const productUrl = (product) => `produto-detalhe.html?produto=${encodeURIComponent(product.code || product.name)}`;
+    const productMedia = (product) => window.TOR_PRODUCT_MEDIA && window.TOR_PRODUCT_MEDIA[product.code];
 
     const productText = (product) => normalize([
         product.name,
@@ -114,8 +116,14 @@
         catalogGrid.innerHTML = visibleProducts.map((product) => {
             const index = products.indexOf(product);
             const specs = product.specs || {};
+            const media = productMedia(product);
             return `
                 <button type="button" class="catalog-card" data-index="${index}">
+                    ${media ? `
+                        <span class="catalog-card-media">
+                            <img src="${media.src}" alt="${product.name}">
+                        </span>
+                    ` : ''}
                     <span class="catalog-card-type">${product.type}</span>
                     <h4>${product.name}</h4>
                     <p>${product.description}</p>
@@ -124,7 +132,7 @@
                         <span>${specs.Alcance || 'Alcance sob consulta'}</span>
                         <span>${specs.Conector || specs.Interface || 'Interface sob consulta'}</span>
                     </div>
-                    <span class="catalog-card-hint">Clique para ver especificações</span>
+                    <span class="catalog-card-hint">Clique para abrir a página do produto</span>
                     <div class="catalog-badges">
                         <span class="catalog-badge ${product.statusClass || ''}">${product.datasheetStatus}</span>
                         <span class="catalog-badge">${product.family}</span>
@@ -141,7 +149,10 @@
         catalogEmpty.hidden = visibleProducts.length > 0;
 
         document.querySelectorAll('.catalog-card').forEach((card) => {
-            card.addEventListener('click', () => openProduct(Number(card.dataset.index)));
+            card.addEventListener('click', () => {
+                const product = products[Number(card.dataset.index)];
+                if (product) window.location.href = productUrl(product);
+            });
         });
     };
 
@@ -151,6 +162,15 @@
 
         modalTitle.textContent = product.name;
         modalDescription.textContent = product.description;
+        const media = productMedia(product);
+        if (modalProductMedia) {
+            if (media) {
+                modalProductMedia.innerHTML = `<img src="${media.src}" alt="${product.name}"><span>${media.note}</span>`;
+                modalProductMedia.hidden = false;
+            } else {
+                modalProductMedia.hidden = true;
+            }
+        }
         modalBadges.innerHTML = `
             <span class="catalog-badge ${product.statusClass || ''}">${product.datasheetStatus}</span>
             <span class="catalog-badge">${product.family}</span>

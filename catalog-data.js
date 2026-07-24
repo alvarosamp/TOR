@@ -1,22 +1,22 @@
 window.TOR_CATALOG_PRODUCTS = [
     {
-        name: 'QSFP100G850NM100M',
-        code: 'QSFP100G850NM100M',
+        name: 'QSFP100GSR100M',
+        code: 'QSFP100GSR100M',
         category: 'transceivers',
         family: 'QSFP',
         type: 'Transceptor QSFP28 SR4',
         datasheetStatus: 'Datasheet TOR',
         statusClass: 'tor',
-        pdf: 'assets/datasheets/QSFP100G850NM100M-ok.pdf',
-        description: 'Transceptor QSFP28 SR4 para aplicações 100G sobre fibra multimodo OM4, com alcance de até 100 m.',
+        pdf: 'assets/datasheets/QSFP100GSR100M-ok.pdf',
+        description: 'Transceptor QSFP28 SR4 100G, 850 nm, para enlaces multimodo de at? 100 m com conector MPO/MTP.',
         specs: {
             'Taxa': '100 Gb/s',
             'Alcance': '100 m',
             'Comprimento de onda': '850 nm',
             'Conector': 'MPO/MTP',
-            'Fibra': 'MMF OM4',
+            'Fibra': 'MMF',
             'DDM': 'Sim',
-            'Temperatura': '0 °C a +70 °C'
+            'Temperatura': '0 ?C a +70 ?C'
         }
     },
     {
@@ -239,43 +239,43 @@ window.TOR_CATALOG_PRODUCTS = [
         }
     },
     {
-        name: 'SFPX10GD1310NM10KM',
-        code: 'SFPX10GD1310NM10KM',
+        name: 'SFPX10GDLR10KM',
+        code: 'SFPX10GDLR10KM',
         category: 'transceivers',
         family: 'SFP',
-        type: 'Transceptor SFP28 LR',
+        type: 'Transceptor SFP+ LR',
         datasheetStatus: 'Datasheet TOR',
         statusClass: 'tor',
-        pdf: 'assets/datasheets/SFPX10GD1310NM10KM-ok.pdf',
-        description: 'Transceptor SFP28 LR de alto desempenho para enlaces Ethernet de até 25,78 Gb/s em SMF.',
+        pdf: 'assets/datasheets/SFPX10GDLR10KM-ok.pdf',
+        description: 'Transceptor SFP+ 10G LR, 1310 nm, para enlaces monomodo de at? 10 km com conector LC duplex.',
         specs: {
-            'Taxa': '25,78 Gb/s',
+            'Taxa': '10 Gb/s',
             'Alcance': '10 km',
             'Comprimento de onda': '1310 nm',
             'Conector': 'Duplex LC/UPC',
             'Fibra': 'SMF',
             'DDM': 'Sim',
-            'Temperatura': '0 °C a +70 °C'
+            'Temperatura': '0 ?C a +70 ?C'
         }
     },
     {
-        name: 'SFPX10GD850NM300M',
-        code: 'SFPX10GD850NM300M',
+        name: 'SFPX10GDSR300M',
+        code: 'SFPX10GDSR300M',
         category: 'transceivers',
         family: 'SFP',
-        type: 'Transceptor SFP28 SR',
+        type: 'Transceptor SFP+ SR',
         datasheetStatus: 'Datasheet TOR',
         statusClass: 'tor',
-        pdf: 'assets/datasheets/SFPX10GD850NM300M-ok.pdf',
-        description: 'Transceptor SFP28 SR para 25G Ethernet, 850 nm, alcance de até 300 m em OM4.',
+        pdf: 'assets/datasheets/SFPX10GDSR300M-ok.pdf',
+        description: 'Transceptor SFP+ 10G SR, 850 nm, para enlaces multimodo de at? 300 m com conector LC duplex.',
         specs: {
-            'Taxa': '25,78125 Gb/s',
-            'Alcance': '70 m OM3 / 300 m OM4',
+            'Taxa': '10 Gb/s',
+            'Alcance': '300 m',
             'Comprimento de onda': '850 nm',
             'Conector': 'Duplex LC/UPC',
             'Fibra': 'MMF',
             'DDM': 'Sim',
-            'Temperatura': '0 °C a +70 °C'
+            'Temperatura': '0 ?C a +70 ?C'
         }
     },
     {
@@ -298,65 +298,45 @@ window.TOR_CATALOG_PRODUCTS = [
         }
     },
     {
-        name: 'SFPX25G1310NM10KM',
-        code: 'SFPX25G1310NM10KM',
+        name: 'SFPX25GDLR10KM',
+        code: 'SFPX25GDLR10KM',
         category: 'transceivers',
         family: 'SFP',
         type: 'Transceptor SFP28 LR',
         datasheetStatus: 'Datasheet TOR',
         statusClass: 'tor',
-        pdf: 'assets/datasheets/SFPX25G1310NM10KM-ok.pdf',
-        description: 'Transceptor SFP28 LR 1310 nm para 25GBASE-LR, alcance de até 10 km em SMF.',
+        pdf: 'assets/datasheets/SFPX25GDLR10KM-ok.pdf',
+        description: 'Transceptor SFP28 25G LR, 1310 nm, para enlaces monomodo de at? 10 km com conector LC duplex.',
         specs: {
-            'Taxa': '25,78 Gb/s',
+            'Taxa': '25 Gb/s',
             'Alcance': '10 km',
             'Comprimento de onda': '1310 nm',
             'Conector': 'Duplex LC/UPC',
             'Fibra': 'SMF',
             'DDM': 'Sim',
-            'Temperatura': '0 °C a +70 °C'
+            'Temperatura': '0 ?C a +70 ?C'
         }
     },
     {
-        name: 'SFPX25G1310NM300M',
-        code: 'SFPX25G1310NM300M',
-        category: 'transceivers',
-        family: 'SFP',
-        type: 'Transceptor SFP+ SR',
-        datasheetStatus: 'Datasheet TOR',
-        statusClass: 'tor',
-        pdf: 'assets/datasheets/SFPX25G1310NM300M-ok.pdf',
-        description: 'Transceptor SFP+ 850 nm para 10G em fibra multimodo, alcance de até 300 m.',
-        specs: {
-            'Taxa': '10 Gb/s',
-            'Alcance': '300 m',
-            'Comprimento de onda': '850 nm',
-            'Conector': 'Duplex LC/UPC',
-            'Fibra': 'MMF',
-            'DDM': 'Sim',
-            'Temperatura': '0 °C a +70 °C'
-        }
-    },
-    {
-        name: 'SFPX25G850NM300M',
-        code: 'SFPX25G850NM300M',
+        name: 'SFPX25GDSR100M',
+        code: 'SFPX25GDSR100M',
         category: 'transceivers',
         family: 'SFP',
         type: 'Transceptor SFP28 SR',
         datasheetStatus: 'Datasheet TOR',
         statusClass: 'tor',
-        pdf: 'assets/datasheets/SFPX25G850NM300M.pdf',
-        description: 'Transceptor SFP28 SR 850 nm para 25G Ethernet em fibra multimodo OM4 até 300 m.',
+        pdf: 'assets/datasheets/SFPX25GDSR100M-ok.pdf',
+        description: 'Transceptor SFP28 25G SR, 850 nm, para enlaces multimodo de at? 100 m com conector LC duplex.',
         specs: {
             'Taxa': '25 Gb/s',
-            'Alcance': '70 m OM3 / 300 m OM4',
+            'Alcance': '100 m',
             'Comprimento de onda': '850 nm',
             'Conector': 'Duplex LC/UPC',
-            'Fibra': 'MMF OM4',
+            'Fibra': 'MMF',
             'DDM': 'Sim',
-            'Temperatura': '0 °C a +70 °C'
+            'Temperatura': '0 ?C a +70 ?C'
         }
-    }    ,
+    },
     {
         name: 'Switch Gerenciável L2+ 24 Portas Gigabit PoE',
         code: 'TOR-SW24G-4SFP-POE',

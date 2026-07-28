@@ -1420,25 +1420,117 @@ p {
 }
 
 .product-connectivity-stage {
-    display: grid;
-    grid-template-columns: 1fr 1.1fr 1.2fr 1.1fr 1fr;
-    gap: 12px;
-    align-items: center;
     margin-bottom: 24px;
-    padding: 24px;
+}
+
+.connectivity-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 14px;
+    padding: 8px;
     border: 1px solid var(--border-color);
     background-color: var(--bg-white);
 }
 
+.connectivity-tabs button {
+    flex: 1 1 170px;
+    min-height: 38px;
+    border: 1px solid transparent;
+    background-color: var(--bg-gray);
+    color: var(--text-dark);
+    cursor: default;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.connectivity-tabs button.active {
+    border-color: var(--primary-red);
+    background-color: var(--bg-white);
+    color: var(--primary-red);
+}
+
+.connectivity-visual-card {
+    border: 1px solid var(--border-color);
+    background:
+        linear-gradient(135deg, rgba(204, 0, 0, 0.05), rgba(255, 255, 255, 0) 42%),
+        var(--bg-white);
+}
+
+.connectivity-visual-copy {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 28px 24px 8px;
+    text-align: center;
+}
+
+.connectivity-visual-copy span {
+    color: var(--primary-red);
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.connectivity-visual-copy h3 {
+    margin: 5px 0 8px;
+    font-size: 22px;
+}
+
+.connectivity-visual-copy p {
+    margin-bottom: 0;
+    font-size: 14px;
+}
+
+.connectivity-diagram {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1.05fr 0.9fr 1.25fr 0.9fr 1.05fr;
+    gap: 12px;
+    align-items: center;
+    min-height: 330px;
+    margin: 0 24px 20px;
+    padding: 28px 18px 54px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    background:
+        radial-gradient(circle at 24% 24%, rgba(204, 0, 0, 0.08), transparent 28%),
+        linear-gradient(180deg, #FFFFFF, #F7F7F7);
+}
+
 .connectivity-endpoint,
 .connectivity-module {
-    min-height: 130px;
+    position: relative;
+    z-index: 2;
+    min-height: 150px;
     display: grid;
     place-items: center;
     text-align: center;
     padding: 16px;
     border: 1px solid var(--border-color);
-    background-color: var(--bg-gray);
+    background-color: rgba(255, 255, 255, 0.92);
+    box-shadow: 0 16px 34px rgba(0, 0, 0, 0.06);
+}
+
+.connectivity-endpoint {
+    align-content: center;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 5px;
+    min-height: 122px;
+    background:
+        linear-gradient(180deg, #2D3035, #15171A);
+}
+
+.connectivity-endpoint span,
+.connectivity-endpoint strong {
+    grid-column: 1 / -1;
+}
+
+.connectivity-endpoint i {
+    display: block;
+    height: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 .connectivity-endpoint strong,
@@ -1447,21 +1539,31 @@ p {
     font-size: 14px;
 }
 
+.connectivity-endpoint strong {
+    color: var(--bg-white);
+}
+
 .connectivity-endpoint span,
 .connectivity-module span {
     color: var(--text-light);
     font-size: 12px;
 }
 
+.connectivity-endpoint span {
+    color: #CCCCCC;
+}
+
 .connectivity-module img {
-    width: 96px;
+    width: 100%;
+    max-width: 150px;
     height: 58px;
     object-fit: contain;
 }
 
 .connectivity-cable {
     position: relative;
-    min-height: 74px;
+    z-index: 1;
+    min-height: 86px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1473,28 +1575,386 @@ p {
     position: absolute;
     left: 6px;
     right: 6px;
-    height: 3px;
+    height: 4px;
     background-color: var(--primary-red);
+    box-shadow: 0 0 14px rgba(204, 0, 0, 0.22);
 }
 
 .connectivity-cable::before {
-    transform: translateY(-5px);
+    transform: translateY(-7px);
 }
 
 .connectivity-cable::after {
-    transform: translateY(5px);
-    background-color: #555;
+    transform: translateY(7px);
+    background-color: #2F2F2F;
 }
 
 .connectivity-cable span {
     position: relative;
     z-index: 1;
-    padding: 6px 10px;
+    padding: 7px 12px;
+    border: 1px solid var(--border-color);
     background-color: var(--bg-white);
     color: var(--text-dark);
     font-size: 12px;
     font-weight: 700;
     text-align: center;
+}
+
+.diagram-product {
+    color: inherit;
+}
+
+.diagram-product:hover {
+    border-color: var(--primary-red);
+}
+
+.diagram-fiber {
+    color: inherit;
+}
+
+.connectivity-hotspot {
+    position: absolute;
+    z-index: 4;
+    display: inline-flex;
+    align-items: center;
+    min-height: 26px;
+    max-width: 170px;
+    padding: 5px 8px;
+    border: 1px solid rgba(204, 0, 0, 0.32);
+    background-color: rgba(255, 255, 255, 0.95);
+    color: var(--text-dark);
+    font-size: 10px;
+    font-weight: 800;
+    line-height: 1.2;
+    text-transform: uppercase;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
+}
+
+.connectivity-hotspot::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    margin-right: 6px;
+    border-radius: 50%;
+    background-color: var(--primary-red);
+    box-shadow: 0 0 0 4px rgba(204, 0, 0, 0.12);
+}
+
+.connectivity-hotspot:hover {
+    border-color: var(--primary-red);
+    color: var(--primary-red);
+}
+
+.hotspot-module {
+    left: 27%;
+    top: 26%;
+}
+
+.hotspot-datasheet {
+    left: 45%;
+    top: 48%;
+}
+
+.hotspot-related {
+    right: 24%;
+    top: 28%;
+}
+
+.hotspot-quote {
+    right: 22px;
+    bottom: 18px;
+}
+
+.connectivity-visual-footer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    padding: 0 24px 24px;
+}
+
+.connectivity-visual-footer span,
+.connectivity-visual-footer strong {
+    display: inline-flex;
+    align-items: center;
+    min-height: 32px;
+    padding: 7px 11px;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-gray);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.connectivity-visual-footer strong {
+    flex: 1 1 260px;
+    background-color: rgba(204, 0, 0, 0.06);
+    color: var(--text-dark);
+}
+
+.connectivity-usecase-intro {
+    max-width: 760px;
+    margin: 0 auto 22px;
+    text-align: center;
+}
+
+.connectivity-usecase-intro span {
+    color: var(--primary-red);
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.connectivity-usecase-intro h3 {
+    margin: 5px 0 8px;
+    font-size: 24px;
+}
+
+.connectivity-usecase-intro p {
+    margin-bottom: 0;
+    font-size: 14px;
+}
+
+.connectivity-usecase-grid {
+    display: grid;
+    gap: 18px;
+}
+
+.connectivity-usecase-card {
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-white);
+}
+
+.connectivity-usecase-head {
+    display: grid;
+    gap: 6px;
+    padding: 20px 22px 0;
+}
+
+.connectivity-usecase-head h3 {
+    font-size: 19px;
+}
+
+.connectivity-usecase-head p {
+    margin-bottom: 0;
+    font-size: 14px;
+}
+
+.connectivity-usecase-map {
+    display: grid;
+    grid-template-columns: minmax(120px, 1fr) minmax(120px, 0.9fr) minmax(160px, 1.2fr) minmax(120px, 0.9fr) minmax(120px, 1fr);
+    gap: 12px;
+    align-items: center;
+    margin: 18px 22px;
+    padding: 22px;
+    overflow-x: auto;
+    background:
+        radial-gradient(circle at 18% 18%, rgba(204, 0, 0, 0.08), transparent 26%),
+        linear-gradient(180deg, #FFFFFF, #F6F6F6);
+    border: 1px solid var(--border-color);
+}
+
+.usecase-switch {
+    min-width: 130px;
+    min-height: 118px;
+    display: grid;
+    align-content: center;
+    gap: 8px;
+    padding: 14px;
+    background: linear-gradient(180deg, #303238, #15171A);
+    color: var(--bg-white);
+}
+
+.usecase-switch span,
+.usecase-switch strong {
+    display: block;
+    text-align: center;
+}
+
+.usecase-switch span {
+    color: #CCCCCC;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.usecase-switch strong {
+    font-size: 13px;
+}
+
+.usecase-switch div {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 4px;
+}
+
+.usecase-switch i {
+    display: block;
+    height: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.32);
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.usecase-product-node,
+.usecase-client-node {
+    min-width: 120px;
+    min-height: 118px;
+    display: grid;
+    align-content: center;
+    justify-items: center;
+    gap: 6px;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    background-color: rgba(255, 255, 255, 0.94);
+    color: var(--text-dark);
+    text-align: center;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
+}
+
+.usecase-product-node:hover {
+    border-color: var(--primary-red);
+    color: var(--primary-red);
+}
+
+.usecase-product-node img {
+    width: 112px;
+    height: 42px;
+    object-fit: contain;
+}
+
+.usecase-product-node em,
+.connectivity-related-grid em {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 70px;
+    height: 36px;
+    background-color: var(--bg-gray);
+    color: var(--primary-red);
+    font-style: normal;
+    font-weight: 800;
+}
+
+.usecase-product-node small {
+    color: var(--primary-red);
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.usecase-product-node strong,
+.usecase-client-node strong {
+    font-size: 12px;
+    word-break: break-word;
+}
+
+.usecase-client-node span {
+    color: var(--text-light);
+    font-size: 12px;
+}
+
+.usecase-link-node {
+    position: relative;
+    min-width: 160px;
+    min-height: 92px;
+    display: grid;
+    place-items: center;
+    text-align: center;
+}
+
+.usecase-link-node b {
+    position: absolute;
+    left: 8px;
+    right: 8px;
+    height: 4px;
+    background-color: var(--primary-red);
+}
+
+.usecase-link-node b:first-child {
+    transform: translateY(-7px);
+}
+
+.usecase-link-node b:nth-child(2) {
+    transform: translateY(7px);
+    background-color: #2F2F2F;
+}
+
+.usecase-link-node span,
+.usecase-link-node small {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    padding: 5px 9px;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-white);
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.usecase-link-node small {
+    margin-top: 32px;
+    color: var(--text-light);
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.connectivity-usecase-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 0 22px 20px;
+}
+
+.connectivity-usecase-actions a {
+    border: 1px solid var(--border-color);
+    padding: 8px 11px;
+    color: var(--text-dark);
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.connectivity-usecase-actions a:hover {
+    border-color: var(--primary-red);
+    color: var(--primary-red);
+}
+
+.connectivity-related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    padding: 18px 22px 22px;
+}
+
+.connectivity-related-grid a {
+    display: grid;
+    gap: 8px;
+    align-content: start;
+    min-height: 138px;
+    padding: 14px;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-gray);
+    color: var(--text-dark);
+}
+
+.connectivity-related-grid a:hover {
+    border-color: var(--primary-red);
+    color: var(--primary-red);
+}
+
+.connectivity-related-grid img {
+    width: 120px;
+    height: 46px;
+    object-fit: contain;
+}
+
+.connectivity-related-grid strong {
+    font-size: 13px;
+}
+
+.connectivity-related-grid span {
+    color: var(--text-light);
+    font-size: 12px;
 }
 
 .product-info-card {
@@ -2028,12 +2488,15 @@ p {
         grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
-    .product-connectivity-stage {
+    .connectivity-diagram {
         grid-template-columns: 1fr;
+        min-height: 0;
+        margin: 0 12px 16px;
+        padding: 18px 12px 120px;
     }
 
     .connectivity-cable {
-        min-height: 90px;
+        min-height: 100px;
     }
 
     .connectivity-cable::before,
@@ -2042,16 +2505,64 @@ p {
         right: auto;
         top: 8px;
         bottom: 8px;
-        width: 3px;
+        width: 4px;
         height: auto;
     }
 
     .connectivity-cable::before {
-        transform: translateX(-5px);
+        transform: translateX(-7px);
     }
 
     .connectivity-cable::after {
-        transform: translateX(5px);
+        transform: translateX(7px);
+    }
+
+    .connectivity-hotspot {
+        position: static;
+        margin: 2px 0;
+        max-width: none;
+    }
+
+    .connectivity-visual-copy {
+        padding: 22px 16px 8px;
+    }
+
+    .connectivity-visual-footer {
+        padding: 0 12px 18px;
+    }
+
+    .connectivity-usecase-map {
+        grid-template-columns: 1fr;
+        margin: 14px 12px;
+        padding: 14px;
+    }
+
+    .usecase-link-node {
+        min-height: 100px;
+    }
+
+    .usecase-link-node b {
+        left: 50%;
+        right: auto;
+        top: 8px;
+        bottom: 8px;
+        width: 4px;
+        height: auto;
+    }
+
+    .usecase-link-node b:first-child {
+        transform: translateX(-7px);
+    }
+
+    .usecase-link-node b:nth-child(2) {
+        transform: translateX(7px);
+    }
+
+    .connectivity-usecase-head,
+    .connectivity-usecase-actions,
+    .connectivity-related-grid {
+        padding-left: 14px;
+        padding-right: 14px;
     }
 
     .product-sticky-quote {

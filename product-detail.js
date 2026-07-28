@@ -42,6 +42,7 @@
     const questionsUrl = (item) => `produto-duvidas.html?produto=${encodeURIComponent(item.code || item.name)}`;
     const productMedia = (item) => window.TOR_PRODUCT_MEDIA && window.TOR_PRODUCT_MEDIA[item.code];
     const specs = product ? product.specs || {} : {};
+    const isEnglish = window.location.pathname.includes('/en/');
 
     const normalizeText = (value) => String(value || '')
         .normalize('NFD')
@@ -144,6 +145,42 @@
     const reach = specs.Alcance || 'sob consulta';
     const rate = specs.Taxa || 'sob consulta';
 
+    const ui = isEnglish ? {
+        applicationTitle: isQsfp ? 'High-capacity interconnection' : 'Typical optical interconnection',
+        applicationText: 'Visual reference for applying this TOR module in compatible telecom equipment.',
+        moduleHotspot: 'Open this item',
+        quoteHotspot: 'Request quote',
+        datasheetHotspot: 'Open datasheet',
+        relatedHotspot: 'Related TOR item',
+        deviceA: 'Device A',
+        deviceB: 'Device B',
+        compatiblePort: 'Compatible optical port',
+        remotePort: 'Remote optical port',
+        torModule: 'TOR module',
+        opticalLink: 'Optical link',
+        similarItems: 'Related options',
+        bidiNotice: 'BiDi modules must be used with a complementary TX/RX pair.',
+        rj45Notice: 'RJ45 SFP modules use copper Ethernet cabling on the client side.',
+        defaultNotice: 'Confirm rate, reach, fiber type and connector before purchase.'
+    } : {
+        applicationTitle: isQsfp ? 'Interconexão de alta capacidade' : 'Interconexão óptica típica',
+        applicationText: 'Referência visual para aplicar este módulo TOR em equipamentos de telecomunicações compatíveis.',
+        moduleHotspot: 'Abrir este item',
+        quoteHotspot: 'Solicitar cotação',
+        datasheetHotspot: 'Abrir datasheet',
+        relatedHotspot: 'Item TOR relacionado',
+        deviceA: 'Equipamento A',
+        deviceB: 'Equipamento B',
+        compatiblePort: 'Porta óptica compatível',
+        remotePort: 'Porta óptica remota',
+        torModule: 'Módulo TOR',
+        opticalLink: 'Enlace óptico',
+        similarItems: 'Opções relacionadas',
+        bidiNotice: 'Módulos BiDi devem ser usados com par complementar TX/RX.',
+        rj45Notice: 'Módulos SFP RJ45 usam cabeamento Ethernet em cobre no lado cliente.',
+        defaultNotice: 'Confirme taxa, alcance, tipo de fibra e conector antes da compra.'
+    };
+
     const connectivityCards = [
         {
             title: isQsfp ? 'Backbone e alta capacidade' : 'Acesso e agregação',
@@ -192,6 +229,219 @@
             a: 'Sim. Informe a taxa, alcance, fibra e equipamento de destino para a equipe indicar o modelo mais adequado do catálogo TOR.'
         }
     ];
+
+    const buildConnectivityScenarios = () => {
+        const isBidi = normalizeText(product.type).includes('bidi') || normalizeText(product.description).includes('bidi');
+        const isRj45 = connector.includes('rj45') || normalizeText(product.description).includes('rj-45') || normalizeText(product.description).includes('rj45');
+        const mediaSrc = media ? media.src : '';
+        const related = relatedItems[0];
+        const relatedMedia = related ? productMedia(related) : null;
+        const cableLabel = isRj45
+            ? 'Ethernet RJ45'
+            : fiber.includes('mmf')
+                ? (isEnglish ? 'Multimode fiber' : 'Fibra multimodo')
+                : fiber.includes('smf')
+                    ? (isEnglish ? 'Single-mode fiber' : 'Fibra monomodo')
+                    : (isEnglish ? 'Compatible media' : 'Meio compatível');
+        const scenarioNotice = isBidi ? ui.bidiNotice : isRj45 ? ui.rj45Notice : ui.defaultNotice;
+        const primaryTab = isBidi
+            ? (isEnglish ? 'BiDi point-to-point' : 'BiDi ponto a ponto')
+            : isRj45
+                ? (isEnglish ? 'SFP to RJ45 access' : 'Acesso SFP para RJ45')
+                : isQsfp
+                    ? (isEnglish ? 'QSFP backbone' : 'Backbone QSFP')
+                    : (isEnglish ? 'Switch-to-switch' : 'Switch para switch');
+        const alternateTab = isQsfp
+            ? (isEnglish ? 'Core aggregation' : 'Agregação e core')
+            : (isEnglish ? 'Access/uplink' : 'Acesso e uplink');
+
+        return {
+            tabs: [primaryTab, alternateTab, ui.similarItems],
+            html: `
+                <div class="connectivity-visual-card">
+                    <div class="connectivity-visual-copy">
+                        <span>${escapeHtml(product.family || 'TOR')}</span>
+                        <h3>${escapeHtml(ui.applicationTitle)}</h3>
+                        <p>${escapeHtml(ui.applicationText)}</p>
+                    </div>
+                    <div class="connectivity-diagram" aria-label="${escapeHtml(ui.applicationTitle)}">
+                        <div class="diagram-device diagram-left">
+                            <span>${escapeHtml(ui.deviceA)}</span>
+                            <strong>${escapeHtml(ui.compatiblePort)}</strong>
+                            <i></i><i></i><i></i><i></i><i></i><i></i>
+                        </div>
+                        <a class="diagram-product diagram-module-left hotspot-link" href="${productUrl(product)}" aria-label="${escapeHtml(ui.moduleHotspot)}">
+                            ${mediaSrc ? `<img src="${escapeHtml(mediaSrc)}" alt="${escapeHtml(product.name)}">` : `<strong>${escapeHtml(product.family || 'TOR')}</strong>`}
+                            <span>${escapeHtml(product.name)}</span>
+                        </a>
+                        <a class="diagram-fiber hotspot-link" href="${product.pdf ? escapeHtml(product.pdf) : productUrl(product)}" ${product.pdf ? 'target="_blank" rel="noopener"' : ''} aria-label="${escapeHtml(ui.datasheetHotspot)}">
+                            <b></b><b></b>
+                            <span>${escapeHtml(cableLabel)}</span>
+                        </a>
+                        <a class="diagram-product diagram-module-right hotspot-link" href="${related ? productUrl(related) : productUrl(product)}" aria-label="${escapeHtml(ui.relatedHotspot)}">
+                            ${relatedMedia && relatedMedia.src ? `<img src="${escapeHtml(relatedMedia.src)}" alt="${escapeHtml(related.name)}">` : mediaSrc ? `<img src="${escapeHtml(mediaSrc)}" alt="${escapeHtml(product.name)}">` : `<strong>${escapeHtml(product.family || 'TOR')}</strong>`}
+                            <span>${escapeHtml(related ? related.name : `${product.family || 'TOR'} remoto`)}</span>
+                        </a>
+                        <div class="diagram-device diagram-right">
+                            <span>${escapeHtml(ui.deviceB)}</span>
+                            <strong>${escapeHtml(ui.remotePort)}</strong>
+                            <i></i><i></i><i></i><i></i><i></i><i></i>
+                        </div>
+                        <a class="connectivity-hotspot hotspot-module" href="${productUrl(product)}">${escapeHtml(ui.moduleHotspot)}</a>
+                        <a class="connectivity-hotspot hotspot-datasheet" href="${product.pdf ? escapeHtml(product.pdf) : productUrl(product)}" ${product.pdf ? 'target="_blank" rel="noopener"' : ''}>${escapeHtml(ui.datasheetHotspot)}</a>
+                        <a class="connectivity-hotspot hotspot-related" href="${related ? productUrl(related) : productUrl(product)}">${escapeHtml(ui.relatedHotspot)}</a>
+                        <a class="connectivity-hotspot hotspot-quote" href="suporte.html?produto=${encodeURIComponent(product.name)}">${escapeHtml(ui.quoteHotspot)}</a>
+                    </div>
+                    <div class="connectivity-visual-footer">
+                        <span>${escapeHtml(rate)}</span>
+                        <span>${escapeHtml(reach)}</span>
+                        <span>${escapeHtml(specs.Conector || specs.Interface || cableLabel)}</span>
+                        <strong>${escapeHtml(scenarioNotice)}</strong>
+                    </div>
+                </div>
+            `
+        };
+    };
+
+    const buildConnectivityUsecases = () => {
+        const isBidi = normalizeText(product.type).includes('bidi') || normalizeText(product.description).includes('bidi');
+        const isRj45 = connector.includes('rj45') || normalizeText(product.description).includes('rj-45') || normalizeText(product.description).includes('rj45');
+        const comparableItems = relatedItems.slice(0, 4);
+        const complement = isBidi
+            ? comparableItems.find((item) => normalizeText(item.type).includes('bidi') && parseSpeedGbps(getSpec(item, 'Taxa')) === parseSpeedGbps(rate))
+            : comparableItems[0];
+        const cableLabel = isRj45
+            ? 'RJ45'
+            : fiber.includes('mmf')
+                ? (isEnglish ? 'Multimode fiber' : 'Fibra multimodo')
+                : fiber.includes('smf')
+                    ? (isEnglish ? 'Single-mode fiber' : 'Fibra monomodo')
+                    : (isEnglish ? 'Compatible media' : 'Meio compativel');
+
+        const switchFace = (name, subtitle) => `
+            <div class="usecase-switch">
+                <span>${escapeHtml(name)}</span>
+                <strong>${escapeHtml(subtitle)}</strong>
+                <div>${'<i></i>'.repeat(isQsfp ? 8 : 12)}</div>
+            </div>
+        `;
+
+        const productNode = (item, label) => {
+            const itemMedia = productMedia(item);
+            return `
+                <a class="usecase-product-node" href="${productUrl(item)}">
+                    ${itemMedia && itemMedia.src ? `<img src="${escapeHtml(itemMedia.src)}" alt="${escapeHtml(item.name)}">` : `<em>${escapeHtml(item.family || 'TOR')}</em>`}
+                    <small>${escapeHtml(label)}</small>
+                    <strong>${escapeHtml(item.name)}</strong>
+                </a>
+            `;
+        };
+
+        const linkNode = (label, detail) => `
+            <div class="usecase-link-node">
+                <b></b><b></b>
+                <span>${escapeHtml(label)}</span>
+                <small>${escapeHtml(detail)}</small>
+            </div>
+        `;
+
+        const caseCard = (title, description, topology, extraLink = '') => `
+            <article class="connectivity-usecase-card">
+                <div class="connectivity-usecase-head">
+                    <h3>${escapeHtml(title)}</h3>
+                    <p>${escapeHtml(description)}</p>
+                </div>
+                <div class="connectivity-usecase-map">${topology}</div>
+                <div class="connectivity-usecase-actions">
+                    <a href="${productUrl(product)}">${escapeHtml(isEnglish ? 'View item' : 'Ver item')}</a>
+                    ${product.pdf ? `<a href="${escapeHtml(product.pdf)}" target="_blank" rel="noopener">Datasheet</a>` : ''}
+                    ${extraLink}
+                    <a href="suporte.html?produto=${encodeURIComponent(product.name)}">${escapeHtml(isEnglish ? 'Request quote' : 'Solicitar cotacao')}</a>
+                </div>
+            </article>
+        `;
+
+        const cases = [];
+
+        if (isBidi && complement) {
+            cases.push(caseCard(
+                isEnglish ? 'BiDi point-to-point pair' : 'Par BiDi ponto a ponto',
+                isEnglish
+                    ? 'This use case needs a complementary TX/RX module at the remote side.'
+                    : 'Este caso de uso precisa de um modulo complementar TX/RX na ponta remota.',
+                `
+                    ${switchFace('Switch A', specs.Conector || product.family)}
+                    ${productNode(product, isEnglish ? 'Side A' : 'Ponta A')}
+                    ${linkNode(cableLabel, reach)}
+                    ${productNode(complement, isEnglish ? 'Side B' : 'Ponta B')}
+                    ${switchFace('Switch B', specs.Conector || product.family)}
+                `,
+                `<a href="${productUrl(complement)}">${escapeHtml(isEnglish ? 'Complementary item' : 'Item complementar')}</a>`
+            ));
+        }
+
+        if (isRj45) {
+            cases.push(caseCard(
+                isEnglish ? 'Copper access from SFP slot' : 'Acesso em cobre pelo slot SFP',
+                isEnglish
+                    ? 'Use when the equipment has an SFP/SFP+ slot and the local side uses Ethernet copper.'
+                    : 'Use quando o equipamento tem slot SFP/SFP+ e o lado local usa Ethernet em cobre.',
+                `
+                    ${switchFace(isEnglish ? 'Network equipment' : 'Equipamento de rede', product.family)}
+                    ${productNode(product, 'TOR')}
+                    ${linkNode('Ethernet RJ45', reach)}
+                    <div class="usecase-client-node"><strong>RJ45</strong><span>${escapeHtml(specs.Cabo || specs.Interface || 'Ethernet')}</span></div>
+                `
+            ));
+        } else {
+            cases.push(caseCard(
+                isQsfp ? (isEnglish ? 'Aggregation/backbone interconnection' : 'Interconexao de agregacao/backbone') : (isEnglish ? 'Switch-to-switch optical link' : 'Link optico switch para switch'),
+                isEnglish
+                    ? 'Typical use between compatible optical ports using the same rate, fiber type and connector.'
+                    : 'Uso tipico entre portas opticas compativeis, respeitando taxa, fibra e conector.',
+                `
+                    ${switchFace(isEnglish ? 'Equipment A' : 'Equipamento A', product.family)}
+                    ${productNode(product, 'TOR')}
+                    ${linkNode(cableLabel, `${rate} / ${reach}`)}
+                    ${productNode(complement || product, complement ? (isEnglish ? 'Related' : 'Relacionado') : 'TOR')}
+                    ${switchFace(isEnglish ? 'Equipment B' : 'Equipamento B', specs.Conector || specs.Interface || product.family)}
+                `,
+                complement ? `<a href="${productUrl(complement)}">${escapeHtml(isEnglish ? 'Related item' : 'Item relacionado')}</a>` : ''
+            ));
+        }
+
+        if (comparableItems.length) {
+            cases.push(`
+                <article class="connectivity-usecase-card connectivity-related-card">
+                    <div class="connectivity-usecase-head">
+                        <h3>${escapeHtml(isEnglish ? 'Comparable TOR options' : 'Opcoes TOR comparaveis')}</h3>
+                        <p>${escapeHtml(isEnglish ? 'Items with similar technical characteristics for nearby applications.' : 'Itens com caracteristicas tecnicas proximas para aplicacoes semelhantes.')}</p>
+                    </div>
+                    <div class="connectivity-related-grid">
+                        ${comparableItems.map((item) => {
+                            const itemMedia = productMedia(item);
+                            return `
+                                <a href="${productUrl(item)}">
+                                    ${itemMedia && itemMedia.src ? `<img src="${escapeHtml(itemMedia.src)}" alt="${escapeHtml(item.name)}">` : `<em>${escapeHtml(item.family || 'TOR')}</em>`}
+                                    <strong>${escapeHtml(item.name)}</strong>
+                                    <span>${escapeHtml(getSpec(item, 'Taxa') || item.type)} - ${escapeHtml(getSpec(item, 'Alcance') || item.family)}</span>
+                                </a>
+                            `;
+                        }).join('')}
+                    </div>
+                </article>
+            `);
+        }
+
+        return `
+            <div class="connectivity-usecase-intro">
+                <span>${escapeHtml(product.family || 'TOR')}</span>
+                <h3>${escapeHtml(isEnglish ? 'Connections and viable use cases' : 'Conexoes e casos de uso viaveis')}</h3>
+                <p>${escapeHtml(isEnglish ? 'Examples based on this product family, interface, reach and related TOR items.' : 'Exemplos baseados na familia do produto, interface, alcance e itens TOR relacionados.')}</p>
+            </div>
+            <div class="connectivity-usecase-grid">${cases.join('')}</div>
+        `;
+    };
 
     document.title = `${product.name} | TOR Tecnologia`;
     const metaDescription = document.querySelector('meta[name="description"]');
@@ -356,31 +606,7 @@
 
     const connectivityStage = document.getElementById('productConnectivityStage');
     if (connectivityStage) {
-        const mediaSrc = media ? media.src : '';
-        const cableLabel = fiber.includes('mmf') ? 'Fibra multimodo' : fiber.includes('smf') ? 'Fibra monomodo' : 'Meio compatível';
-        connectivityStage.innerHTML = `
-            <div class="connectivity-endpoint">
-                <strong>Equipamento A</strong>
-                <span>Switch ou roteador compatível</span>
-            </div>
-            <div class="connectivity-module">
-                ${mediaSrc ? `<img src="${escapeHtml(mediaSrc)}" alt="${escapeHtml(product.name)}">` : ''}
-                <strong>${escapeHtml(product.name)}</strong>
-                <span>${escapeHtml(rate)} / ${escapeHtml(reach)}</span>
-            </div>
-            <div class="connectivity-cable">
-                <span>${escapeHtml(cableLabel)}</span>
-            </div>
-            <div class="connectivity-module">
-                ${mediaSrc ? `<img src="${escapeHtml(mediaSrc)}" alt="${escapeHtml(product.name)}">` : ''}
-                <strong>${escapeHtml(product.family)} remoto</strong>
-                <span>${escapeHtml(specs.Conector || specs.Interface || 'Conector compatível')}</span>
-            </div>
-            <div class="connectivity-endpoint">
-                <strong>Equipamento B</strong>
-                <span>Switch, servidor, OLT ou porta óptica</span>
-            </div>
-        `;
+        connectivityStage.innerHTML = buildConnectivityUsecases();
     }
 
     const features = document.getElementById('productFeatures');

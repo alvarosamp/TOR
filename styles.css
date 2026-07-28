@@ -2174,8 +2174,18 @@ p {
     flex-wrap: wrap;
 }
 
+.partners-logos a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 120px;
+}
+
 .partners-logos img {
-    height: 50px;
+    width: min(320px, 72vw);
+    height: auto;
+    max-height: 120px;
+    object-fit: contain;
     filter: grayscale(100%);
     opacity: 0.7;
     transition: 0.3s;

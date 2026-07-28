@@ -2,9 +2,9 @@
     const TELEGRAM_URL = 'https://t.me/share/url?url=https%3A%2F%2Ftor.com.br&text=Ol%C3%A1%2C%20gostaria%20de%20falar%20com%20a%20TOR%20Tecnologia%20sobre%20equipamentos%20de%20telecom.';
     const PHONE_DISPLAY = '0800 000 5978';
     const PHONE_TEL = 'tel:08000005978';
-    const CATALOG_SCRIPT = 'catalog-data.js?v=20260722-3';
+    const CATALOG_SCRIPT = 'catalog-data.js?v=20260727-revised';
 
-    const fallbackAnswer = 'Posso ajudar a encontrar módulos SFP/QSFP, explicar o processo de compra e encaminhar você para a página do item ou formulário de cotação.';
+    const fallbackAnswer = 'Posso ajudar com produtos TOR, m?dulos SFP, leitura de datasheet, velocidade, alcance, fibra, conector, diferen?as entre BiDi/RJ45/duplex, garantia, atendimento e pr?ximos passos para cota??o.';
 
     const widget = document.createElement('div');
     widget.className = 'chat-widget';
@@ -14,15 +14,15 @@
             <div class="chat-header">
                 <div>
                     <strong>Assistente TOR</strong>
-                    <span>IA para catálogo, produtos e compra</span>
+                    <span>IA para cat?logo, produtos TOR e d?vidas t?cnicas</span>
                 </div>
-                <button type="button" class="chat-close" aria-label="Fechar assistente">×</button>
+                <button type="button" class="chat-close" aria-label="Fechar assistente">?</button>
             </div>
             <div class="chat-messages" aria-live="polite">
-                <div class="chat-message bot">Olá! Descreva o item que você procura. Ex: SFP 10G monomodo 10 km, QSFP 100G multimodo, RJ45 cobre ou BiDi.</div>
+                <div class="chat-message bot">Ol?! Posso ajudar com m?dulos SFP, d?vidas t?cnicas, datasheets, compatibilidade, garantia, atendimento TOR e cota??o. Descreva o item ou a d?vida. Ex: SFP 10G monomodo 10 km, RJ45 cobre ou BiDi.</div>
             </div>
             <form class="chat-form">
-                <input type="text" placeholder="Descreva o produto ou sua dúvida..." aria-label="Mensagem para o assistente">
+                <input type="text" placeholder="Descreva o produto ou sua d?vida..." aria-label="Mensagem para o assistente">
                 <button type="submit">Enviar</button>
             </form>
             <div class="chat-actions">
@@ -163,15 +163,15 @@
             return {
                 reply: fallbackAnswer,
                 products: [],
-                actions: [{ label: 'Falar com a equipe técnica', url: 'suporte.html' }]
+                actions: [{ label: 'Falar com a equipe t?cnica', url: 'suporte.html' }]
             };
         }
 
         return {
-            reply: `Encontrei uma opção próxima: ${products[0].name}. Confira a página do item ou avance para a solicitação de compra.`,
+            reply: `Encontrei uma op??o pr?xima: ${products[0].name}. Confira a p?gina do item, abra o datasheet revisado ou avance para a solicita??o de compra.`,
             products,
             actions: [
-                { label: 'Ir para página do item', url: products[0].detailUrl },
+                { label: 'Ir para p?gina do item', url: products[0].detailUrl },
                 { label: 'Fechar compra', url: quoteUrl(scored[0].product) },
                 { label: 'Ver catálogo', url: 'produtos.html' }
             ]
@@ -188,7 +188,7 @@
         addMessage(value, 'user');
         input.value = '';
         submitButton.disabled = true;
-        const loading = addMessage('Consultando catálogo TOR...', 'bot');
+        const loading = addMessage('Consultando cat?logo TOR...', 'bot');
 
         try {
             const data = await askAssistant(value);

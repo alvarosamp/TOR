@@ -225,18 +225,21 @@
 
     const relatedItems = buildSimilarProducts(product, publicProducts, 6);
 
-    const galleryItems = [
-        { product, media, label: 'Produto' },
-        ...relatedItems
-            .map((item) => ({ product: item, media: productMedia(item), label: item.family }))
-            .filter((item) => item.media)
-            .slice(0, 5)
-    ].filter((item) => item.media);
+    const productImages = media && Array.isArray(media.images) ? media.images : [];
+    const galleryItems = productImages
+        .filter((item) => item && item.src)
+        .map((item, index) => ({
+            src: item.src,
+            note: item.note || media.note || 'Imagem do datasheet',
+            name: item.alt || product.name,
+            label: item.label || `Imagem ${index + 1}`
+        }));
 
-    if (galleryThumbs && galleryItems.length > 0 && productImage) {
+    if (galleryThumbs && galleryItems.length > 1 && productImage) {
+        galleryThumbs.hidden = false;
         galleryThumbs.innerHTML = galleryItems.map((item, index) => `
-            <button type="button" class="${index === 0 ? 'active' : ''}" data-src="${escapeHtml(item.media.src)}" data-note="${escapeHtml(item.media.note)}" data-name="${escapeHtml(item.product.name)}">
-                <img src="${escapeHtml(item.media.src)}" alt="${escapeHtml(item.product.name)}">
+            <button type="button" class="${index === 0 ? 'active' : ''}" data-src="${escapeHtml(item.src)}" data-note="${escapeHtml(item.note)}" data-name="${escapeHtml(item.name)}">
+                <img src="${escapeHtml(item.src)}" alt="${escapeHtml(item.name)}">
                 <span>${escapeHtml(item.label)}</span>
             </button>
         `).join('');
@@ -252,18 +255,13 @@
                 if (productVisualFallback) productVisualFallback.hidden = true;
             });
         });
+    } else if (galleryThumbs) {
+        galleryThumbs.innerHTML = '';
+        galleryThumbs.hidden = true;
     }
 
     if (modelOptions) {
-        modelOptions.innerHTML = relatedItems.map((item) => `
-            <a href="${productUrl(item)}">
-                ${productMedia(item) ? `<img src="${escapeHtml(productMedia(item).src)}" alt="">` : ''}
-                <div>
-                    <span>${escapeHtml(item.name)}</span>
-                    <small>${escapeHtml((item.similarityReasons || [item.type])[0])}</small>
-                </div>
-            </a>
-        `).join('');
+        modelOptions.innerHTML = '';
     }
 
     const badges = document.getElementById('productBadges');
@@ -397,15 +395,7 @@
 
     const related = document.getElementById('productRelated');
     if (related) {
-        related.innerHTML = relatedItems.slice(0, 3).map((item) => `
-            <a class="related-product" href="${productUrl(item)}">
-                ${productMedia(item) ? `<img src="${escapeHtml(productMedia(item).src)}" alt="">` : ''}
-                <span>${escapeHtml(item.type)}</span>
-                <strong>${escapeHtml(item.name)}</strong>
-                <small>${escapeHtml((item.similarityReasons || []).join(' • '))}</small>
-                <em>${escapeHtml((item.specs && item.specs.Taxa) || 'Ver especificações')}</em>
-            </a>
-        `).join('');
+        related.innerHTML = '';
     }
 
     const pdf = document.getElementById('productPdf');

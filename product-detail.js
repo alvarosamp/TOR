@@ -261,7 +261,28 @@
     }
 
     if (modelOptions) {
-        modelOptions.innerHTML = '';
+        const options = relatedItems.slice(0, 4);
+        modelOptions.innerHTML = options.length
+            ? options.map((item) => {
+                const itemMedia = productMedia(item);
+                const thumb = itemMedia && itemMedia.src
+                    ? `<img src="${escapeHtml(itemMedia.src)}" alt="${escapeHtml(item.name)}">`
+                    : `<em>${escapeHtml(item.family || 'TOR')}</em>`;
+                const reason = item.similarityReasons && item.similarityReasons.length
+                    ? item.similarityReasons[0]
+                    : item.type || item.family || 'produto relacionado';
+
+                return `
+                    <a href="${productUrl(item)}">
+                        ${thumb}
+                        <div>
+                            <span>${escapeHtml(item.name)}</span>
+                            <small>${escapeHtml(reason)}</small>
+                        </div>
+                    </a>
+                `;
+            }).join('')
+            : '<p class="product-option-empty">Nenhum produto parecido disponivel no catalogo revisado.</p>';
     }
 
     const badges = document.getElementById('productBadges');

@@ -5,6 +5,7 @@
   "description": "Site institucional TOR Tecnologia com backend simples para catálogo, orçamento e integrações.",
   "main": "server.js",
   "scripts": {
+    "build:ftp": "node scripts/build-ftp-dist.js",
     "start": "node server.js",
     "dev": "node server.js"
   },

@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex,nofollow">
     <title>Painel Administrativo | TOR Tecnologia</title>
-    <link rel="stylesheet" href="styles.css?v=20260723-questions2">
+    <link rel="stylesheet" href="styles.css?v=20260728-admin1">
 </head>
 <body class="admin-body">
     <main class="admin-shell">
         <section class="admin-header">
             <div>
+                <span>Painel TOR</span>
                 <h1>Painel Administrativo</h1>
                 <p>Altere produtos, dados institucionais e acompanhe solicitações recebidas.</p>
             </div>
@@ -18,18 +19,30 @@
         </section>
 
         <section class="admin-login" id="adminLogin">
-            <h2>Acesso</h2>
-            <p>Informe o token administrativo. Localmente, se você não configurar outro, use <strong>tor-admin-local</strong>.</p>
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="adminToken">Token</label>
-                    <input type="password" id="adminToken" placeholder="Token administrativo">
+            <div class="admin-login-grid">
+                <div>
+                    <span>Acesso restrito</span>
+                    <h2>Entrar no painel</h2>
+                    <p>Use o token administrativo configurado no backend para acessar as ferramentas internas.</p>
                 </div>
-                <button type="button" class="btn-primary" id="adminEnter">Entrar</button>
+                <div class="admin-login-box">
+                    <div class="form-group">
+                        <label for="adminToken">Token administrativo</label>
+                        <input type="password" id="adminToken" placeholder="Digite o token">
+                    </div>
+                    <button type="button" class="btn-primary" id="adminEnter">Entrar</button>
+                </div>
             </div>
         </section>
 
         <section class="admin-panel" id="adminPanel" hidden>
+            <div class="admin-summary-grid" id="adminSummary">
+                <article><span>Produtos</span><strong id="adminTotalProducts">0</strong><small>itens cadastrados</small></article>
+                <article><span>TOR</span><strong id="adminTorProducts">0</strong><small>datasheets revisados</small></article>
+                <article><span>Leads</span><strong id="adminTotalLeads">0</strong><small>solicitações recebidas</small></article>
+                <article><span>Status</span><strong>Online</strong><small>backend local ativo</small></article>
+            </div>
+
             <div class="admin-tabs">
                 <button type="button" class="filter-button active" data-admin-tab="products">Produtos</button>
                 <button type="button" class="filter-button" data-admin-tab="settings">Dados do Site</button>
@@ -38,11 +51,16 @@
 
             <div class="admin-section" id="tabProducts">
                 <div class="category-title">
-                    <h2>Produtos do Catálogo</h2>
-                    <button type="button" class="btn-small-outline" id="addProduct">Adicionar Produto</button>
+                    <div>
+                        <h2>Produtos do Catálogo</h2>
+                        <p>Edite os dados usados no catálogo, detalhes técnicos e páginas de produto.</p>
+                    </div>
+                    <div class="admin-section-actions">
+                        <button type="button" class="btn-small-outline" id="addProduct">Adicionar Produto</button>
+                        <button type="button" class="btn-primary" id="saveProducts">Salvar Produtos</button>
+                    </div>
                 </div>
                 <div id="adminProducts" class="admin-products"></div>
-                <button type="button" class="btn-primary" id="saveProducts">Salvar Produtos</button>
             </div>
 
             <div class="admin-section" id="tabSettings" hidden>
@@ -69,6 +87,6 @@
             <p class="form-feedback" id="adminFeedback" hidden></p>
         </section>
     </main>
-    <script src="admin.js?v=20260722-2"></script>
+    <script src="admin.js?v=20260728-admin1"></script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 (function () {
-    const state = { token: '', products: [] };
+    const state = { token: '', products: [], leads: [] };
     const login = document.getElementById('adminLogin');
     const panel = document.getElementById('adminPanel');
     const feedback = document.getElementById('adminFeedback');
@@ -8,6 +8,13 @@
         'Content-Type': 'application/json',
         'x-admin-token': state.token
     });
+
+    const escapeHtml = (value) => String(value || '')
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#039;');
 
     const showFeedback = (message, type = 'success') => {
         feedback.hidden = false;
@@ -25,7 +32,10 @@
         return data;
     };
 
-    const specToText = (specs) => Object.entries(specs || {}).map(([key, value]) => `${key}: ${value}`).join('\n');
+    const specToText = (specs) => Object.entries(specs || {})
+        .map(([key, value]) => `${key}: ${value}`)
+        .join('\n');
+
     const textToSpec = (text) => {
         const specs = {};
         text.split('\n').map((line) => line.trim()).filter(Boolean).forEach((line) => {
@@ -35,29 +45,96 @@
         return specs;
     };
 
+    const updateSummary = () => {
+        document.getElementById('adminTotalProducts').textContent = state.products.length;
+        document.getElementById('adminTorProducts').textContent = state.products.filter((product) => (
+            product.statusClass === 'tor' || Boolean(product.pdf)
+        )).length;
+        document.getElementById('adminTotalLeads').textContent = state.leads.length;
+    };
+
     const renderProducts = () => {
         const container = document.getElementById('adminProducts');
         container.innerHTML = state.products.map((product, index) => `
-            <article class="admin-card">
-                <div class="form-row">
-                    <div class="form-group"><label>Nome</label><input data-field="name" data-index="${index}" value="${product.name || ''}"></div>
-                    <div class="form-group"><label>Código</label><input data-field="code" data-index="${index}" value="${product.code || ''}"></div>
+            <article class="admin-card admin-product-card">
+                <div class="admin-card-head">
+                    <div>
+                        <span>${escapeHtml(product.family || 'Produto')}</span>
+                        <h3>${escapeHtml(product.name || 'Produto sem nome')}</h3>
+                        <small>${escapeHtml(product.type || 'Tipo não informado')}</small>
+                    </div>
+                    <div class="admin-card-badges">
+                        <em>${escapeHtml(product.category || 'categoria')}</em>
+                        <em class="${product.pdf ? 'ok' : 'warn'}">${product.pdf ? 'PDF' : 'sem PDF'}</em>
+                    </div>
                 </div>
-                <div class="form-row">
-                    <div class="form-group"><label>Categoria</label><select data-field="category" data-index="${index}">
-                        ${['switches', 'access-points', 'transceivers', 'outros'].map((cat) => `<option value="${cat}" ${product.category === cat ? 'selected' : ''}>${cat}</option>`).join('')}
-                    </select></div>
-                    <div class="form-group"><label>Família</label><input data-field="family" data-index="${index}" value="${product.family || ''}"></div>
+
+                <div class="admin-form-grid">
+                    <div class="form-group">
+                        <label>Nome</label>
+                        <input data-field="name" data-index="${index}" value="${escapeHtml(product.name)}">
+                    </div>
+                    <div class="form-group">
+                        <label>Código</label>
+                        <input data-field="code" data-index="${index}" value="${escapeHtml(product.code)}">
+                    </div>
+                    <div class="form-group">
+                        <label>Categoria</label>
+                        <select data-field="category" data-index="${index}">
+                            ${['switches', 'access-points', 'transceivers', 'outros'].map((cat) => `<option value="${cat}" ${product.category === cat ? 'selected' : ''}>${cat}</option>`).join('')}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Família</label>
+                        <input data-field="family" data-index="${index}" value="${escapeHtml(product.family)}">
+                    </div>
+                    <div class="form-group">
+                        <label>Tipo</label>
+                        <input data-field="type" data-index="${index}" value="${escapeHtml(product.type)}">
+                    </div>
+                    <div class="form-group">
+                        <label>PDF</label>
+                        <input data-field="pdf" data-index="${index}" value="${escapeHtml(product.pdf)}">
+                    </div>
                 </div>
-                <div class="form-row">
-                    <div class="form-group"><label>Tipo</label><input data-field="type" data-index="${index}" value="${product.type || ''}"></div>
-                    <div class="form-group"><label>PDF</label><input data-field="pdf" data-index="${index}" value="${product.pdf || ''}"></div>
+
+                <div class="admin-text-grid">
+                    <div class="form-group">
+                        <label>Descrição</label>
+                        <textarea rows="3" data-field="description" data-index="${index}">${escapeHtml(product.description)}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Especificações, uma por linha: Campo: valor</label>
+                        <textarea rows="6" data-field="specs" data-index="${index}">${escapeHtml(specToText(product.specs))}</textarea>
+                    </div>
                 </div>
-                <div class="form-group"><label>Descrição</label><textarea rows="3" data-field="description" data-index="${index}">${product.description || ''}</textarea></div>
-                <div class="form-group"><label>Especificações, uma por linha: Campo: valor</label><textarea rows="6" data-field="specs" data-index="${index}">${specToText(product.specs)}</textarea></div>
-                <button type="button" class="btn-small-outline remove-product" data-index="${index}">Remover</button>
+
+                <div class="admin-card-actions">
+                    <a class="btn-small-outline" href="produto-detalhe.html?produto=${encodeURIComponent(product.code || product.name)}" target="_blank" rel="noopener">Visualizar</a>
+                    <button type="button" class="btn-small-outline remove-product" data-index="${index}">Remover</button>
+                </div>
             </article>
         `).join('');
+    };
+
+    const renderLeads = () => {
+        const container = document.getElementById('adminLeads');
+        container.innerHTML = state.leads.length
+            ? state.leads.map((lead) => `
+                <article class="admin-card admin-lead-card">
+                    <div>
+                        <span>${escapeHtml(lead.subject || 'Solicitação')}</span>
+                        <h3>${escapeHtml(lead.name || 'Contato sem nome')}</h3>
+                        <p>${escapeHtml(lead.message || '')}</p>
+                    </div>
+                    <aside>
+                        <a href="mailto:${escapeHtml(lead.email)}">${escapeHtml(lead.email || 'sem email')}</a>
+                        <strong>${escapeHtml(lead.phone || 'sem telefone')}</strong>
+                        <small>${escapeHtml(lead.createdAt || '')}</small>
+                    </aside>
+                </article>
+            `).join('')
+            : '<p class="admin-empty">Nenhuma solicitação recebida ainda.</p>';
     };
 
     const collectProducts = () => {
@@ -70,11 +147,12 @@
                 state.products[index][field] = input.value.trim();
             }
         });
+        updateSummary();
     };
 
     const loadAll = async () => {
         const catalog = await api('/api/admin/catalog');
-        state.products = catalog.products;
+        state.products = catalog.products || [];
         renderProducts();
 
         const settings = await api('/api/admin/settings');
@@ -84,9 +162,9 @@
         document.getElementById('settingInstagram').value = settings.instagram || '';
 
         const leads = await api('/api/leads');
-        document.getElementById('adminLeads').innerHTML = leads.leads.length
-            ? leads.leads.map((lead) => `<article class="admin-card"><strong>${lead.name}</strong><p>${lead.email} | ${lead.phone || 'sem telefone'}</p><p>${lead.subject}</p><p>${lead.message}</p><small>${lead.createdAt}</small></article>`).join('')
-            : '<p>Nenhuma solicitação recebida ainda.</p>';
+        state.leads = leads.leads || [];
+        renderLeads();
+        updateSummary();
     };
 
     document.getElementById('adminEnter').addEventListener('click', async () => {
@@ -112,6 +190,7 @@
     });
 
     document.getElementById('addProduct').addEventListener('click', () => {
+        collectProducts();
         state.products.unshift({
             name: 'Novo Produto',
             code: 'NOVO-CODIGO',
@@ -125,12 +204,14 @@
             specs: {}
         });
         renderProducts();
+        updateSummary();
     });
 
     document.getElementById('adminProducts').addEventListener('click', (event) => {
         if (!event.target.classList.contains('remove-product')) return;
         state.products.splice(Number(event.target.dataset.index), 1);
         renderProducts();
+        updateSummary();
     });
 
     document.getElementById('saveProducts').addEventListener('click', async () => {

@@ -414,7 +414,7 @@
             cases.push(`
                 <article class="connectivity-usecase-card connectivity-related-card">
                     <div class="connectivity-usecase-head">
-                        <h3>${escapeHtml(isEnglish ? 'Comparable TOR options' : 'Opcoes TOR comparaveis')}</h3>
+                        <h3>${escapeHtml(isEnglish ? 'Similar TOR products' : 'Produtos similares TOR')}</h3>
                         <p>${escapeHtml(isEnglish ? 'Items with similar technical characteristics for nearby applications.' : 'Itens com caracteristicas tecnicas proximas para aplicacoes semelhantes.')}</p>
                     </div>
                     <div class="connectivity-related-grid">
@@ -463,7 +463,6 @@
     const productImageNote = document.getElementById('productImageNote');
     const productVisualFallback = document.getElementById('productVisualFallback');
     const galleryThumbs = document.getElementById('productGalleryThumbs');
-    const modelOptions = document.getElementById('productModelOptions');
 
     if (media && productPhotoFrame && productImage) {
         productImage.src = media.src;
@@ -508,31 +507,6 @@
     } else if (galleryThumbs) {
         galleryThumbs.innerHTML = '';
         galleryThumbs.hidden = true;
-    }
-
-    if (modelOptions) {
-        const options = relatedItems.slice(0, 4);
-        modelOptions.innerHTML = options.length
-            ? options.map((item) => {
-                const itemMedia = productMedia(item);
-                const thumb = itemMedia && itemMedia.src
-                    ? `<img src="${escapeHtml(itemMedia.src)}" alt="${escapeHtml(item.name)}">`
-                    : `<em>${escapeHtml(item.family || 'TOR')}</em>`;
-                const reason = item.similarityReasons && item.similarityReasons.length
-                    ? item.similarityReasons[0]
-                    : item.type || item.family || 'produto relacionado';
-
-                return `
-                    <a href="${productUrl(item)}">
-                        ${thumb}
-                        <div>
-                            <span>${escapeHtml(item.name)}</span>
-                            <small>${escapeHtml(reason)}</small>
-                        </div>
-                    </a>
-                `;
-            }).join('')
-            : '<p class="product-option-empty">Nenhum produto parecido disponivel no catalogo revisado.</p>';
     }
 
     const badges = document.getElementById('productBadges');

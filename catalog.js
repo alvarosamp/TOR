@@ -44,6 +44,40 @@
 
     const productUrl = (product) => `produto-detalhe.html?produto=${encodeURIComponent(product.code || product.name)}`;
     const productMedia = (product) => window.TOR_PRODUCT_MEDIA && window.TOR_PRODUCT_MEDIA[product.code];
+    const escapeHtml = (value) => String(value || '')
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#039;');
+
+    const isEnglish = window.location.pathname.includes('/en/');
+    const isBidiProduct = (product) => normalize([
+        product.type,
+        product.description,
+        product.specs && product.specs['Comprimento de onda']
+    ].join(' ')).includes('bidi');
+    const isElectricalProduct = (product) => normalize([
+        product.type,
+        product.description,
+        product.specs && product.specs.Interface,
+        product.specs && product.specs.Cabo,
+        product.specs && product.specs.Conector
+    ].join(' ')).includes('rj45')
+        || normalize(product.description).includes('rj-45')
+        || normalize(product.description).includes('base-t')
+        || normalize(product.specs && product.specs.Cabo).includes('cobre')
+        || normalize(product.specs && product.specs.Cabo).includes('copper');
+    const techBadges = (product) => {
+        const specs = product.specs || {};
+        const labels = [];
+        if (isBidiProduct(product)) labels.push('BiDi');
+        labels.push(isElectricalProduct(product) ? (isEnglish ? 'Electrical' : 'Elétrico') : (isEnglish ? 'Optical' : 'Óptico'));
+        if (specs.Taxa) labels.push(specs.Taxa);
+        if (specs.Alcance) labels.push(specs.Alcance);
+        if (specs.Fibra || specs.Cabo) labels.push(specs.Fibra || specs.Cabo);
+        return labels.map((label) => `<span class="catalog-badge tech">${escapeHtml(label)}</span>`).join('');
+    };
 
     const productText = (product) => normalize([
         product.name,
@@ -136,6 +170,7 @@
                     <div class="catalog-badges">
                         <span class="catalog-badge ${product.statusClass || ''}">${product.datasheetStatus}</span>
                         <span class="catalog-badge">${product.family}</span>
+                        ${techBadges(product)}
                     </div>
                 </button>
             `;
@@ -175,6 +210,7 @@
             <span class="catalog-badge ${product.statusClass || ''}">${product.datasheetStatus}</span>
             <span class="catalog-badge">${product.family}</span>
             <span class="catalog-badge">${product.type}</span>
+            ${techBadges(product)}
         `;
         modalSpecs.innerHTML = Object.entries(product.specs || {}).map(([label, value]) => `
             <div class="spec-item">

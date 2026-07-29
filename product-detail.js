@@ -137,6 +137,56 @@
             .slice(0, limit);
     };
 
+    const isBidiProduct = (item) => normalizeText(item && `${item.type || ''} ${item.description || ''} ${getSpec(item, 'Comprimento de onda')}`)
+        .includes('bidi');
+
+    const isElectricalProduct = (item) => {
+        const text = normalizeText([
+            item && item.type,
+            item && item.description,
+            getSpec(item, 'Interface'),
+            getSpec(item, 'Cabo'),
+            getSpec(item, 'Conector')
+        ].join(' '));
+
+        return text.includes('rj45') || text.includes('rj-45') || text.includes('cobre') || text.includes('copper') || text.includes('base-t');
+    };
+
+    const getTxRx = (item) => {
+        const wavelength = getSpec(item, 'Comprimento de onda');
+        const match = wavelength.match(/Tx\s*([0-9]+)\s*\/\s*Rx\s*([0-9]+)/i);
+        if (!match) return null;
+
+        return {
+            tx: `${match[1]} nm`,
+            rx: `${match[2]} nm`,
+            label: `Tx ${match[1]} / Rx ${match[2]} nm`
+        };
+    };
+
+    const productTechnologyLabels = (item) => {
+        const labels = [];
+        const bidi = isBidiProduct(item);
+        const electrical = isElectricalProduct(item);
+        const speed = getSpec(item, 'Taxa');
+        const itemReach = getSpec(item, 'Alcance');
+        const itemFiber = getSpec(item, 'Fibra') || getSpec(item, 'Cabo');
+        const txRx = getTxRx(item);
+
+        if (bidi) labels.push(isEnglish ? 'BiDi' : 'BiDi');
+        labels.push(electrical ? (isEnglish ? 'Electrical' : 'Elétrico') : (isEnglish ? 'Optical' : 'Óptico'));
+        if (speed) labels.push(speed);
+        if (itemReach) labels.push(itemReach);
+        if (itemFiber) labels.push(itemFiber);
+        if (txRx) labels.push(txRx.label);
+
+        return labels;
+    };
+
+    const productTechBadges = (item) => productTechnologyLabels(item)
+        .map((label) => `<span>${escapeHtml(label)}</span>`)
+        .join('');
+
     if (!product) return;
 
     const isQsfp = product.family === 'QSFP';
@@ -304,12 +354,19 @@
     };
 
     const buildConnectivityUsecases = () => {
-        const isBidi = normalizeText(product.type).includes('bidi') || normalizeText(product.description).includes('bidi');
-        const isRj45 = connector.includes('rj45') || normalizeText(product.description).includes('rj-45') || normalizeText(product.description).includes('rj45');
+        const isBidi = isBidiProduct(product);
+        const isRj45 = isElectricalProduct(product);
+        const currentTxRx = getTxRx(product);
         const comparableItems = relatedItems.slice(0, 4);
         const complement = isBidi
-            ? comparableItems.find((item) => normalizeText(item.type).includes('bidi') && parseSpeedGbps(getSpec(item, 'Taxa')) === parseSpeedGbps(rate))
+            ? comparableItems.find((item) => {
+                const candidateTxRx = getTxRx(item);
+                return isBidiProduct(item)
+                    && parseSpeedGbps(getSpec(item, 'Taxa')) === parseSpeedGbps(rate)
+                    && (!currentTxRx || !candidateTxRx || (candidateTxRx.tx === currentTxRx.rx && candidateTxRx.rx === currentTxRx.tx));
+            })
             : comparableItems[0];
+        const complementTxRx = getTxRx(complement);
         const cableLabel = isRj45
             ? 'RJ45'
             : fiber.includes('mmf')
@@ -333,13 +390,18 @@
                     ${itemMedia && itemMedia.src ? `<img src="${escapeHtml(itemMedia.src)}" alt="${escapeHtml(item.name)}">` : `<em>${escapeHtml(item.family || 'TOR')}</em>`}
                     <small>${escapeHtml(label)}</small>
                     <strong>${escapeHtml(item.name)}</strong>
+                    <div class="usecase-tech-tags">${productTechBadges(item)}</div>
                 </a>
             `;
         };
 
-        const linkNode = (label, detail) => `
-            <div class="usecase-link-node">
+        const linkNode = (label, detail, options = {}) => `
+            <div class="usecase-link-node ${escapeHtml(options.mode || 'duplex-fiber')}">
                 <b></b><b></b>
+                ${options.tx && options.rx ? `
+                    <i class="usecase-arrow usecase-arrow-out">TX ${escapeHtml(options.tx)} &rarr;</i>
+                    <i class="usecase-arrow usecase-arrow-in">&larr; RX ${escapeHtml(options.rx)}</i>
+                ` : ''}
                 <span>${escapeHtml(label)}</span>
                 <small>${escapeHtml(detail)}</small>
             </div>
@@ -367,20 +429,20 @@
             cases.push(caseCard(
                 isEnglish ? 'BiDi point-to-point pair' : 'Par BiDi ponto a ponto',
                 isEnglish
-                    ? 'This use case needs a complementary TX/RX module at the remote side.'
-                    : 'Este caso de uso precisa de um modulo complementar TX/RX na ponta remota.',
+                    ? `This use case needs the complementary module: side A transmits at ${currentTxRx ? currentTxRx.tx : 'one wavelength'} and side B transmits at ${complementTxRx ? complementTxRx.tx : 'the inverse wavelength'}.`
+                    : `Este caso usa par complementar: a ponta A transmite em ${currentTxRx ? currentTxRx.tx : 'um comprimento de onda'} e a ponta B transmite em ${complementTxRx ? complementTxRx.tx : 'comprimento inverso'}.`,
                 `
                     ${switchFace('Switch A', specs.Conector || product.family)}
-                    ${productNode(product, isEnglish ? 'Side A' : 'Ponta A')}
-                    ${linkNode(cableLabel, reach)}
-                    ${productNode(complement, isEnglish ? 'Side B' : 'Ponta B')}
+                    ${productNode(product, currentTxRx ? `TX ${currentTxRx.tx} / RX ${currentTxRx.rx}` : (isEnglish ? 'Side A' : 'Ponta A'))}
+                    ${linkNode(isEnglish ? '1 single-mode fiber' : '1 fibra monomodo', `${reach} - ${isEnglish ? 'two directions in one strand' : 'dois sentidos no mesmo filamento'}`, { mode: 'single-fiber', tx: currentTxRx && currentTxRx.tx, rx: currentTxRx && currentTxRx.rx })}
+                    ${productNode(complement, complementTxRx ? `TX ${complementTxRx.tx} / RX ${complementTxRx.rx}` : (isEnglish ? 'Side B' : 'Ponta B'))}
                     ${switchFace('Switch B', specs.Conector || product.family)}
                 `,
                 `<a href="${productUrl(complement)}">${escapeHtml(isEnglish ? 'Complementary item' : 'Item complementar')}</a>`
             ));
         }
 
-        if (isRj45) {
+        if (!isBidi && isRj45) {
             cases.push(caseCard(
                 isEnglish ? 'Copper access from SFP slot' : 'Acesso em cobre pelo slot SFP',
                 isEnglish
@@ -389,11 +451,11 @@
                 `
                     ${switchFace(isEnglish ? 'Network equipment' : 'Equipamento de rede', product.family)}
                     ${productNode(product, 'TOR')}
-                    ${linkNode('Ethernet RJ45', reach)}
+                    ${linkNode('Ethernet RJ45', reach, { mode: 'copper-link' })}
                     <div class="usecase-client-node"><strong>RJ45</strong><span>${escapeHtml(specs.Cabo || specs.Interface || 'Ethernet')}</span></div>
                 `
             ));
-        } else {
+        } else if (!isBidi) {
             cases.push(caseCard(
                 isQsfp ? (isEnglish ? 'Aggregation/backbone interconnection' : 'Interconexao de agregacao/backbone') : (isEnglish ? 'Switch-to-switch optical link' : 'Link optico switch para switch'),
                 isEnglish
@@ -402,7 +464,7 @@
                 `
                     ${switchFace(isEnglish ? 'Equipment A' : 'Equipamento A', product.family)}
                     ${productNode(product, 'TOR')}
-                    ${linkNode(cableLabel, `${rate} / ${reach}`)}
+                    ${linkNode(cableLabel, `${rate} / ${reach}`, { mode: connector.includes('simplex') ? 'single-fiber' : 'duplex-fiber' })}
                     ${productNode(complement || product, complement ? (isEnglish ? 'Related' : 'Relacionado') : 'TOR')}
                     ${switchFace(isEnglish ? 'Equipment B' : 'Equipamento B', specs.Conector || specs.Interface || product.family)}
                 `,
@@ -515,6 +577,7 @@
             <span class="catalog-badge ${escapeHtml(product.statusClass || '')}">${escapeHtml(product.datasheetStatus)}</span>
             <span class="catalog-badge">${escapeHtml(product.family)}</span>
             <span class="catalog-badge">${escapeHtml(product.type)}</span>
+            ${productTechnologyLabels(product).map((label) => `<span class="catalog-badge tech">${escapeHtml(label)}</span>`).join('')}
         `;
     }
 

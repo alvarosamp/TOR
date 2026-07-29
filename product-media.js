@@ -1,5 +1,5 @@
 const TOR_PRODUCT_MEDIA_BASE = window.location.pathname.includes('/en/') ? '../' : '';
-const torProductImage = (fileName) => `${TOR_PRODUCT_MEDIA_BASE}assets/product-images/tor-labeled/${fileName}?v=20260726-revised`;
+const torProductImage = (fileName) => `${TOR_PRODUCT_MEDIA_BASE}assets/product-images/tor-labeled/${fileName}?v=20260729-pn-audit1`;
 
 window.TOR_PRODUCT_MEDIA = {
     SFP1G315510KM: {
@@ -10,8 +10,8 @@ window.TOR_PRODUCT_MEDIA = {
         src: torProductImage('SFP1G553110KM.png'),
         note: 'Imagem do datasheet revisado'
     },
-    SFP1GDSR550M: {
-        src: torProductImage('SFP1GDSR550M.png'),
+    SFP1G850NM550M: {
+        src: torProductImage('SFP1G850NM550M.png'),
         note: 'Imagem do datasheet revisado'
     },
     SFP1GRJ45100M: {

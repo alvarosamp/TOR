@@ -40,20 +40,20 @@ window.TOR_CATALOG_PRODUCTS = [
         }
     },
     {
-        "name": "SFP1GDSR550M",
-        "code": "SFP1GDSR550M",
+        "name": "SFP1G850NM550M",
+        "code": "SFP1G850NM550M",
         "category": "transceivers",
         "family": "SFP",
         "type": "Transceptor SFP SX",
         "datasheetStatus": "Datasheet TOR revisado",
         "statusClass": "tor",
-        "pdf": "assets/datasheets/SFP1GDSR550M-ok.pdf",
-        "description": "Transceptor SFP 1G 850 nm para enlaces multimodo de ate 550 m.",
+        "pdf": "assets/datasheets/SFP1G850NM550M-ok.pdf",
+        "description": "Transceptor SFP 1G 850 nm duplex para enlaces multimodo de até 550 m.",
         "specs": {
             "Taxa": "1,25 Gb/s",
             "Alcance": "550 m",
             "Comprimento de onda": "850 nm",
-            "Conector": "LC",
+            "Conector": "Duplex LC/UPC",
             "Fibra": "MMF",
             "DDM": "Sim",
             "Temperatura": "0 °C a +70 °C"
@@ -167,7 +167,7 @@ window.TOR_CATALOG_PRODUCTS = [
         "datasheetStatus": "Datasheet TOR revisado",
         "statusClass": "tor",
         "pdf": "assets/datasheets/SFPX10GDLR10KM-ok.pdf",
-        "description": "Transceptor SFP+ 10G LR, 1310 nm, para enlaces monomodo de at? 10 km com conector LC duplex.",
+        "description": "Transceptor SFP+ 10G LR, 1310 nm, para enlaces monomodo de até 10 km com conector LC duplex.",
         "specs": {
             "Taxa": "10 Gb/s",
             "Alcance": "10 km",
@@ -175,7 +175,7 @@ window.TOR_CATALOG_PRODUCTS = [
             "Conector": "Duplex LC/UPC",
             "Fibra": "SMF",
             "DDM": "Sim",
-            "Temperatura": "0 ?C a +70 ?C"
+            "Temperatura": "0 °C a +70 °C"
         }
     },
     {
@@ -187,7 +187,7 @@ window.TOR_CATALOG_PRODUCTS = [
         "datasheetStatus": "Datasheet TOR revisado",
         "statusClass": "tor",
         "pdf": "assets/datasheets/SFPX10GDSR300M-ok.pdf",
-        "description": "Transceptor SFP+ 10G SR, 850 nm, para enlaces multimodo de at? 300 m com conector LC duplex.",
+        "description": "Transceptor SFP+ 10G SR, 850 nm, para enlaces multimodo de até 300 m com conector LC duplex.",
         "specs": {
             "Taxa": "10 Gb/s",
             "Alcance": "300 m",
@@ -195,7 +195,7 @@ window.TOR_CATALOG_PRODUCTS = [
             "Conector": "Duplex LC/UPC",
             "Fibra": "MMF",
             "DDM": "Sim",
-            "Temperatura": "0 ?C a +70 ?C"
+            "Temperatura": "0 °C a +70 °C"
         }
     },
     {

@@ -324,7 +324,7 @@
                 category: family ? (family === 'SFP' || family === 'QSFP' ? 'transceivers' : 'outros') : '',
                 family,
                 type: document.getElementById('datasheetType').value.trim() || (code && family ? defaultTypeByCode(code, family) : ''),
-                datasheetStatus: 'Datasheet TOR revisado',
+                datasheetStatus: 'Datasheet disponível',
                 statusClass: 'tor',
                 description: document.getElementById('datasheetDescription').value.trim(),
                 specs

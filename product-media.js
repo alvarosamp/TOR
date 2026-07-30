@@ -1,49 +1,73 @@
 const TOR_PRODUCT_MEDIA_BASE = window.location.pathname.includes('/en/') ? '../' : '';
-const torProductImage = (fileName) => `${TOR_PRODUCT_MEDIA_BASE}assets/product-images/tor-labeled/${fileName}?v=20260729-pn-audit1`;
+const torProductImage = (fileName) => `${TOR_PRODUCT_MEDIA_BASE}assets/product-images/tor-labeled/${fileName}?v=20260730-carine-data1`;
 
 window.TOR_PRODUCT_MEDIA = {
+    QSFP100GLR410KM: {
+        src: torProductImage('QSFP100GLR410KM.png'),
+        note: 'Imagem do produto TOR'
+    },
+    QSFP100GSR100M: {
+        src: torProductImage('QSFP100GSR100M.png'),
+        note: 'Imagem do produto TOR'
+    },
+    QSFP40GLR410KM: {
+        src: torProductImage('QSFP40GLR410KM.png'),
+        note: 'Imagem do produto TOR'
+    },
+    QSFP40GSR100M: {
+        src: torProductImage('QSFP40GSR100M.png'),
+        note: 'Imagem do produto TOR'
+    },
+    SFP10G273310KM: {
+        src: torProductImage('SFP10G273310KM.png'),
+        note: 'Imagem do produto TOR'
+    },
+    SFP10G273320KM: {
+        src: torProductImage('SFP10G273320KM.png'),
+        note: 'Imagem do produto TOR'
+    },
+    SFP10G332710KM: {
+        src: torProductImage('SFP10G332710KM.png'),
+        note: 'Imagem do produto TOR'
+    },
+    SFP10G332720KM: {
+        src: torProductImage('SFP10G332720KM.png'),
+        note: 'Imagem do produto TOR'
+    },
+    SFP10GDLR10KM: {
+        src: torProductImage('SFP10GDLR10KM.png'),
+        note: 'Imagem do produto TOR'
+    },
+    SFP10GDSR300M: {
+        src: torProductImage('SFP10GDSR300M.png'),
+        note: 'Imagem do produto TOR'
+    },
+    SFP10GRJ45100M: {
+        src: torProductImage('SFP10GRJ45100M.png'),
+        note: 'Imagem do produto TOR'
+    },
     SFP1G315510KM: {
         src: torProductImage('SFP1G315510KM.png'),
-        note: 'Imagem do datasheet revisado'
+        note: 'Imagem do produto TOR'
     },
     SFP1G553110KM: {
         src: torProductImage('SFP1G553110KM.png'),
-        note: 'Imagem do datasheet revisado'
+        note: 'Imagem do produto TOR'
     },
-    SFP1G850NM550M: {
-        src: torProductImage('SFP1G850NM550M.png'),
-        note: 'Imagem do datasheet revisado'
+    SFP1GDSR550M: {
+        src: torProductImage('SFP1GDSR550M.png'),
+        note: 'Imagem do produto TOR'
     },
     SFP1GRJ45100M: {
         src: torProductImage('SFP1GRJ45100M.png'),
-        note: 'Imagem do datasheet revisado'
+        note: 'Imagem do produto TOR'
     },
-    SFPX10G273310KM: {
-        src: torProductImage('SFPX10G273310KM.png'),
-        note: 'Imagem do datasheet revisado'
+    SFP25GDLR10KM: {
+        src: torProductImage('SFP25GDLR10KM.png'),
+        note: 'Imagem do produto TOR'
     },
-    SFPX10G273320KM: {
-        src: torProductImage('SFPX10G273320KM.png'),
-        note: 'Imagem do datasheet revisado'
-    },
-    SFPX10G332710KM: {
-        src: torProductImage('SFPX10G332710KM.png'),
-        note: 'Imagem do datasheet revisado'
-    },
-    SFPX10G332720KM: {
-        src: torProductImage('SFPX10G332720KM.png'),
-        note: 'Imagem do datasheet revisado'
-    },
-    SFPX10GDLR10KM: {
-        src: torProductImage('SFPX10GDLR10KM.png'),
-        note: 'Imagem do datasheet revisado'
-    },
-    SFPX10GDSR300M: {
-        src: torProductImage('SFPX10GDSR300M.png'),
-        note: 'Imagem do datasheet revisado'
-    },
-    SFPX10GRJ45100M: {
-        src: torProductImage('SFPX10GRJ45100M.png'),
-        note: 'Imagem do datasheet revisado'
+    SFP25GDSR100M: {
+        src: torProductImage('SFP25GDSR100M.png'),
+        note: 'Imagem do produto TOR'
     }
 };

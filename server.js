@@ -71,6 +71,7 @@ function cleanCode(value) {
     return String(value || '')
         .trim()
         .toUpperCase()
+        .replace(/\.(PDF|PNG|JPE?G|WEBP|DOCX?)$/i, '')
         .replace(/[^A-Z0-9+._-]/g, '');
 }
 
@@ -93,7 +94,7 @@ function normalizeProduct(payload, pdfPath) {
         category: String(product.category || 'transceivers').trim(),
         family: String(product.family || (code.includes('QSFP') ? 'QSFP' : 'SFP')).trim(),
         type: String(product.type || 'Transceptor óptico TOR').trim(),
-        datasheetStatus: String(product.datasheetStatus || 'Datasheet TOR revisado').trim(),
+        datasheetStatus: String(product.datasheetStatus || 'Datasheet disponível').trim(),
         statusClass: String(product.statusClass || 'tor').trim(),
         pdf: pdfPath || String(product.pdf || '').trim(),
         description: String(product.description || '').trim(),
@@ -117,12 +118,15 @@ function inferProductFromDatasheet(buffer, fileName, provided = {}) {
         const specSource = String(text || '').toUpperCase();
         const baseName = cleanCode(path.basename(fileName, path.extname(fileName)).replace(/-OK$/i, ''));
         const codeMatch = firstMatch(upperSource, [
-            /\b(QSFP[0-9A-Z._+-]{4,40})\b/,
-            /\b(SFPX[0-9A-Z._+-]{4,40})\b/,
-            /\b(SFP[0-9A-Z._+-]{4,40})\b/
+            /\b(QSFP[0-9A-Z_+-]{4,40})\b/,
+            /\b(SFPX[0-9A-Z_+-]{4,40})\b/,
+            /\b(SFP[0-9A-Z_+-]{4,40})\b/,
+            /\b(DAC[0-9A-Z_+-]{3,40})\b/
         ]);
         const code = cleanCode(provided.code || (codeMatch && codeMatch[1]) || baseName);
         const family = provided.family || (code.includes('QSFP') ? 'QSFP' : 'SFP');
+        const codeEscaped = code.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const specWithoutCode = specSource.replace(new RegExp(codeEscaped, 'g'), ' ');
         const isElectrical = /RJ-?45|BASE-T|COPPER|COBRE/.test(specSource) || code.includes('RJ45');
         const isBidi = /BIDI|BI-DI|TX\s*\d+\s*\/\s*RX\s*\d+/.test(specSource) || /(3155|5531|2733|3327)/.test(code);
         const isSr = /SR|850\s*NM/.test(specSource) || code.includes('850');
@@ -144,9 +148,10 @@ function inferProductFromDatasheet(buffer, fileName, provided = {}) {
         if (!rate && code.includes('40G')) rate = '40 Gb/s';
         if (!rate && code.includes('100G')) rate = '100 Gb/s';
 
-        const reachMatch = firstMatch(specSource, [
-            /(\d+(?:[.,]\d+)?)\s*(KM|M)\b/,
-            /(\d+(?:[.,]\d+)?)(KM|M)\b/
+        const reachMatch = firstMatch(specWithoutCode, [
+            /(?:ALCANCE|TRANSMISS(?:ÃO|AO)|DIST(?:Â|A)NCIA|AT(?:É|E))[^0-9]{0,40}(\d+(?:[.,]\d+)?)\s*(KM|M)\b/,
+            /(\d+(?:[.,]\d+)?)\s*(KM|M)\s+(?:EM|DE)\s+FIBRA/,
+            /(\d+(?:[.,]\d+)?)\s*(KM|M)\b/
         ]);
         let reach = provided.reach || '';
         if (!reach && reachMatch) reach = `${String(reachMatch[1]).replace('.', ',')} ${reachMatch[2].toLowerCase()}`;
@@ -207,7 +212,7 @@ function inferProductFromDatasheet(buffer, fileName, provided = {}) {
             category: provided.category || (family === 'SFP' || family === 'QSFP' ? 'transceivers' : 'outros'),
             family,
             type,
-            datasheetStatus: 'Datasheet TOR revisado',
+            datasheetStatus: 'Datasheet disponível',
             statusClass: 'tor',
             description,
             specs
@@ -283,9 +288,11 @@ app.get('/api/catalog', async (req, res, next) => {
 app.get('/api/catalog/:code', async (req, res, next) => {
     try {
         const catalog = await readCatalog();
+        const requestedCode = req.params.code.toLowerCase();
         const product = catalog.find((item) => (
-            String(item.code).toLowerCase() === req.params.code.toLowerCase()
-            || String(item.name).toLowerCase() === req.params.code.toLowerCase()
+            String(item.code).toLowerCase() === requestedCode
+            || String(item.name).toLowerCase() === requestedCode
+            || (item.aliases || []).some((alias) => String(alias).toLowerCase() === requestedCode)
         ));
 
         if (!product) {

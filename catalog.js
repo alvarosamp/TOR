@@ -52,6 +52,7 @@
         .replaceAll("'", '&#039;');
 
     const isEnglish = window.location.pathname.includes('/en/');
+    const assetUrl = (url) => (isEnglish && url && !url.startsWith('../') && !/^https?:/i.test(url)) ? `../${url}` : url;
     const isBidiProduct = (product) => normalize([
         product.type,
         product.description,
@@ -85,7 +86,7 @@
         product.category,
         product.family,
         product.type,
-        product.datasheetStatus,
+        ...(product.aliases || []),
         product.description,
         ...Object.values(product.specs || {})
     ].join(' '));
@@ -168,7 +169,6 @@
                     </div>
                     <span class="catalog-card-hint">Clique para abrir a página do produto</span>
                     <div class="catalog-badges">
-                        <span class="catalog-badge ${product.statusClass || ''}">${product.datasheetStatus}</span>
                         <span class="catalog-badge">${product.family}</span>
                         ${techBadges(product)}
                     </div>
@@ -207,7 +207,6 @@
             }
         }
         modalBadges.innerHTML = `
-            <span class="catalog-badge ${product.statusClass || ''}">${product.datasheetStatus}</span>
             <span class="catalog-badge">${product.family}</span>
             <span class="catalog-badge">${product.type}</span>
             ${techBadges(product)}
@@ -219,7 +218,7 @@
             </div>
         `).join('');
         if (product.pdf) {
-            modalPdf.href = product.pdf;
+            modalPdf.href = assetUrl(product.pdf);
             modalPdf.hidden = false;
         } else {
             modalPdf.hidden = true;

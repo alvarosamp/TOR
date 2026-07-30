@@ -31,6 +31,7 @@
     const product = publicProducts.find((item) => (
         normalize(item.code) === normalize(requested)
         || normalize(item.name) === normalize(requested)
+        || (item.aliases || []).some((alias) => normalize(alias) === normalize(requested))
     )) || publicProducts[0];
 
     const setText = (id, text) => {
@@ -43,6 +44,7 @@
     const productMedia = (item) => window.TOR_PRODUCT_MEDIA && window.TOR_PRODUCT_MEDIA[item.code];
     const specs = product ? product.specs || {} : {};
     const isEnglish = window.location.pathname.includes('/en/');
+    const assetUrl = (url) => (isEnglish && url && !url.startsWith('../') && !/^https?:/i.test(url)) ? `../${url}` : url;
 
     const normalizeText = (value) => String(value || '')
         .normalize('NFD')
@@ -260,7 +262,7 @@
         connector.includes('mpo') || connector.includes('mtp') ? 'Conector MPO/MTP para aplicações paralelas de alta capacidade' : null,
         fiber.includes('smf') ? 'Uso em fibra monomodo' : null,
         fiber.includes('mmf') ? 'Uso em fibra multimodo' : null,
-        product.datasheetStatus || 'Documentação técnica disponível'
+        product.pdf ? 'Datasheet disponivel' : 'Documentacao sob consulta'
     ].filter(Boolean);
 
     const qaItems = [
@@ -324,7 +326,7 @@
                             ${mediaSrc ? `<img src="${escapeHtml(mediaSrc)}" alt="${escapeHtml(product.name)}">` : `<strong>${escapeHtml(product.family || 'TOR')}</strong>`}
                             <span>${escapeHtml(product.name)}</span>
                         </a>
-                        <a class="diagram-fiber hotspot-link" href="${product.pdf ? escapeHtml(product.pdf) : productUrl(product)}" ${product.pdf ? 'target="_blank" rel="noopener"' : ''} aria-label="${escapeHtml(ui.datasheetHotspot)}">
+                        <a class="diagram-fiber hotspot-link" href="${product.pdf ? escapeHtml(assetUrl(product.pdf)) : productUrl(product)}" ${product.pdf ? 'target="_blank" rel="noopener"' : ''} aria-label="${escapeHtml(ui.datasheetHotspot)}">
                             <b></b><b></b>
                             <span>${escapeHtml(cableLabel)}</span>
                         </a>
@@ -338,7 +340,7 @@
                             <i></i><i></i><i></i><i></i><i></i><i></i>
                         </div>
                         <a class="connectivity-hotspot hotspot-module" href="${productUrl(product)}">${escapeHtml(ui.moduleHotspot)}</a>
-                        <a class="connectivity-hotspot hotspot-datasheet" href="${product.pdf ? escapeHtml(product.pdf) : productUrl(product)}" ${product.pdf ? 'target="_blank" rel="noopener"' : ''}>${escapeHtml(ui.datasheetHotspot)}</a>
+                        <a class="connectivity-hotspot hotspot-datasheet" href="${product.pdf ? escapeHtml(assetUrl(product.pdf)) : productUrl(product)}" ${product.pdf ? 'target="_blank" rel="noopener"' : ''}>${escapeHtml(ui.datasheetHotspot)}</a>
                         <a class="connectivity-hotspot hotspot-related" href="${related ? productUrl(related) : productUrl(product)}">${escapeHtml(ui.relatedHotspot)}</a>
                         <a class="connectivity-hotspot hotspot-quote" href="suporte.html?produto=${encodeURIComponent(product.name)}">${escapeHtml(ui.quoteHotspot)}</a>
                     </div>
@@ -416,7 +418,7 @@
                 <div class="connectivity-usecase-map">${topology}</div>
                 <div class="connectivity-usecase-actions">
                     <a href="${productUrl(product)}">${escapeHtml(isEnglish ? 'View item' : 'Ver item')}</a>
-                    ${product.pdf ? `<a href="${escapeHtml(product.pdf)}" target="_blank" rel="noopener">Datasheet</a>` : ''}
+                    ${product.pdf ? `<a href="${escapeHtml(assetUrl(product.pdf))}" target="_blank" rel="noopener">Datasheet</a>` : ''}
                     ${extraLink}
                     <a href="suporte.html?produto=${encodeURIComponent(product.name)}">${escapeHtml(isEnglish ? 'Request quote' : 'Solicitar cotacao')}</a>
                 </div>
@@ -574,7 +576,6 @@
     const badges = document.getElementById('productBadges');
     if (badges) {
         badges.innerHTML = `
-            <span class="catalog-badge ${escapeHtml(product.statusClass || '')}">${escapeHtml(product.datasheetStatus)}</span>
             <span class="catalog-badge">${escapeHtml(product.family)}</span>
             <span class="catalog-badge">${escapeHtml(product.type)}</span>
             ${productTechnologyLabels(product).map((label) => `<span class="catalog-badge tech">${escapeHtml(label)}</span>`).join('')}
@@ -620,12 +621,7 @@
                 <th>${escapeHtml(label)}</th>
                 <td>${escapeHtml(value)}</td>
             </tr>
-        `).join('') + `
-            <tr>
-                <th>Documentação</th>
-                <td>${escapeHtml(product.datasheetStatus)}</td>
-            </tr>
-        `;
+        `).join('');
     }
 
     const connectivity = document.getElementById('productConnectivity');
@@ -669,7 +665,7 @@
     const resources = document.getElementById('productResources');
     if (resources) {
         resources.innerHTML = `
-            ${product.pdf ? `<a href="${escapeHtml(product.pdf)}" target="_blank" rel="noopener">Datasheet do produto</a>` : ''}
+            ${product.pdf ? `<a href="${escapeHtml(assetUrl(product.pdf))}" target="_blank" rel="noopener">Datasheet do produto</a>` : ''}
             <a href="${questionsUrl(product)}">Dúvidas sobre este item</a>
             <a href="produtos.html">Voltar ao catálogo</a>
             <a href="suporte.html?produto=${encodeURIComponent(product.name)}">Solicitar cotação</a>
@@ -685,7 +681,7 @@
     const pdf = document.getElementById('productPdf');
     if (pdf) {
         if (product.pdf) {
-            pdf.href = product.pdf;
+            pdf.href = assetUrl(product.pdf);
             pdf.hidden = false;
         } else {
             pdf.hidden = true;

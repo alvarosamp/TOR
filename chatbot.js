@@ -163,15 +163,15 @@
             return {
                 reply: fallbackAnswer,
                 products: [],
-                actions: [{ label: 'Falar com a equipe t?cnica', url: 'suporte.html' }]
+                actions: [{ label: 'Falar com a equipe tecnica', url: 'suporte.html' }]
             };
         }
 
         return {
-            reply: `Encontrei uma op??o pr?xima: ${products[0].name}. Confira a p?gina do item, abra o datasheet revisado ou avance para a solicita??o de compra.`,
+            reply: `Encontrei uma opcao proxima: ${products[0].name}. Confira a pagina do item, abra o datasheet ou avance para a solicitacao de compra.`,
             products,
             actions: [
-                { label: 'Ir para p?gina do item', url: products[0].detailUrl },
+                { label: 'Ir para pagina do item', url: products[0].detailUrl },
                 { label: 'Fechar compra', url: quoteUrl(scored[0].product) },
                 { label: 'Ver catálogo', url: 'produtos.html' }
             ]

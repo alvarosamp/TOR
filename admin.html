@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex,nofollow">
     <title>Painel Administrativo | TOR Tecnologia</title>
-    <link rel="stylesheet" href="styles.css?v=20260728-admin1">
+    <link rel="stylesheet" href="styles.css?v=20260729-admin-versioning1">
 </head>
 <body class="admin-body">
     <main class="admin-shell">
@@ -50,6 +50,75 @@
             </div>
 
             <div class="admin-section" id="tabProducts">
+                <div class="admin-datasheet-import">
+                    <div class="admin-card-head">
+                        <div>
+                            <span>Novo produto versionado</span>
+                            <h2>Criar produto a partir do datasheet TOR</h2>
+                            <p>Envie o PDF revisado e o painel tenta identificar PN, taxa, alcance, conector, fibra e tipo automaticamente. Os campos abaixo são opcionais para corrigir algum detalhe antes de salvar.</p>
+                        </div>
+                    </div>
+
+                    <div class="admin-form-grid">
+                        <div class="form-group">
+                            <label>Datasheet TOR em PDF</label>
+                            <input type="file" id="datasheetFile" accept="application/pdf,.pdf">
+                        </div>
+                        <div class="form-group">
+                            <label>Código / PN TOR opcional</label>
+                            <input id="datasheetCode" placeholder="Automático pelo PDF ou nome do arquivo">
+                        </div>
+                        <div class="form-group">
+                            <label>Família</label>
+                            <select id="datasheetFamily">
+                                <option value="auto">Automático</option>
+                                <option value="SFP">SFP</option>
+                                <option value="QSFP">QSFP</option>
+                                <option value="Switch">Switch</option>
+                                <option value="Access Point">Access Point</option>
+                                <option value="Outro">Outro</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Tipo opcional</label>
+                            <input id="datasheetType" placeholder="Automático: BiDi, SR, LR, RJ45...">
+                        </div>
+                        <div class="form-group">
+                            <label>Taxa</label>
+                            <input id="datasheetRate" placeholder="Ex: 10 Gb/s">
+                        </div>
+                        <div class="form-group">
+                            <label>Alcance</label>
+                            <input id="datasheetReach" placeholder="Ex: 10 km">
+                        </div>
+                        <div class="form-group">
+                            <label>Comprimento de onda</label>
+                            <input id="datasheetWavelength" placeholder="Ex: Tx1310 / Rx1550 nm">
+                        </div>
+                        <div class="form-group">
+                            <label>Conector / Interface</label>
+                            <input id="datasheetConnector" placeholder="Ex: Simplex LC/UPC">
+                        </div>
+                        <div class="form-group">
+                            <label>Fibra / Cabo</label>
+                            <input id="datasheetFiber" placeholder="Ex: SMF, MMF, Cat6A">
+                        </div>
+                        <div class="form-group">
+                            <label>Temperatura</label>
+                            <input id="datasheetTemperature" placeholder="Ex: 0 °C a +70 °C">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Descrição</label>
+                        <textarea id="datasheetDescription" rows="3" placeholder="Descrição comercial/técnica do produto"></textarea>
+                    </div>
+
+                    <div class="admin-section-actions">
+                        <button type="button" class="btn-primary" id="createFromDatasheet">Criar Automaticamente</button>
+                    </div>
+                </div>
+
                 <div class="category-title">
                     <div>
                         <h2>Produtos do Catálogo</h2>
@@ -61,6 +130,17 @@
                     </div>
                 </div>
                 <div id="adminProducts" class="admin-products"></div>
+                <div class="admin-version-panel">
+                    <div class="admin-version-head">
+                        <div>
+                            <span>Controle de alterações</span>
+                            <h3>Histórico de versões dos produtos</h3>
+                            <p>Veja quando um item foi criado/atualizado pelo painel, qual PDF entrou e qual era o PDF anterior.</p>
+                        </div>
+                        <button type="button" class="btn-small-outline" id="refreshVersions">Atualizar Histórico</button>
+                    </div>
+                    <div id="adminVersions" class="admin-versions"></div>
+                </div>
             </div>
 
             <div class="admin-section" id="tabSettings" hidden>
@@ -87,6 +167,6 @@
             <p class="form-feedback" id="adminFeedback" hidden></p>
         </section>
     </main>
-    <script src="admin.js?v=20260728-admin1"></script>
+    <script src="admin.js?v=20260729-admin-versioning1"></script>
 </body>
 </html>

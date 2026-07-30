@@ -1,5 +1,5 @@
-(function () {
-    const state = { token: '', products: [], leads: [] };
+﻿(function () {
+    const state = { token: '', products: [], leads: [], versions: [] };
     const login = document.getElementById('adminLogin');
     const panel = document.getElementById('adminPanel');
     const feedback = document.getElementById('adminFeedback');
@@ -28,7 +28,7 @@
             headers: { ...headers(), ...(options.headers || {}) }
         });
         const data = await response.json();
-        if (!response.ok) throw new Error(data.error || 'Erro na operação.');
+        if (!response.ok) throw new Error(data.error || 'Erro na operaÃ§Ã£o.');
         return data;
     };
 
@@ -45,6 +45,24 @@
         return specs;
     };
 
+    const fileToBase64 = (file) => new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(String(reader.result || '').split(',')[1] || '');
+        reader.onerror = () => reject(new Error('NÃ£o foi possÃ­vel ler o PDF.'));
+        reader.readAsDataURL(file);
+    });
+
+    const normalizeCode = (value) => String(value || '').trim().toUpperCase().replace(/[^A-Z0-9+._-]/g, '');
+
+    const defaultTypeByCode = (code, family) => {
+        const text = normalizeCode(code);
+        if (text.includes('RJ45')) return family === 'SFP' ? 'Transceptor SFP RJ45' : 'Transceptor RJ45';
+        if (text.includes('2733') || text.includes('3327') || text.includes('3155') || text.includes('5531')) return `${family} BiDi`.replace('SFP BiDi', 'Transceptor SFP BiDi');
+        if (text.includes('SR') || text.includes('850')) return `${family} SR`.replace('SFP SR', 'Transceptor SFP SR');
+        if (text.includes('LR') || text.includes('1310')) return `${family} LR`.replace('SFP LR', 'Transceptor SFP LR');
+        return family === 'QSFP' ? 'Transceptor QSFP' : 'Transceptor SFP';
+    };
+
     const updateSummary = () => {
         document.getElementById('adminTotalProducts').textContent = state.products.length;
         document.getElementById('adminTorProducts').textContent = state.products.filter((product) => (
@@ -53,8 +71,15 @@
         document.getElementById('adminTotalLeads').textContent = state.leads.length;
     };
 
+    const latestVersionByCode = () => state.versions.reduce((acc, version) => {
+        if (!version.code || acc[version.code]) return acc;
+        acc[version.code] = version;
+        return acc;
+    }, {});
+
     const renderProducts = () => {
         const container = document.getElementById('adminProducts');
+        const latest = latestVersionByCode();
         container.innerHTML = state.products.map((product, index) => `
             <article class="admin-card admin-product-card">
                 <div class="admin-card-head">
@@ -62,10 +87,17 @@
                         <span>${escapeHtml(product.family || 'Produto')}</span>
                         <h3>${escapeHtml(product.name || 'Produto sem nome')}</h3>
                         <small>${escapeHtml(product.type || 'Tipo não informado')}</small>
+                        ${latest[product.code] ? `
+                            <div class="admin-product-version">
+                                <strong>Versão ${escapeHtml(latest[product.code].version || 'atual')}</strong>
+                                <span>${escapeHtml(latest[product.code].createdAt || '')}</span>
+                            </div>
+                        ` : ''}
                     </div>
                     <div class="admin-card-badges">
                         <em>${escapeHtml(product.category || 'categoria')}</em>
                         <em class="${product.pdf ? 'ok' : 'warn'}">${product.pdf ? 'PDF' : 'sem PDF'}</em>
+                        ${latest[product.code] ? '<em class="ok">versionado</em>' : '<em class="warn">sem histórico</em>'}
                     </div>
                 </div>
 
@@ -123,7 +155,7 @@
             ? state.leads.map((lead) => `
                 <article class="admin-card admin-lead-card">
                     <div>
-                        <span>${escapeHtml(lead.subject || 'Solicitação')}</span>
+                        <span>${escapeHtml(lead.subject || 'SolicitaÃ§Ã£o')}</span>
                         <h3>${escapeHtml(lead.name || 'Contato sem nome')}</h3>
                         <p>${escapeHtml(lead.message || '')}</p>
                     </div>
@@ -134,7 +166,28 @@
                     </aside>
                 </article>
             `).join('')
-            : '<p class="admin-empty">Nenhuma solicitação recebida ainda.</p>';
+            : '<p class="admin-empty">Nenhuma solicitaÃ§Ã£o recebida ainda.</p>';
+    };
+
+    const renderVersions = () => {
+        const container = document.getElementById('adminVersions');
+        if (!container) return;
+        container.innerHTML = state.versions.length
+            ? state.versions.slice(0, 20).map((version) => `
+                <article class="admin-version-item">
+                    <div>
+                        <strong>${escapeHtml(version.code || version.action)}</strong>
+                        <span>${escapeHtml(version.action === 'product_create' ? 'Produto criado' : version.action === 'product_update' ? 'Produto atualizado' : version.action || 'alteração')} · versão ${escapeHtml(version.version || '-')}</span>
+                        <small>${escapeHtml(version.createdAt || '')}</small>
+                        ${version.previousPdf ? `<small>PDF anterior: ${escapeHtml(version.previousPdf)}</small>` : ''}
+                    </div>
+                    <div class="admin-version-actions">
+                        ${version.pdf ? `<a href="${escapeHtml(version.pdf)}" target="_blank" rel="noopener">PDF da versão</a>` : ''}
+                        ${version.code ? `<a href="produto-detalhe.html?produto=${encodeURIComponent(version.code)}" target="_blank" rel="noopener">Ver produto</a>` : ''}
+                    </div>
+                </article>
+            `).join('')
+            : '<p class="admin-empty">Nenhuma versÃ£o registrada ainda.</p>';
     };
 
     const collectProducts = () => {
@@ -150,10 +203,16 @@
         updateSummary();
     };
 
+    const loadVersions = async () => {
+        const versions = await api('/api/admin/catalog/versions');
+        state.versions = versions.versions || [];
+        renderVersions();
+        renderProducts();
+    };
+
     const loadAll = async () => {
         const catalog = await api('/api/admin/catalog');
         state.products = catalog.products || [];
-        renderProducts();
 
         const settings = await api('/api/admin/settings');
         document.getElementById('settingEmail').value = settings.email || '';
@@ -164,6 +223,8 @@
         const leads = await api('/api/leads');
         state.leads = leads.leads || [];
         renderLeads();
+
+        await loadVersions();
         updateSummary();
     };
 
@@ -205,6 +266,91 @@
         });
         renderProducts();
         updateSummary();
+    });
+
+    const refreshVersions = document.getElementById('refreshVersions');
+    if (refreshVersions) {
+        refreshVersions.addEventListener('click', async () => {
+            try {
+                await loadVersions();
+                showFeedback('Histórico de versões atualizado.');
+            } catch (error) {
+                showFeedback(error.message, 'error');
+            }
+        });
+    }
+
+    const codeInput = document.getElementById('datasheetCode');
+    const familyInput = document.getElementById('datasheetFamily');
+    const typeInput = document.getElementById('datasheetType');
+    if (codeInput && familyInput && typeInput) {
+        codeInput.addEventListener('input', () => {
+            const code = normalizeCode(codeInput.value);
+            codeInput.value = code;
+            if (!typeInput.value.trim()) typeInput.value = defaultTypeByCode(code, familyInput.value);
+        });
+        familyInput.addEventListener('change', () => {
+            if (!typeInput.value.trim()) typeInput.value = defaultTypeByCode(codeInput.value, familyInput.value);
+        });
+    }
+
+    document.getElementById('createFromDatasheet').addEventListener('click', async () => {
+        try {
+            const fileInput = document.getElementById('datasheetFile');
+            const file = fileInput.files && fileInput.files[0];
+            const code = normalizeCode(document.getElementById('datasheetCode').value);
+            const familyRaw = document.getElementById('datasheetFamily').value;
+            const family = familyRaw === 'auto' ? '' : familyRaw;
+            const connector = document.getElementById('datasheetConnector').value.trim();
+            const fiber = document.getElementById('datasheetFiber').value.trim();
+            const specs = {
+                Taxa: document.getElementById('datasheetRate').value.trim(),
+                Alcance: document.getElementById('datasheetReach').value.trim(),
+                'Comprimento de onda': document.getElementById('datasheetWavelength').value.trim(),
+                DDM: 'Sim',
+                Temperatura: document.getElementById('datasheetTemperature').value.trim()
+            };
+
+            if (!file) throw new Error('Selecione o datasheet TOR em PDF.');
+            if (connector) specs[connector.toLowerCase().includes('rj45') ? 'Interface' : 'Conector'] = connector;
+            if (fiber) specs[fiber.toLowerCase().includes('cat') ? 'Cabo' : 'Fibra'] = fiber;
+            Object.keys(specs).forEach((key) => {
+                if (!specs[key]) delete specs[key];
+            });
+
+            const product = {
+                name: code,
+                code,
+                category: family ? (family === 'SFP' || family === 'QSFP' ? 'transceivers' : 'outros') : '',
+                family,
+                type: document.getElementById('datasheetType').value.trim() || (code && family ? defaultTypeByCode(code, family) : ''),
+                datasheetStatus: 'Datasheet TOR revisado',
+                statusClass: 'tor',
+                description: document.getElementById('datasheetDescription').value.trim(),
+                specs
+            };
+            Object.keys(product).forEach((key) => {
+                if (product[key] === '') delete product[key];
+            });
+
+            const contentBase64 = await fileToBase64(file);
+            const result = await api('/api/admin/products/datasheet', {
+                method: 'POST',
+                body: JSON.stringify({
+                    product,
+                    file: {
+                        name: file.name,
+                        contentBase64
+                    }
+                })
+            });
+
+            showFeedback(`Produto ${result.product.code} salvo na versÃ£o ${result.version}.`);
+            fileInput.value = '';
+            await loadAll();
+        } catch (error) {
+            showFeedback(error.message, 'error');
+        }
     });
 
     document.getElementById('adminProducts').addEventListener('click', (event) => {

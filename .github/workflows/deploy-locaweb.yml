@@ -21,11 +21,31 @@ jobs:
         with:
           node-version: 20
 
+      - name: Deployment context
+        run: |
+          echo "Branch: $GITHUB_REF_NAME"
+          echo "Commit: $GITHUB_SHA"
+          echo "Repository: $GITHUB_REPOSITORY"
+          echo "Workspace: $GITHUB_WORKSPACE"
+          node --version
+          npm --version
+
       - name: Install dependencies
         run: npm install
 
       - name: Build FTP dist
         run: npm run build:ftp
+
+      - name: Verify FTP payload
+        run: |
+          echo "Files ready for FTP:"
+          find dist -maxdepth 3 -type f | sort
+          echo "Total files:"
+          find dist -type f | wc -l
+          echo "Dist size:"
+          du -sh dist
+          test -f dist/index.html
+          echo "index.html found"
 
       - name: FTP Deploy Locaweb
         uses: locaweb/ftp-deploy@1.0.0
@@ -35,3 +55,4 @@ jobs:
           password: ${{ secrets.PASS }}
           localDir: dist/
           remoteDir: public_html
+          options: --verbose

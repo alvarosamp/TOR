@@ -46,6 +46,8 @@ jobs:
           du -sh web
           test -f web/index.html
           echo "index.html found"
+          test -f web/web.config
+          echo "web.config found"
 
       - name: FTP Deploy Locaweb
         uses: locaweb/ftp-deploy@1.0.0

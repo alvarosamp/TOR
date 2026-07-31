@@ -35,7 +35,10 @@
     const modalDetail = document.getElementById('modalDetail');
     const modalQuote = document.getElementById('modalQuote');
     const modalProductMedia = document.getElementById('modalProductMedia');
-    const normalize = (value) => String(value || '').toLowerCase();
+    const normalize = (value) => String(value || '')
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase();
     const allowedFilters = ['todos', 'sfp', 'qsfp'];
     const requestedFilter = new URLSearchParams(window.location.search).get('categoria');
     let activeFilter = allowedFilters.includes(normalize(requestedFilter)) ? normalize(requestedFilter) : 'todos';
@@ -91,6 +94,24 @@
         ...Object.values(product.specs || {})
     ].join(' '));
 
+    const compactText = (value) => normalize(value).replace(/[^a-z0-9]/g, '');
+    const numericText = (value) => normalize(value).replace(',', '.');
+    const hasAny = (text, terms) => terms.some((term) => text.includes(term));
+    const productRateGbps = (product) => {
+        const specs = product.specs || {};
+        const code = compactText(product.code || product.name);
+        const rateValue = numericText(specs.Taxa || '');
+        const numericMatch = rateValue.match(/(\d+(?:\.\d+)?)/);
+        if (numericMatch) return Number(numericMatch[1]);
+        if (code.includes('qsfp100g')) return 100;
+        if (code.includes('qsfp40g')) return 40;
+        if (code.includes('sfp25g') || code.includes('dac25g')) return 25;
+        if (code.includes('sfp10g')) return 10;
+        if (code.includes('sfp1g')) return 1.25;
+        return null;
+    };
+    const rateInRange = (value, min, max) => value !== null && value >= min && value < max;
+
     const matchesFilter = (product) => {
         if (activeFilter === 'todos') return true;
         if (activeFilter === 'sfp') return product.family === 'SFP';
@@ -106,38 +127,49 @@
 
     const matchesTechnicalFilters = (product) => {
         const text = productText(product);
+        const compact = compactText(text);
         const rateText = normalize([
             product.name,
             product.code,
             product.type,
             product.specs && product.specs.Taxa
         ].join(' '));
+        const productCodeCompact = compactText(product.code || product.name);
+        const rateCompact = compactText(rateText);
+        const rateGbps = productRateGbps(product);
+        const connectorText = normalize([
+            product.specs && product.specs.Conector,
+            product.specs && product.specs.Interface,
+            product.specs && product.specs.Cabo,
+            product.description
+        ].join(' '));
+        const connectorCompact = compactText(connectorText);
         const rate = rateFilter ? rateFilter.value : 'todos';
         const reach = reachFilter ? reachFilter.value : 'todos';
         const fiber = fiberFilter ? fiberFilter.value : 'todos';
         const connector = connectorFilter ? connectorFilter.value : 'todos';
 
         const rateOk = rate === 'todos'
-            || (rate === '1g' && (rateText.includes('1,25 gb/s') || rateText.includes('sfp1g') || rateText.includes('1000base')))
-            || (rate === '10g' && (rateText.includes('10 gb/s') || rateText.includes('10gbase') || rateText.includes('sfp+')))
-            || (rate === '25g' && (rateText.includes('25 gb') || rateText.includes('25,') || rateText.includes('sfp28') || rateText.includes('sfp25g')))
-            || (rate === '40g' && (rateText.includes('40 gb') || rateText.includes('qsfp40g')))
-            || (rate === '100g' && (rateText.includes('100 gb') || rateText.includes('qsfp100g')));
+            || (rate === '1g' && (rateInRange(rateGbps, 1, 2) || hasAny(rateCompact, ['sfp1g', '1000base'])))
+            || (rate === '10g' && (rateInRange(rateGbps, 10, 11) || hasAny(rateCompact, ['sfp10g', 'sfpplus', '10gbase'])))
+            || (rate === '25g' && (rateInRange(rateGbps, 25, 26) || hasAny(productCodeCompact, ['sfp25g', 'dac25g'])))
+            || (rate === '40g' && (rateInRange(rateGbps, 40, 41) || productCodeCompact.includes('qsfp40g')))
+            || (rate === '100g' && (rateInRange(rateGbps, 100, 101) || productCodeCompact.includes('qsfp100g')));
 
         const reachOk = reach === 'todos'
-            || (reach === 'curto' && (text.includes('100 m') || text.includes('300 m') || text.includes('550 m') || text.includes('70 m') || text.includes('150 m')))
-            || (reach === '10km' && text.includes('10 km'))
-            || (reach === '20km' && text.includes('20 km'));
+            || (reach === 'curto' && hasAny(compact, ['5m', '30m', '70m', '100m', '150m', '300m', '550m']))
+            || (reach === '10km' && compact.includes('10km'))
+            || (reach === '20km' && compact.includes('20km'));
 
         const fiberOk = fiber === 'todos'
-            || (fiber === 'smf' && text.includes('smf'))
-            || (fiber === 'mmf' && (text.includes('mmf') || text.includes('om3') || text.includes('om4')))
-            || (fiber === 'cobre' && (text.includes('rj45') || text.includes('cobre') || text.includes('cat')));
+            || (fiber === 'smf' && hasAny(text, ['smf', 'monomodo']))
+            || (fiber === 'mmf' && hasAny(text, ['mmf', 'multimodo', 'om3', 'om4']))
+            || (fiber === 'cobre' && hasAny(text, ['rj45', 'rj-45', 'cobre', 'copper', 'cat5', 'cat 5', 'cat6', 'cat6a', 'cat7', 'dac']));
 
         const connectorOk = connector === 'todos'
-            || (connector === 'lc' && text.includes('lc'))
-            || (connector === 'mpo' && (text.includes('mpo') || text.includes('mtp')))
-            || (connector === 'rj45' && text.includes('rj45'));
+            || (connector === 'lc' && connectorCompact.includes('lc'))
+            || (connector === 'mpo' && hasAny(connectorCompact, ['mpo', 'mtp']))
+            || (connector === 'rj45' && hasAny(connectorCompact, ['rj45', 'rj451001000baset', '1000baset', '10gbaset']));
 
         return rateOk && reachOk && fiberOk && connectorOk;
     };

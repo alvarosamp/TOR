@@ -33,18 +33,18 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build FTP dist
+      - name: Build FTP web payload
         run: npm run build:ftp
 
       - name: Verify FTP payload
         run: |
           echo "Files ready for FTP:"
-          find dist -maxdepth 3 -type f | sort
+          find web -maxdepth 3 -type f | sort
           echo "Total files:"
-          find dist -type f | wc -l
+          find web -type f | wc -l
           echo "Dist size:"
-          du -sh dist
-          test -f dist/index.html
+          du -sh web
+          test -f web/index.html
           echo "index.html found"
 
       - name: FTP Deploy Locaweb
@@ -53,6 +53,5 @@ jobs:
           host: ${{ secrets.HOST }}
           user: ${{ secrets.USER }}
           password: ${{ secrets.PASS }}
-          localDir: dist/
-          remoteDir: WEB
+          localDir: web
           options: --verbose

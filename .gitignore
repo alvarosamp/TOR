@@ -18,6 +18,7 @@ yarn.lock
 
 # Build files
 dist/
+web/
 build/
 *.log
 

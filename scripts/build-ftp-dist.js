@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 const root = path.resolve(__dirname, '..');
-const dist = path.join(root, 'dist');
+const outputDir = path.join(root, 'web');
 
 const copyDirs = ['assets', 'icons', 'en'];
 const copyFiles = [
@@ -58,18 +58,18 @@ const copyDir = (source, target) => {
     }
 };
 
-removeDir(dist);
-fs.mkdirSync(dist, { recursive: true });
+removeDir(outputDir);
+fs.mkdirSync(outputDir, { recursive: true });
 
 for (const file of copyFiles) {
     const source = path.join(root, file);
     if (fs.existsSync(source)) {
-        fs.copyFileSync(source, path.join(dist, file));
+        fs.copyFileSync(source, path.join(outputDir, file));
     }
 }
 
 for (const dir of copyDirs) {
-    copyDir(path.join(root, dir), path.join(dist, dir));
+    copyDir(path.join(root, dir), path.join(outputDir, dir));
 }
 
-console.log(`FTP dist generated at ${dist}`);
+console.log(`FTP web payload generated at ${outputDir}`);

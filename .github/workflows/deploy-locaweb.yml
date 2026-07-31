@@ -46,6 +46,10 @@ jobs:
           du -sh web
           test -f web/index.html
           echo "index.html found"
+          test -f web/default.htm
+          echo "default.htm found"
+          test -f web/default.html
+          echo "default.html found"
           test -f web/web.config
           echo "web.config found"
 

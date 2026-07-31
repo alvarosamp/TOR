@@ -73,4 +73,10 @@ for (const dir of copyDirs) {
     copyDir(path.join(root, dir), path.join(outputDir, dir));
 }
 
+const indexPath = path.join(outputDir, 'index.html');
+if (fs.existsSync(indexPath)) {
+    fs.copyFileSync(indexPath, path.join(outputDir, 'default.htm'));
+    fs.copyFileSync(indexPath, path.join(outputDir, 'default.html'));
+}
+
 console.log(`FTP web payload generated at ${outputDir}`);

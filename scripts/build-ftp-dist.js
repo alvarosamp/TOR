@@ -35,7 +35,8 @@ const copyFiles = [
     'solucoes.html',
     'styles.css',
     'suporte.html',
-    'trabalhe-conosco.html'
+    'trabalhe-conosco.html',
+    'web.config'
 ];
 
 const removeDir = (target) => {

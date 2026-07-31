@@ -1,7 +1,11 @@
 const TOR_PRODUCT_MEDIA_BASE = window.location.pathname.includes('/en/') ? '../' : '';
-const torProductImage = (fileName) => `${TOR_PRODUCT_MEDIA_BASE}assets/product-images/tor-labeled/${fileName}?v=20260730-carine-data1`;
+const torProductImage = (fileName) => `${TOR_PRODUCT_MEDIA_BASE}assets/product-images/tor-labeled/${fileName}?v=20260731-sfp25gdlr10km`;
 
 window.TOR_PRODUCT_MEDIA = {
+    DAC25GXXX: {
+        src: torProductImage('DAC25GXXX.png'),
+        note: 'Imagem do produto TOR'
+    },
     QSFP100GLR410KM: {
         src: torProductImage('QSFP100GLR410KM.png'),
         note: 'Imagem do produto TOR'

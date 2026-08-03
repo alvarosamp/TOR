@@ -152,7 +152,7 @@
         const rateOk = rate === 'todos'
             || (rate === '1g' && (rateInRange(rateGbps, 1, 2) || hasAny(rateCompact, ['sfp1g', '1000base'])))
             || (rate === '10g' && (rateInRange(rateGbps, 10, 11) || hasAny(rateCompact, ['sfp10g', 'sfpplus', '10gbase'])))
-            || (rate === '25g' && (rateInRange(rateGbps, 25, 26) || hasAny(productCodeCompact, ['sfp25g', 'dac25g'])))
+            || (rate === '25g' && (productCodeCompact.includes('sfp25g') || (rateInRange(rateGbps, 25, 26) && !productCodeCompact.includes('dac'))))
             || (rate === '40g' && (rateInRange(rateGbps, 40, 41) || productCodeCompact.includes('qsfp40g')))
             || (rate === '100g' && (rateInRange(rateGbps, 100, 101) || productCodeCompact.includes('qsfp100g')));
 

@@ -100,14 +100,15 @@
     const productRateGbps = (product) => {
         const specs = product.specs || {};
         const code = compactText(product.code || product.name);
+        if (code.startsWith('qsfp100g')) return 100;
+        if (code.startsWith('qsfp40g')) return 40;
+        if (code.startsWith('sfp25g') || code.startsWith('dac25g')) return 25;
+        if (code.startsWith('sfp10g') || code.startsWith('sfpx10g')) return 10;
+        if (code.startsWith('sfp1g')) return 1.25;
+
         const rateValue = numericText(specs.Taxa || '');
         const numericMatch = rateValue.match(/(\d+(?:\.\d+)?)/);
         if (numericMatch) return Number(numericMatch[1]);
-        if (code.includes('qsfp100g')) return 100;
-        if (code.includes('qsfp40g')) return 40;
-        if (code.includes('sfp25g') || code.includes('dac25g')) return 25;
-        if (code.includes('sfp10g')) return 10;
-        if (code.includes('sfp1g')) return 1.25;
         return null;
     };
     const rateInRange = (value, min, max) => value !== null && value >= min && value < max;
@@ -128,14 +129,7 @@
     const matchesTechnicalFilters = (product) => {
         const text = productText(product);
         const compact = compactText(text);
-        const rateText = normalize([
-            product.name,
-            product.code,
-            product.type,
-            product.specs && product.specs.Taxa
-        ].join(' '));
         const productCodeCompact = compactText(product.code || product.name);
-        const rateCompact = compactText(rateText);
         const rateGbps = productRateGbps(product);
         const connectorText = normalize([
             product.specs && product.specs.Conector,
@@ -148,11 +142,16 @@
         const reach = reachFilter ? reachFilter.value : 'todos';
         const fiber = fiberFilter ? fiberFilter.value : 'todos';
         const connector = connectorFilter ? connectorFilter.value : 'todos';
+        const isDacProduct = productCodeCompact.includes('dac') || hasAny(text, [' dac ', 'cabo de conexao direta']);
 
         const rateOk = rate === 'todos'
-            || (rate === '1g' && (rateInRange(rateGbps, 1, 2) || hasAny(rateCompact, ['sfp1g', '1000base'])))
-            || (rate === '10g' && (rateInRange(rateGbps, 10, 11) || hasAny(rateCompact, ['sfp10g', 'sfpplus', '10gbase'])))
-            || (rate === '25g' && (productCodeCompact.includes('sfp25g') || (rateInRange(rateGbps, 25, 26) && !productCodeCompact.includes('dac'))))
+            || (rate === '1g' && rateInRange(rateGbps, 1, 2))
+            || (rate === '10g' && rateInRange(rateGbps, 10, 11))
+            || (rate === '25g' && (
+                productCodeCompact.includes('sfp25g')
+                || (rateInRange(rateGbps, 25, 26) && isDacProduct && fiber === 'cobre')
+                || (rateInRange(rateGbps, 25, 26) && !isDacProduct)
+            ))
             || (rate === '40g' && (rateInRange(rateGbps, 40, 41) || productCodeCompact.includes('qsfp40g')))
             || (rate === '100g' && (rateInRange(rateGbps, 100, 101) || productCodeCompact.includes('qsfp100g')));
 

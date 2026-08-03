@@ -60,5 +60,5 @@ jobs:
           user: ${{ secrets.USER }}
           password: ${{ secrets.PASS }}
           localDir: web
-          remoteDir: /web
+          remoteDir: web
           options: --verbose

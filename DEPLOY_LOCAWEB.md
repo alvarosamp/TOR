@@ -4,7 +4,7 @@ Este projeto possui um workflow do GitHub Actions em:
 
 `.github/workflows/deploy-locaweb.yml`
 
-Ele roda em todo push para `main` ou `master`, gera a pasta `dist` e envia o conteúdo por FTP para a Locaweb.
+Ele roda em todo push para `main` ou `master`, gera a pasta `web` e envia o conteúdo por FTP para a Locaweb.
 
 ## Secrets Necessários no GitHub
 
@@ -26,7 +26,18 @@ O comando usado no deploy é:
 npm run build:ftp
 ```
 
-Ele copia para `dist` os arquivos estáticos do site, incluindo HTML, CSS, JS, imagens, PDFs e versão em inglês.
+Ele copia para `web` os arquivos estáticos do site, incluindo HTML, CSS, JS, imagens, PDFs e versão em inglês.
+
+## Diretório remoto
+
+O workflow está configurado com:
+
+```yaml
+localDir: web
+remoteDir: web
+```
+
+Use `remoteDir: web` para hospedagem Windows na Locaweb. Se a sua hospedagem for Linux, troque para `remoteDir: public_html`.
 
 ## DNS do domínio tor.tec.br
 

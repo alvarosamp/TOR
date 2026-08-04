@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 const root = path.resolve(__dirname, '..');
-const outputDir = path.join(root, 'web');
+const outputDir = path.join(root, 'dist');
 
 const copyDirs = ['assets', 'icons', 'en'];
 const copyFiles = [
@@ -79,4 +79,4 @@ if (fs.existsSync(indexPath)) {
     fs.copyFileSync(indexPath, path.join(outputDir, 'default.html'));
 }
 
-console.log(`FTP web payload generated at ${outputDir}`);
+console.log(`FTP dist payload generated at ${outputDir}`);

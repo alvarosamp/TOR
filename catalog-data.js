@@ -1,5 +1,25 @@
 window.TOR_CATALOG_PRODUCTS = [
     {
+        "name": "DAC10GXXX",
+        "code": "DAC10GXXX",
+        "category": "transceivers",
+        "family": "SFP",
+        "type": "Cabo DAC SFP+",
+        "datasheetStatus": "",
+        "statusClass": "tor",
+        "pdf": "assets/datasheets/DAC10GXXX.pdf",
+        "description": "Cabo de conexao direta SFP+ para enlaces 10G de curta distancia em cobre passivo.",
+        "aliases": [],
+        "specs": {
+            "Taxa": "10,3125 Gb/s",
+            "Alcance": "Ate 5 m",
+            "Interface": "SFP+ DAC",
+            "Cabo": "Cobre passivo",
+            "DDM": "Nao se aplica",
+            "Temperatura": "0 graus C a +70 graus C"
+        }
+    },
+    {
         "name": "DAC25GXXX",
         "code": "DAC25GXXX",
         "category": "transceivers",

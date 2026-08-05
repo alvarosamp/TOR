@@ -2,6 +2,10 @@ const TOR_PRODUCT_MEDIA_BASE = window.location.pathname.includes('/en/') ? '../'
 const torProductImage = (fileName) => `${TOR_PRODUCT_MEDIA_BASE}assets/product-images/tor-labeled/${fileName}?v=20260805-datasheet-carine2`;
 
 window.TOR_PRODUCT_MEDIA = {
+    DAC10GXXX: {
+        src: torProductImage('DAC10GXXX.png'),
+        note: 'Imagem do produto TOR'
+    },
     DAC25GXXX: {
         src: torProductImage('DAC25GXXX.png'),
         note: 'Imagem do produto TOR'

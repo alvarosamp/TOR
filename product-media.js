@@ -1,5 +1,5 @@
 const TOR_PRODUCT_MEDIA_BASE = window.location.pathname.includes('/en/') ? '../' : '';
-const torProductImage = (fileName) => `${TOR_PRODUCT_MEDIA_BASE}assets/product-images/tor-labeled/${fileName}?v=20260731-sfp25gdlr10km`;
+const torProductImage = (fileName) => `${TOR_PRODUCT_MEDIA_BASE}assets/product-images/tor-labeled/${fileName}?v=20260805-datasheet-carine2`;
 
 window.TOR_PRODUCT_MEDIA = {
     DAC25GXXX: {

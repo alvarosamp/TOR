@@ -128,7 +128,7 @@
             ],
             featured: {
                 title: 'Perfil institucional',
-                text: 'Veja como a TOR organiza fabricação, catálogo técnico e atendimento para projetos públicos e privados.',
+                text: 'Veja como a TOR organiza industrialização, catálogo técnico e atendimento para projetos públicos e privados.',
                 href: 'sobre.html',
                 label: 'Abrir Quem Somos'
             }

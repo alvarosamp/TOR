@@ -1,5 +1,5 @@
 (function () {
-    const TELEGRAM_URL = 'https://t.me/share/url?url=https%3A%2F%2Ftor.com.br&text=Ol%C3%A1%2C%20gostaria%20de%20falar%20com%20a%20TOR%20Tecnologia%20sobre%20equipamentos%20de%20telecom.';
+    const TELEGRAM_URL = 'https://t.me/share/url?url=https%3A%2F%2Fwww.tor.tec.br&text=Ol%C3%A1%2C%20gostaria%20de%20falar%20com%20a%20TOR%20Tecnologia%20sobre%20equipamentos%20de%20telecom.';
     const PHONE_DISPLAY = '0800 000 5978';
     const PHONE_TEL = 'tel:08000005978';
     const CATALOG_SCRIPT = 'catalog-data.js?v=20260727-revised';

@@ -13,6 +13,7 @@ const copyFiles = [
     'chatbot.js',
     'conteudo.html',
     'form-enhancements.js',
+    'favicon.ico',
     'garantia.html',
     'index.html',
     'landing-licitacoes.html',

@@ -86,7 +86,7 @@
         {
             category: 'aplicacao',
             question: 'Este produto pode ser usado em projetos públicos e privados?',
-            answer: 'Sim. A TOR fabrica equipamentos para demandas técnicas de telecomunicações em projetos públicos e privados, respeitando as especificações do item escolhido.'
+            answer: 'Sim. A TOR industrializa equipamentos para demandas técnicas de telecomunicações em projetos públicos e privados, respeitando as especificações do item escolhido.'
         }
     ];
 

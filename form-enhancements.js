@@ -3,11 +3,19 @@
     const product = params.get('produto');
     const segment = params.get('segmento');
     const campaign = params.get('campanha');
+    const requestTypeParam = params.get('tipo');
 
     const productInterest = document.getElementById('productInterest');
     const segmentInterest = document.getElementById('segmentInterest');
     const requestType = document.getElementById('requestType');
     const subjectField = document.getElementById('subjectField');
+
+    if (requestTypeParam && requestType) {
+        const option = Array.from(requestType.options).find((item) => (
+            item.textContent.toLowerCase() === requestTypeParam.toLowerCase()
+        ));
+        if (option) requestType.value = option.value;
+    }
 
     if (product && productInterest) {
         productInterest.value = product;

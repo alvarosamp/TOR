@@ -39,6 +39,41 @@
     const form = document.getElementById('contactForm');
     if (!form) return;
 
+    const isEnglish = window.location.pathname.split('/').includes('en');
+    const nameField = form.querySelector('[name="name"]');
+    const organizationField = form.querySelector('[name="organization"]');
+    const emailField = form.querySelector('[name="email"]');
+    const phoneField = form.querySelector('[name="phone"]');
+
+    fetch('/api/me')
+        .then((response) => response.json())
+        .then((data) => {
+            const user = data.user;
+            if (!user) return;
+
+            if (nameField && !nameField.value) nameField.value = user.name || '';
+            if (organizationField && !organizationField.value) organizationField.value = user.organization || '';
+            if (emailField && !emailField.value) emailField.value = user.email || '';
+            if (phoneField && !phoneField.value) phoneField.value = user.phone || '';
+
+            if (!form.querySelector('.account-banner')) {
+                const banner = document.createElement('div');
+                banner.className = 'account-banner';
+                banner.style.cssText = 'margin-bottom:20px;padding:12px 16px;background-color:var(--bg-gray);border:1px solid var(--border-color);font-size:14px;';
+                const greeting = isEnglish ? 'Hello' : 'Olá';
+                const notYou = isEnglish ? 'Not you?' : 'Não é você?';
+                const signOut = isEnglish ? 'Sign out' : 'Sair';
+                banner.innerHTML = `${greeting}, <strong>${user.name}</strong> — seus dados foram pré-preenchidos. ${notYou} <a href="#" class="text-link account-banner-logout">${signOut}</a>`;
+                form.parentElement.insertBefore(banner, form);
+                banner.querySelector('.account-banner-logout').addEventListener('click', async (event) => {
+                    event.preventDefault();
+                    await fetch('/api/logout', { method: 'POST' });
+                    window.location.reload();
+                });
+            }
+        })
+        .catch(() => {});
+
     const showFeedback = (message, type) => {
         const existing = form.querySelector('.form-feedback');
         if (existing) existing.remove();

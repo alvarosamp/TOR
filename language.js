@@ -14,7 +14,10 @@
         'suporte.html': 'suporte.html',
         'garantia.html': 'garantia.html',
         'privacidade.html': 'privacidade.html',
-        'trabalhe-conosco.html': 'trabalhe-conosco.html'
+        'trabalhe-conosco.html': 'trabalhe-conosco.html',
+        'login.html': 'login.html',
+        'cadastro.html': 'cadastro.html',
+        'minha-conta.html': 'minha-conta.html'
     };
 
     const normalize = (value) => String(value || '').replace(/\s+/g, ' ').trim();

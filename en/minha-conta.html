@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="512x512" href="/icons/favicon-512.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <meta name="description" content="Área logada TOR Tecnologia: baixe drivers/firmware e abra chamados de suporte técnico.">
+    <meta property="og:title" content="Minha Conta | TOR Tecnologia">
+    <meta property="og:description" content="Área logada TOR Tecnologia.">
+    <meta property="og:type" content="website">
+    <meta name="robots" content="noindex">
+    <title>Minha Conta | TOR Tecnologia</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css?v=20260723-questions2">
+</head>
+<body>
+
+    <!-- Top Bar -->
+    <div class="topbar">
+        <div class="container topbar-inner">
+            <div class="topbar-left">
+                <span>Industrialização e Tecnologia em Telecom</span>
+            </div>
+            <div class="topbar-right">
+                <a href="mailto:governo@tor.tec.br">governo@tor.tec.br</a>
+                <span class="topbar-divider">|</span>
+                <a href="tel:08000005978">0800 000 5978</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header / Navbar -->
+    <header class="header">
+        <div class="container header-inner">
+            <div class="logo-container">
+                <a href="index.html">
+                    <img src="../icons/tor.png" alt="TOR Tecnologia e Indústria" class="logo-img">
+                </a>
+            </div>
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="produtos.html">Produtos</a></li>
+                    <li><a href="solucoes.html">Soluções</a></li>
+                    <li><a href="conteudo.html">Conteúdo</a></li>
+                    <li><a href="parceiros.html">Parceiros</a></li>
+                    <li><a href="sobre.html">Quem Somos</a></li>
+                    <li><a href="suporte.html">Suporte</a></li>
+                </ul>
+            </nav>
+            <div class="header-action">
+                <a href="suporte.html" class="btn-primary">Solicitar Proposta</a>
+            </div>
+            <!-- Mobile Menu Toggle -->
+            <button class="mobile-toggle" id="mobile-toggle" aria-label="Abrir menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Nav -->
+    <div class="mobile-nav" id="mobile-nav">
+        <ul class="mobile-nav-list">
+            <li><a href="index.html">Início</a></li>
+            <li><a href="produtos.html">Produtos</a></li>
+            <li><a href="solucoes.html">Soluções</a></li>
+            <li><a href="conteudo.html">Conteúdo</a></li>
+            <li><a href="parceiros.html">Parceiros</a></li>
+            <li><a href="sobre.html">Quem Somos</a></li>
+            <li><a href="suporte.html" class="mobile-cta">Solicitar Proposta</a></li>
+        </ul>
+    </div>
+
+    <!-- Page Header -->
+    <section class="page-header" style="background-color: var(--bg-dark); color: var(--bg-white); padding: 60px 0; text-align: center;">
+        <div class="container">
+            <h1 id="accountGreeting" style="font-size: 36px; margin-bottom: 10px; color: var(--bg-white);">Minha Conta</h1>
+            <p style="color: #CCCCCC;">Baixe drivers/firmware ou abra um chamado de suporte técnico</p>
+        </div>
+    </section>
+
+    <!-- Account Area -->
+    <section class="section contact-section">
+        <div class="container">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: start;" id="accountGrid">
+
+                <!-- Drivers Card -->
+                <div class="contact-form-container" style="margin: 0;">
+                    <h3 style="margin-bottom: 15px; font-size: 22px;">Baixar Drivers</h3>
+                    <p style="margin-bottom: 20px;">Acesse a pasta com drivers, firmwares e utilitários dos equipamentos TOR.</p>
+                    <a id="driversLink" href="#" target="_blank" rel="noopener" class="btn-primary">Abrir Pasta de Drivers</a>
+                </div>
+
+                <!-- Ticket Card -->
+                <div class="contact-form-container" style="margin: 0;">
+                    <h3 style="margin-bottom: 15px; font-size: 22px;">Abrir Chamado</h3>
+                    <p style="margin-bottom: 20px;">Descreva sua solicitação técnica. Seus dados de contato já estão associados à sua conta.</p>
+                    <form class="corporate-form" id="ticketForm">
+                        <div class="form-group">
+                            <label>Assunto *</label>
+                            <input type="text" name="subject" placeholder="Ex: Dúvida sobre configuração de SFP" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Mensagem *</label>
+                            <textarea rows="5" name="message" placeholder="Descreva o problema ou a dúvida..." required></textarea>
+                        </div>
+                        <div class="form-submit" style="text-align: left;">
+                            <button type="submit" class="btn-primary">Abrir Chamado</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <img src="../icons/tor.png" alt="TOR" class="footer-logo">
+                    <p>Equipamentos de telecomunicações industrializados para projetos públicos e privados, com qualidade, tecnologia confiável e preço justo.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Produtos</h4>
+                    <ul>
+                        <li><a href="produtos.html?categoria=sfp">Módulos SFP</a></li>
+                        <li><a href="produtos.html?categoria=qsfp">Módulos QSFP</a></li>
+                        <li><a href="produtos.html">Catálogo</a></li>
+                        <li><a href="solucoes.html">Soluções</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>A Empresa</h4>
+                    <ul>
+                        <li><a href="sobre.html">Quem Somos</a></li>
+                        <li><a href="garantia.html">Garantia e Qualidade</a></li>
+                        <li><a href="parceiros.html">Parceiros Tecnológicos</a></li>
+                        <li><a href="trabalhe-conosco.html">Trabalhe Conosco</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contato</h4>
+                    <p>Telefone: 0800 000 5978</p>
+                    <p>E-mail: governo@tor.tec.br</p>
+                    <p>Santa Rita do Sapucaí, MG</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 TOR Tecnologia e Indústria. Todos os direitos reservados.</p>
+                <p>CNPJ: 63.799.679/0001-40</p>
+            </div>
+        </div>
+    </footer>
+
+    <style>
+        @media (max-width: 768px) {
+            #accountGrid { grid-template-columns: 1fr !important; }
+        }
+    </style>
+
+    <script>
+        const toggleBtn = document.getElementById('mobile-toggle');
+        const mobileNav = document.getElementById('mobile-nav');
+
+        toggleBtn.addEventListener('click', () => {
+            toggleBtn.classList.toggle('active');
+            mobileNav.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.mobile-nav-list a').forEach(link => {
+            link.addEventListener('click', () => {
+                toggleBtn.classList.remove('active');
+                mobileNav.classList.remove('active');
+            });
+        });
+    </script>
+    <script src="../navigation.js?v=20260723-fs1"></script>
+    <script src="../chatbot.js?v=20260722-3"></script>
+    <script src="../language.js?v=20260723-i18n1"></script>
+    <script src="../auth.js?v=20260723-auth2"></script>
+    <script>
+        (function () {
+            fetch('/api/me')
+                .then((response) => response.json())
+                .then((data) => {
+                    if (!data.user) {
+                        window.location.href = 'login.html?next=minha-conta.html';
+                        return;
+                    }
+                    document.getElementById('accountGreeting').textContent = `Olá, ${data.user.name}`;
+                })
+                .catch(() => {});
+
+            fetch('/api/account/drivers-link')
+                .then((response) => response.json())
+                .then((data) => {
+                    if (data.url) document.getElementById('driversLink').href = data.url;
+                })
+                .catch(() => {});
+
+            const form = document.getElementById('ticketForm');
+            const showFeedback = (message, type) => {
+                const existing = form.querySelector('.form-feedback');
+                if (existing) existing.remove();
+                const feedback = document.createElement('div');
+                feedback.className = `form-feedback ${type}`;
+                feedback.textContent = message;
+                form.appendChild(feedback);
+            };
+
+            form.addEventListener('submit', async (event) => {
+                event.preventDefault();
+                const submitButton = form.querySelector('button[type="submit"]');
+                const originalText = submitButton.textContent;
+                const formData = new FormData(form);
+                const payload = Object.fromEntries(formData.entries());
+
+                submitButton.disabled = true;
+                submitButton.textContent = 'Enviando...';
+
+                try {
+                    const response = await fetch('/api/chamado', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    const data = await response.json();
+                    if (!response.ok) throw new Error(data.error || 'Não foi possível abrir o chamado.');
+
+                    showFeedback(`${data.message} Protocolo: ${data.id}`, 'success');
+                    form.reset();
+                } catch (error) {
+                    showFeedback(error.message || 'Erro ao abrir chamado. Tente novamente.', 'error');
+                } finally {
+                    submitButton.disabled = false;
+                    submitButton.textContent = originalText;
+                }
+            });
+        })();
+    </script>
+</body>
+</html>

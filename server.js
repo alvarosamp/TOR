@@ -1,4 +1,6 @@
 const express = require('express');
+const session = require('express-session');
+const bcrypt = require('bcryptjs');
 const fs = require('fs/promises');
 const path = require('path');
 const vm = require('vm');
@@ -13,10 +15,26 @@ const LEADS_FILE = path.join(DATA_DIR, 'leads.json');
 const CATALOG_FILE = path.join(DATA_DIR, 'catalog-products.json');
 const SITE_SETTINGS_FILE = path.join(DATA_DIR, 'site-settings.json');
 const CATALOG_VERSIONS_FILE = path.join(DATA_DIR, 'catalog-versions.json');
+const USERS_FILE = path.join(DATA_DIR, 'users.json');
+const TICKETS_FILE = path.join(DATA_DIR, 'tickets.json');
 const DATASHEETS_DIR = path.join(ROOT, 'assets', 'datasheets');
+
+// TODO: substituir pela URL real da pasta do Google Drive com drivers/firmware assim que estiver organizada.
+const DEFAULT_DRIVERS_DRIVE_URL = 'https://drive.google.com/drive/folders/SEU_ID_AQUI';
 
 app.use(express.json({ limit: '25mb' }));
 app.use(express.urlencoded({ extended: true }));
+app.use(session({
+    name: 'tor_sid',
+    secret: process.env.SESSION_SECRET || 'tor-site-dev-secret-change-in-prod',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        httpOnly: true,
+        sameSite: 'lax',
+        maxAge: 30 * 24 * 60 * 60 * 1000
+    }
+}));
 
 async function ensureDataFiles() {
     await fs.mkdir(DATA_DIR, { recursive: true });
@@ -26,19 +44,30 @@ async function ensureDataFiles() {
         await fs.writeFile(LEADS_FILE, '[]\n', 'utf8');
     }
     try {
+        await fs.access(USERS_FILE);
+    } catch {
+        await fs.writeFile(USERS_FILE, '[]\n', 'utf8');
+    }
+    try {
         await fs.access(SITE_SETTINGS_FILE);
     } catch {
         await fs.writeFile(SITE_SETTINGS_FILE, JSON.stringify({
             email: 'governo@tor.tec.br',
             phone: '0800 000 5978',
             linkedin: 'https://www.linkedin.com/company/tor-tecnologia-e-industria/',
-            instagram: 'https://www.instagram.com/tor.tec/'
+            instagram: 'https://www.instagram.com/tor.tec/',
+            driversUrl: DEFAULT_DRIVERS_DRIVE_URL
         }, null, 2) + '\n', 'utf8');
     }
     try {
         await fs.access(CATALOG_VERSIONS_FILE);
     } catch {
         await fs.writeFile(CATALOG_VERSIONS_FILE, '[]\n', 'utf8');
+    }
+    try {
+        await fs.access(TICKETS_FILE);
+    } catch {
+        await fs.writeFile(TICKETS_FILE, '[]\n', 'utf8');
     }
     await fs.mkdir(DATASHEETS_DIR, { recursive: true });
 }
@@ -272,6 +301,184 @@ function validateLead(lead) {
     return null;
 }
 
+async function readUsers() {
+    await ensureDataFiles();
+    return JSON.parse(await fs.readFile(USERS_FILE, 'utf8'));
+}
+
+async function writeUsers(users) {
+    await ensureDataFiles();
+    await fs.writeFile(USERS_FILE, `${JSON.stringify(users, null, 2)}\n`, 'utf8');
+}
+
+function requireAuth(req, res, next) {
+    if (!req.session.userId) {
+        res.status(401).json({ error: 'É necessário estar logado.' });
+        return;
+    }
+    next();
+}
+
+function publicUser(user) {
+    return {
+        id: user.id,
+        name: user.name,
+        organization: user.organization,
+        email: user.email,
+        phone: user.phone
+    };
+}
+
+app.post('/api/register', async (req, res, next) => {
+    try {
+        const body = req.body || {};
+        const name = String(body.name || '').trim().slice(0, 200);
+        const organization = String(body.organization || '').trim().slice(0, 200);
+        const email = String(body.email || '').trim().toLowerCase().slice(0, 200);
+        const phone = String(body.phone || '').trim().slice(0, 50);
+        const password = String(body.password || '');
+
+        if (!name || !email || !password) {
+            res.status(400).json({ error: 'Nome, e-mail e senha são obrigatórios.' });
+            return;
+        }
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            res.status(400).json({ error: 'E-mail inválido.' });
+            return;
+        }
+        if (password.length < 6) {
+            res.status(400).json({ error: 'A senha deve ter ao menos 6 caracteres.' });
+            return;
+        }
+
+        const users = await readUsers();
+        if (users.some((user) => user.email === email)) {
+            res.status(409).json({ error: 'Já existe uma conta com esse e-mail.' });
+            return;
+        }
+
+        const passwordHash = await bcrypt.hash(password, 10);
+        const user = {
+            id: `user_${Date.now()}`,
+            createdAt: new Date().toISOString(),
+            name,
+            organization,
+            email,
+            phone,
+            passwordHash
+        };
+
+        users.push(user);
+        await writeUsers(users);
+
+        req.session.userId = user.id;
+        res.status(201).json({ ok: true, user: publicUser(user) });
+    } catch (error) {
+        next(error);
+    }
+});
+
+app.post('/api/login', async (req, res, next) => {
+    try {
+        const body = req.body || {};
+        const email = String(body.email || '').trim().toLowerCase();
+        const password = String(body.password || '');
+
+        if (!email || !password) {
+            res.status(400).json({ error: 'Informe e-mail e senha.' });
+            return;
+        }
+
+        const users = await readUsers();
+        const user = users.find((item) => item.email === email);
+        if (!user || !(await bcrypt.compare(password, user.passwordHash))) {
+            res.status(401).json({ error: 'E-mail ou senha incorretos.' });
+            return;
+        }
+
+        req.session.userId = user.id;
+        res.json({ ok: true, user: publicUser(user) });
+    } catch (error) {
+        next(error);
+    }
+});
+
+app.post('/api/logout', (req, res) => {
+    req.session.destroy(() => {
+        res.clearCookie('tor_sid');
+        res.json({ ok: true });
+    });
+});
+
+app.get('/api/me', async (req, res, next) => {
+    try {
+        if (!req.session.userId) {
+            res.json({ user: null });
+            return;
+        }
+        const users = await readUsers();
+        const user = users.find((item) => item.id === req.session.userId);
+        if (!user) {
+            res.json({ user: null });
+            return;
+        }
+        res.json({ user: publicUser(user) });
+    } catch (error) {
+        next(error);
+    }
+});
+
+app.get('/api/account/drivers-link', requireAuth, async (req, res, next) => {
+    try {
+        await ensureDataFiles();
+        const settings = JSON.parse(await fs.readFile(SITE_SETTINGS_FILE, 'utf8'));
+        res.json({ url: settings.driversUrl || DEFAULT_DRIVERS_DRIVE_URL });
+    } catch (error) {
+        next(error);
+    }
+});
+
+app.post('/api/chamado', requireAuth, async (req, res, next) => {
+    try {
+        await ensureDataFiles();
+        const users = await readUsers();
+        const user = users.find((item) => item.id === req.session.userId);
+        if (!user) {
+            res.status(401).json({ error: 'É necessário estar logado.' });
+            return;
+        }
+
+        const subject = String((req.body || {}).subject || '').trim().slice(0, 300);
+        const message = String((req.body || {}).message || '').trim().slice(0, 2000);
+
+        if (!subject || !message) {
+            res.status(400).json({ error: 'Informe o assunto e a mensagem do chamado.' });
+            return;
+        }
+
+        const record = {
+            id: `ticket_${Date.now()}`,
+            createdAt: new Date().toISOString(),
+            status: 'novo',
+            userId: user.id,
+            name: user.name,
+            organization: user.organization,
+            email: user.email,
+            phone: user.phone,
+            subject,
+            message
+        };
+
+        const tickets = JSON.parse(await fs.readFile(TICKETS_FILE, 'utf8'));
+        tickets.push(record);
+        await fs.writeFile(TICKETS_FILE, `${JSON.stringify(tickets, null, 2)}\n`, 'utf8');
+
+        res.status(201).json({ ok: true, id: record.id, message: 'Chamado aberto com sucesso. A equipe TOR entrará em contato.' });
+    } catch (error) {
+        next(error);
+    }
+});
+
 app.get('/api/health', (req, res) => {
     res.json({ status: 'ok', service: 'tor-site', timestamp: new Date().toISOString() });
 });
@@ -486,7 +693,7 @@ app.get('/api/admin/settings', requireAdmin, async (req, res, next) => {
 app.put('/api/admin/settings', requireAdmin, async (req, res, next) => {
     try {
         await ensureDataFiles();
-        const allowed = ['email', 'phone', 'linkedin', 'instagram'];
+        const allowed = ['email', 'phone', 'linkedin', 'instagram', 'driversUrl'];
         const settings = {};
         allowed.forEach((key) => {
             settings[key] = String(req.body[key] || '').trim();

@@ -4460,6 +4460,29 @@ p {
     text-align: center;
 }
 
+.admin-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 10px 0;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.admin-checkbox input {
+    width: auto;
+}
+
+.admin-ticket-reply-box {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--border-color);
+}
+
+.admin-ticket-answered {
+    margin-top: 10px;
+}
+
 @media (max-width: 768px) {
     .admin-header {
         align-items: flex-start;

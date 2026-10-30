@@ -7,7 +7,8 @@
   "scripts": {
     "build:ftp": "node scripts/build-ftp-dist.js",
     "start": "node server.js",
-    "dev": "node server.js"
+    "dev": "node server.js",
+    "admin:promote": "node scripts/make-admin.js"
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",

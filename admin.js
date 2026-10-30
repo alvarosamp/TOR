@@ -1,13 +1,12 @@
 ﻿(function () {
-    const state = { token: '', products: [], leads: [], versions: [] };
+    const state = { products: [], leads: [], versions: [], tickets: [], clientes: [], currentUser: null };
     const login = document.getElementById('adminLogin');
+    const denied = document.getElementById('adminDenied');
     const panel = document.getElementById('adminPanel');
     const feedback = document.getElementById('adminFeedback');
+    const loginFeedback = document.getElementById('adminLoginFeedback');
 
-    const headers = () => ({
-        'Content-Type': 'application/json',
-        'x-admin-token': state.token
-    });
+    const headers = () => ({ 'Content-Type': 'application/json' });
 
     const escapeHtml = (value) => String(value || '')
         .replaceAll('&', '&amp;')
@@ -22,13 +21,19 @@
         feedback.textContent = message;
     };
 
+    const showLoginFeedback = (message, type = 'error') => {
+        loginFeedback.hidden = false;
+        loginFeedback.className = `form-feedback ${type}`;
+        loginFeedback.textContent = message;
+    };
+
     const api = async (url, options = {}) => {
         const response = await fetch(url, {
             ...options,
             headers: { ...headers(), ...(options.headers || {}) }
         });
         const data = await response.json();
-        if (!response.ok) throw new Error(data.error || 'Erro na operaÃ§Ã£o.');
+        if (!response.ok) throw new Error(data.error || 'Erro na operação.');
         return data;
     };
 
@@ -48,7 +53,7 @@
     const fileToBase64 = (file) => new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.onload = () => resolve(String(reader.result || '').split(',')[1] || '');
-        reader.onerror = () => reject(new Error('NÃ£o foi possÃ­vel ler o PDF.'));
+        reader.onerror = () => reject(new Error('Não foi possível ler o PDF.'));
         reader.readAsDataURL(file);
     });
 
@@ -155,7 +160,7 @@
             ? state.leads.map((lead) => `
                 <article class="admin-card admin-lead-card">
                     <div>
-                        <span>${escapeHtml(lead.subject || 'SolicitaÃ§Ã£o')}</span>
+                        <span>${escapeHtml(lead.subject || 'Solicitação')}</span>
                         <h3>${escapeHtml(lead.name || 'Contato sem nome')}</h3>
                         <p>${escapeHtml(lead.message || '')}</p>
                     </div>
@@ -166,7 +171,7 @@
                     </aside>
                 </article>
             `).join('')
-            : '<p class="admin-empty">Nenhuma solicitaÃ§Ã£o recebida ainda.</p>';
+            : '<p class="admin-empty">Nenhuma solicitação recebida ainda.</p>';
     };
 
     const renderVersions = () => {
@@ -187,7 +192,83 @@
                     </div>
                 </article>
             `).join('')
-            : '<p class="admin-empty">Nenhuma versÃ£o registrada ainda.</p>';
+            : '<p class="admin-empty">Nenhuma versão registrada ainda.</p>';
+    };
+
+    const renderTickets = () => {
+        const container = document.getElementById('adminTickets');
+        if (!state.tickets.length) {
+            container.innerHTML = '<p class="admin-empty">Nenhum chamado registrado ainda.</p>';
+            return;
+        }
+
+        const openCountByEmail = state.tickets.reduce((acc, ticket) => {
+            if (ticket.status !== 'respondido') acc[ticket.email] = (acc[ticket.email] || 0) + 1;
+            return acc;
+        }, {});
+
+        container.innerHTML = state.tickets.slice().reverse().map((ticket) => {
+            const isAnswered = ticket.status === 'respondido';
+            const otherOpenCount = isAnswered ? 0 : Math.max((openCountByEmail[ticket.email] || 1) - 1, 0);
+            const mailtoSubject = encodeURIComponent(`Re: ${ticket.subject || 'Chamado TOR'}`);
+
+            return `
+                <article class="admin-card admin-lead-card" data-ticket-id="${escapeHtml(ticket.id)}" data-ticket-email="${escapeHtml(ticket.email)}">
+                    <div>
+                        <span>${escapeHtml(ticket.subject || 'Chamado')}</span>
+                        <h3>${escapeHtml(ticket.name || 'Cliente')}${ticket.organization ? ` · ${escapeHtml(ticket.organization)}` : ''}</h3>
+                        <p>${escapeHtml(ticket.message || '')}</p>
+                        <em class="${isAnswered ? 'ok' : 'warn'}">${escapeHtml(ticket.status || 'novo')}</em>
+
+                        ${isAnswered ? `
+                            <div class="admin-ticket-answered">
+                                <strong>Resposta enviada em ${escapeHtml(ticket.repliedAt || '')}</strong>
+                                <p>${escapeHtml(ticket.reply || '')}</p>
+                            </div>
+                        ` : `
+                            <div class="admin-ticket-reply-box">
+                                <div class="form-group">
+                                    <label>Resposta</label>
+                                    <textarea rows="3" class="ticket-reply-text" placeholder="Escreva a resposta ao cliente"></textarea>
+                                </div>
+                                ${otherOpenCount > 0 ? `
+                                    <label class="admin-checkbox">
+                                        <input type="checkbox" class="ticket-apply-others" checked>
+                                        Aplicar esta resposta aos outros ${otherOpenCount} chamado${otherOpenCount > 1 ? 's' : ''} deste e-mail também
+                                    </label>
+                                ` : ''}
+                                <button type="button" class="btn-primary ticket-reply-submit">Marcar como respondido</button>
+                            </div>
+                        `}
+                    </div>
+                    <aside>
+                        <a href="mailto:${escapeHtml(ticket.email)}?subject=${mailtoSubject}">${escapeHtml(ticket.email || 'sem email')}</a>
+                        <strong>${escapeHtml(ticket.phone || 'sem telefone')}</strong>
+                        <small>${escapeHtml(ticket.createdAt || '')}</small>
+                    </aside>
+                </article>
+            `;
+        }).join('');
+    };
+
+    const renderClientes = () => {
+        const container = document.getElementById('adminClientes');
+        container.innerHTML = state.clientes.length
+            ? state.clientes.map((cliente) => `
+                <article class="admin-card admin-lead-card">
+                    <div>
+                        <span>${escapeHtml(cliente.organization || 'Sem empresa')}</span>
+                        <h3>${escapeHtml(cliente.name || 'Cliente sem nome')}</h3>
+                        <p>${cliente.isAdmin ? '<em class="ok">administrador</em>' : ''}</p>
+                    </div>
+                    <aside>
+                        <a href="mailto:${escapeHtml(cliente.email)}">${escapeHtml(cliente.email || 'sem email')}</a>
+                        <strong>${escapeHtml(cliente.phone || 'sem telefone')}</strong>
+                        <small>Cadastro: ${escapeHtml(cliente.createdAt || '')}</small>
+                    </aside>
+                </article>
+            `).join('')
+            : '<p class="admin-empty">Nenhum cliente cadastrado ainda.</p>';
     };
 
     const collectProducts = () => {
@@ -210,6 +291,18 @@
         renderProducts();
     };
 
+    const loadTickets = async () => {
+        const tickets = await api('/api/admin/tickets');
+        state.tickets = tickets.tickets || [];
+        renderTickets();
+    };
+
+    const loadClientes = async () => {
+        const clientes = await api('/api/admin/users');
+        state.clientes = clientes.users || [];
+        renderClientes();
+    };
+
     const loadAll = async () => {
         const catalog = await api('/api/admin/catalog');
         state.products = catalog.products || [];
@@ -225,19 +318,76 @@
         renderLeads();
 
         await loadVersions();
+        await loadTickets();
+        await loadClientes();
         updateSummary();
     };
 
-    document.getElementById('adminEnter').addEventListener('click', async () => {
-        state.token = document.getElementById('adminToken').value.trim();
+    const showLogin = () => {
+        login.hidden = false;
+        denied.hidden = true;
+        panel.hidden = true;
+    };
+
+    const showDenied = (email) => {
+        login.hidden = true;
+        denied.hidden = false;
+        panel.hidden = true;
+        document.getElementById('adminDeniedEmail').textContent = email || '';
+    };
+
+    const showPanel = async () => {
+        login.hidden = true;
+        denied.hidden = true;
+        panel.hidden = false;
         try {
             await loadAll();
-            login.hidden = true;
-            panel.hidden = false;
             showFeedback('Painel carregado.');
         } catch (error) {
             showFeedback(error.message, 'error');
         }
+    };
+
+    const checkSession = async () => {
+        try {
+            const data = await api('/api/me');
+            state.currentUser = data.user || null;
+            if (!state.currentUser) {
+                showLogin();
+                return;
+            }
+            if (!state.currentUser.isAdmin) {
+                showDenied(state.currentUser.email);
+                return;
+            }
+            await showPanel();
+        } catch (error) {
+            showLogin();
+        }
+    };
+
+    document.getElementById('adminLoginForm').addEventListener('submit', async (event) => {
+        event.preventDefault();
+        loginFeedback.hidden = true;
+        const email = document.getElementById('adminEmail').value.trim();
+        const password = document.getElementById('adminPassword').value;
+
+        try {
+            await api('/api/login', { method: 'POST', body: JSON.stringify({ email, password }) });
+            await checkSession();
+        } catch (error) {
+            showLoginFeedback(error.message || 'Não foi possível entrar.');
+        }
+    });
+
+    document.getElementById('adminDeniedLogout').addEventListener('click', async () => {
+        try {
+            await api('/api/logout', { method: 'POST' });
+        } catch (error) {
+            // ignore
+        }
+        state.currentUser = null;
+        showLogin();
     });
 
     document.querySelectorAll('[data-admin-tab]').forEach((button) => {
@@ -247,6 +397,8 @@
             document.getElementById('tabProducts').hidden = button.dataset.adminTab !== 'products';
             document.getElementById('tabSettings').hidden = button.dataset.adminTab !== 'settings';
             document.getElementById('tabLeads').hidden = button.dataset.adminTab !== 'leads';
+            document.getElementById('tabTickets').hidden = button.dataset.adminTab !== 'tickets';
+            document.getElementById('tabClientes').hidden = button.dataset.adminTab !== 'clientes';
         });
     });
 
@@ -345,7 +497,7 @@
                 })
             });
 
-            showFeedback(`Produto ${result.product.code} salvo na versÃ£o ${result.version}.`);
+            showFeedback(`Produto ${result.product.code} salvo na versão ${result.version}.`);
             fileInput.value = '';
             await loadAll();
         } catch (error) {
@@ -384,4 +536,34 @@
             showFeedback(error.message, 'error');
         }
     });
+
+    document.getElementById('adminTickets').addEventListener('click', async (event) => {
+        if (!event.target.classList.contains('ticket-reply-submit')) return;
+
+        const article = event.target.closest('[data-ticket-id]');
+        const ticketId = article.dataset.ticketId;
+        const replyText = article.querySelector('.ticket-reply-text').value.trim();
+        const applyCheckbox = article.querySelector('.ticket-apply-others');
+        const applyToOthers = applyCheckbox ? applyCheckbox.checked : false;
+
+        if (!replyText) {
+            showFeedback('Escreva a resposta antes de marcar como respondido.', 'error');
+            return;
+        }
+
+        try {
+            const result = await api(`/api/admin/tickets/${encodeURIComponent(ticketId)}/reply`, {
+                method: 'POST',
+                body: JSON.stringify({ reply: replyText, applyToOthers })
+            });
+            showFeedback(applyToOthers && result.updatedIds.length > 1
+                ? `Resposta aplicada a ${result.updatedIds.length} chamados deste cliente.`
+                : 'Chamado marcado como respondido.');
+            await loadTickets();
+        } catch (error) {
+            showFeedback(error.message, 'error');
+        }
+    });
+
+    checkSession();
 })();

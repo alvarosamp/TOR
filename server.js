@@ -86,14 +86,30 @@ async function readCatalog() {
     return sandbox.window.TOR_CATALOG_PRODUCTS || [];
 }
 
-function requireAdmin(req, res, next) {
-    const expected = process.env.ADMIN_TOKEN || 'tor-admin-local';
-    const token = req.get('x-admin-token') || req.query.token;
-    if (token !== expected) {
+async function requireAdmin(req, res, next) {
+    try {
+        if (req.session && req.session.userId) {
+            const users = await readUsers();
+            const user = users.find((item) => item.id === req.session.userId);
+            if (user && user.isAdmin === true) {
+                req.adminUser = user;
+                next();
+                return;
+            }
+        }
+
+        // Fallback de migração: token estático enquanto contas antigas não têm isAdmin.
+        const expected = process.env.ADMIN_TOKEN || 'tor-admin-local';
+        const token = req.get('x-admin-token') || req.query.token;
+        if (token && token === expected) {
+            next();
+            return;
+        }
+
         res.status(401).json({ error: 'Acesso administrativo não autorizado.' });
-        return;
+    } catch (error) {
+        next(error);
     }
-    next();
 }
 
 function cleanCode(value) {
@@ -325,7 +341,9 @@ function publicUser(user) {
         name: user.name,
         organization: user.organization,
         email: user.email,
-        phone: user.phone
+        phone: user.phone,
+        isAdmin: user.isAdmin === true,
+        createdAt: user.createdAt || ''
     };
 }
 
@@ -365,7 +383,8 @@ app.post('/api/register', async (req, res, next) => {
             organization,
             email,
             phone,
-            passwordHash
+            passwordHash,
+            isAdmin: false
         };
 
         users.push(user);
@@ -566,6 +585,69 @@ app.get('/api/leads', requireAdmin, async (req, res, next) => {
         await ensureDataFiles();
         const leads = JSON.parse(await fs.readFile(LEADS_FILE, 'utf8'));
         res.json({ total: leads.length, leads });
+    } catch (error) {
+        next(error);
+    }
+});
+
+app.get('/api/admin/users', requireAdmin, async (req, res, next) => {
+    try {
+        const users = await readUsers();
+        const list = users.map(publicUser).sort((a, b) => (b.createdAt || '').localeCompare(a.createdAt || ''));
+        res.json({ total: list.length, users: list });
+    } catch (error) {
+        next(error);
+    }
+});
+
+app.get('/api/admin/tickets', requireAdmin, async (req, res, next) => {
+    try {
+        await ensureDataFiles();
+        const tickets = JSON.parse(await fs.readFile(TICKETS_FILE, 'utf8'));
+        res.json({ total: tickets.length, tickets });
+    } catch (error) {
+        next(error);
+    }
+});
+
+app.post('/api/admin/tickets/:id/reply', requireAdmin, async (req, res, next) => {
+    try {
+        await ensureDataFiles();
+        const reply = String((req.body || {}).reply || '').trim().slice(0, 4000);
+        const applyToOthers = Boolean((req.body || {}).applyToOthers);
+
+        if (!reply) {
+            res.status(400).json({ error: 'Informe a resposta ao chamado.' });
+            return;
+        }
+
+        const tickets = JSON.parse(await fs.readFile(TICKETS_FILE, 'utf8'));
+        const target = tickets.find((ticket) => ticket.id === req.params.id);
+        if (!target) {
+            res.status(404).json({ error: 'Chamado não encontrado.' });
+            return;
+        }
+
+        const now = new Date().toISOString();
+        const updatedIds = [];
+
+        const applyReply = (ticket) => {
+            ticket.reply = reply;
+            ticket.repliedAt = now;
+            ticket.status = 'respondido';
+            updatedIds.push(ticket.id);
+        };
+
+        applyReply(target);
+
+        if (applyToOthers) {
+            tickets
+                .filter((ticket) => ticket.id !== target.id && ticket.email === target.email && ticket.status !== 'respondido')
+                .forEach(applyReply);
+        }
+
+        await fs.writeFile(TICKETS_FILE, `${JSON.stringify(tickets, null, 2)}\n`, 'utf8');
+        res.json({ ok: true, updatedIds });
     } catch (error) {
         next(error);
     }

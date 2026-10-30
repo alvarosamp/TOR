@@ -8,7 +8,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
     <meta name="robots" content="noindex,nofollow">
     <title>Painel Administrativo | TOR Tecnologia</title>
-    <link rel="stylesheet" href="styles.css?v=20260729-admin-versioning1">
+    <link rel="stylesheet" href="styles.css?v=20261030-admin-session1">
 </head>
 <body class="admin-body">
     <main class="admin-shell">
@@ -26,14 +26,34 @@
                 <div>
                     <span>Acesso restrito</span>
                     <h2>Entrar no painel</h2>
-                    <p>Use o token administrativo configurado no backend para acessar as ferramentas internas.</p>
+                    <p>Use sua conta de administrador (e-mail e senha) para acessar as ferramentas internas.</p>
                 </div>
                 <div class="admin-login-box">
-                    <div class="form-group">
-                        <label for="adminToken">Token administrativo</label>
-                        <input type="password" id="adminToken" placeholder="Digite o token">
-                    </div>
-                    <button type="button" class="btn-primary" id="adminEnter">Entrar</button>
+                    <form id="adminLoginForm">
+                        <div class="form-group">
+                            <label for="adminEmail">E-mail</label>
+                            <input type="email" id="adminEmail" placeholder="seu@tor.tec.br" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="adminPassword">Senha</label>
+                            <input type="password" id="adminPassword" placeholder="Sua senha" required>
+                        </div>
+                        <button type="submit" class="btn-primary" id="adminEnter">Entrar</button>
+                    </form>
+                    <p class="form-feedback" id="adminLoginFeedback" hidden></p>
+                </div>
+            </div>
+        </section>
+
+        <section class="admin-login" id="adminDenied" hidden>
+            <div class="admin-login-grid">
+                <div>
+                    <span>Acesso negado</span>
+                    <h2>Esta conta não tem permissão de administrador</h2>
+                    <p>Você está logado como <strong id="adminDeniedEmail"></strong>, mas essa conta não tem acesso ao painel. Peça a um administrador para liberar o seu acesso.</p>
+                </div>
+                <div class="admin-login-box">
+                    <button type="button" class="btn-small-outline" id="adminDeniedLogout">Sair e entrar com outra conta</button>
                 </div>
             </div>
         </section>
@@ -50,6 +70,8 @@
                 <button type="button" class="filter-button active" data-admin-tab="products">Produtos</button>
                 <button type="button" class="filter-button" data-admin-tab="settings">Dados do Site</button>
                 <button type="button" class="filter-button" data-admin-tab="leads">Leads</button>
+                <button type="button" class="filter-button" data-admin-tab="tickets">Chamados</button>
+                <button type="button" class="filter-button" data-admin-tab="clientes">Clientes</button>
             </div>
 
             <div class="admin-section" id="tabProducts">
@@ -167,9 +189,21 @@
                 <div id="adminLeads" class="admin-leads"></div>
             </div>
 
+            <div class="admin-section" id="tabTickets" hidden>
+                <h2>Chamados Técnicos</h2>
+                <p>Chamados abertos pelos clientes logados na área "Minha Conta".</p>
+                <div id="adminTickets" class="admin-leads"></div>
+            </div>
+
+            <div class="admin-section" id="tabClientes" hidden>
+                <h2>Clientes Cadastrados</h2>
+                <p>Lista somente leitura das contas criadas pelos clientes.</p>
+                <div id="adminClientes" class="admin-leads"></div>
+            </div>
+
             <p class="form-feedback" id="adminFeedback" hidden></p>
         </section>
     </main>
-    <script src="admin.js?v=20260729-admin-versioning1"></script>
+    <script src="admin.js?v=20261030-admin-session1"></script>
 </body>
 </html>

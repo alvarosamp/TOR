@@ -18,6 +18,7 @@ export async function verify(request) {
     assert.equal(result.status, 201);
     assert.equal(result.data.ok, true);
     assert.equal(result.data.emailSent, false);
+    assert.equal(result.data.emailCopySent, false);
     assert.equal((await request('/api/login', {email:config.admins[0].email,password:'wrong'})).status, 401);
     assert.equal((await request('/api/login', {email:config.admins[0].email,password})).status, 200);
     assert.equal((await request('/api/me')).data.user.isAdmin, true);

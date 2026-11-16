@@ -45,6 +45,7 @@ jobs:
       - name: Validar backend PHP e integração
         run: |
           node tests/form-fallback.test.cjs
+          node tests/mailer-copy.test.cjs
           php -l api.php
           php -l dist/tor-config.php
           node tests/php-api.test.mjs

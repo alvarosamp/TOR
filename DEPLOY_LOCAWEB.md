@@ -46,6 +46,8 @@ A publicação inclui `api.php`. A hospedagem precisa executar PHP 8.0 ou superi
 
 O formulário tenta Node primeiro, depois PHP. O PHP salva toda solicitação como chamado com status novo antes de confirmar o recebimento. Não depende da ativação do FormSubmit. FormSubmit é apenas alternativa quando nenhum backend responde; nesse caso não há gravação no painel.
 
+O visitante recebe uma cópia separada com protocolo e os dados da solicitação. Respostas à cópia são direcionadas para governo@tor.tec.br. A falha da cópia não impede a gravação do chamado.
+
 O envio usa `mail()` da hospedagem, com `governo@tor.tec.br` como From e Return-Path e o endereço do cliente em Reply-To. No Linux usa o parâmetro `-r`, conforme a orientação da Locaweb. Não exige secrets SMTP. A aceitação pelo servidor não confirma entrega na caixa: verifique recebimento e spam. Se a hospedagem bloquear mail(), configure envio autenticado em uma próxima etapa; os chamados continuam salvos.
 
 Para acessar `/admin.html`, cadastre os secrets `ADMIN_EMAIL` e `ADMIN_PASSWORD` no GitHub e execute novamente o workflow. São credenciais próprias do painel, independentes da senha do e-mail. O deploy gera `tor-config.php` com hash de senha; nunca publique senhas ou arquivos de dados no Git.

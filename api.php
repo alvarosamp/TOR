@@ -127,8 +127,9 @@ function require_admin(): void
     if (!admin_user()) respond(401, ['error' => 'É necessário estar logado como administrador.']);
 }
 
-function send_support_mail(string $subject, string $replyTo, array $fields, string $message): bool
+function send_support_mail(string $subject, string $replyTo, array $fields, string $message, string $recipient = SUPPORT_EMAIL): bool
 {
+    if (!filter_var($recipient, FILTER_VALIDATE_EMAIL)) return false;
     $rows = '';
     $text = '';
     foreach ($fields as $label => $value) {
@@ -139,7 +140,7 @@ function send_support_mail(string $subject, string $replyTo, array $fields, stri
     $html = '<div style="font-family:Arial,sans-serif;font-size:14px;color:#1a1a1a;max-width:640px">'
         . '<table cellpadding="6" style="border-collapse:collapse;width:100%">' . $rows . '</table>'
         . '<h3 style="margin:18px 0 6px">Mensagem</h3><div style="white-space:pre-wrap;border:1px solid #dde2ea;padding:12px;background:#fafbfc">' . htmlspecialchars($message) . '</div>'
-        . '<p style="color:#666;font-size:12px;margin-top:18px">Enviado automaticamente pelo site TOR Tecnologia. Responda este e-mail para falar direto com o cliente.</p></div>';
+        . '<p style="color:#666;font-size:12px;margin-top:18px">Enviado automaticamente pelo site TOR Tecnologia. Use o botão Responder para continuar o atendimento.</p></div>';
 
     $boundary = 'tor_' . bin2hex(random_bytes(8));
     $from = SUPPORT_EMAIL;
@@ -156,8 +157,8 @@ function send_support_mail(string $subject, string $replyTo, array $fields, stri
     $encodedSubject = '=?UTF-8?B?' . base64_encode($subject) . '?=';
 
     try {
-        if (PHP_OS_FAMILY === 'Windows') return mail(SUPPORT_EMAIL, $encodedSubject, $body, $headers);
-        return mail(SUPPORT_EMAIL, $encodedSubject, $body, $headers, '-r' . $from);
+        if (PHP_OS_FAMILY === 'Windows') return mail($recipient, $encodedSubject, $body, $headers);
+        return mail($recipient, $encodedSubject, $body, $headers, '-r' . $from);
     } catch (Throwable $e) {
         return false;
     }
@@ -212,7 +213,7 @@ if ($route === '/api/quote' && $method === 'POST') {
     append_store('leads', $record);
 
     $subject = '[Site TOR] ' . one_line($lead['requestType'], 40) . ' — ' . one_line($lead['subject'], 90) . ' — ' . one_line($lead['organization'] ?: $lead['name'], 60);
-    $sent = send_support_mail($subject, $lead['email'], [
+    $mailFields = [
         'Protocolo' => $record['id'],
         'Recebido em' => (new DateTime('now', new DateTimeZone('America/Sao_Paulo')))->format('d/m/Y H:i'),
         'Tipo de solicitação' => $lead['requestType'],
@@ -227,7 +228,8 @@ if ($route === '/api/quote' && $method === 'POST') {
         'Prazo' => $lead['deadline'],
         'Origem' => $lead['source'],
         'Consentimento LGPD' => $lead['lgpdConsent'] ? 'Sim' : 'Não',
-    ], $lead['message']);
+    ];
+    $sent = send_support_mail($subject, $lead['email'], $mailFields, $lead['message']);
 
     // Sempre salva no painel: aceitação de e-mail não confirma entrega na caixa.
     $extra = array_filter([
@@ -252,7 +254,9 @@ if ($route === '/api/quote' && $method === 'POST') {
         'message' => mb_substr(implode("\n", array_merge([$lead['message']], $extra, [$sent ? '(E-mail aceito pelo servidor para envio; entrega na caixa não confirmada.)' : '(Não foi possível enviar o e-mail para ' . SUPPORT_EMAIL . ' — solicitação salva no painel.)'])), 0, 4000),
     ]);
 
-    respond(201, ['ok' => true, 'id' => $record['id'], 'emailSent' => $sent, 'message' => 'Solicitação recebida. A equipe TOR entrará em contato.']);
+    $copySent = send_support_mail('[TOR] Cópia da sua solicitação — ' . one_line($lead['subject'], 90), SUPPORT_EMAIL, $mailFields, $lead['message'], $lead['email']);
+
+    respond(201, ['ok' => true, 'id' => $record['id'], 'emailSent' => $sent, 'emailCopySent' => $copySent, 'message' => 'Solicitação recebida. A equipe TOR entrará em contato.']);
 }
 
 // ------------------------------------------------------------- rotas de admin

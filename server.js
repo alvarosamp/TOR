@@ -6,6 +6,7 @@ const path = require('path');
 const vm = require('vm');
 const { PDFParse } = require('pdf-parse');
 const { buildAssistantResponse } = require('./lib/catalog-assistant');
+const { sendLeadEmail, sendTicketEmail } = require('./lib/mailer');
 
 const app = express();
 const PORT = Number(process.env.PORT || 8765);
@@ -491,6 +492,7 @@ app.post('/api/chamado', requireAuth, async (req, res, next) => {
         const tickets = JSON.parse(await fs.readFile(TICKETS_FILE, 'utf8'));
         tickets.push(record);
         await fs.writeFile(TICKETS_FILE, `${JSON.stringify(tickets, null, 2)}\n`, 'utf8');
+        sendTicketEmail(record).catch(() => {});
 
         res.status(201).json({ ok: true, id: record.id, message: 'Chamado aberto com sucesso. A equipe TOR entrará em contato.' });
     } catch (error) {
@@ -553,6 +555,7 @@ app.post('/api/quote', async (req, res, next) => {
         const current = JSON.parse(await fs.readFile(LEADS_FILE, 'utf8'));
         current.push(record);
         await fs.writeFile(LEADS_FILE, `${JSON.stringify(current, null, 2)}\n`, 'utf8');
+        sendLeadEmail(record).catch(() => {});
 
         res.status(201).json({
             ok: true,

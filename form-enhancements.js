@@ -84,6 +84,65 @@
         form.appendChild(feedback);
     };
 
+
+    const SUPPORT_EMAIL = 'governo@tor.tec.br';
+
+    // Backend Node (quando disponível). Em hospedagem estática /api/quote devolve HTML,
+    // então qualquer resposta que não seja JSON cai no envio direto por e-mail.
+    async function sendToApi(payload) {
+        const response = await fetch('/api/quote', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+            body: JSON.stringify(payload)
+        });
+        const type = response.headers.get('content-type') || '';
+        if (!type.includes('application/json')) throw new Error('api-indisponivel');
+        const data = await response.json();
+        if (response.status === 400) {
+            const err = new Error(data.error || 'Verifique os campos obrigatórios.');
+            err.validation = true;
+            throw err;
+        }
+        if (!response.ok || !data.ok) throw new Error('api-falhou');
+        return data;
+    }
+
+    async function sendToEmail(payload) {
+        const org = payload.organization || payload.name || '';
+        const subject = `[Site TOR] ${payload.requestType || 'Contato'} — ${payload.subject || ''} — ${org}`.slice(0, 200);
+        const body = {
+            _subject: subject,
+            _replyto: payload.email,
+            _template: 'table',
+            _captcha: 'false',
+            'Tipo de solicitação': payload.requestType,
+            Assunto: payload.subject,
+            Nome: payload.name,
+            'Organização': payload.organization,
+            'E-mail': payload.email,
+            Telefone: payload.phone,
+            'Produto de interesse': payload.product,
+            Quantidade: payload.quantity,
+            Segmento: payload.segment,
+            Prazo: payload.deadline,
+            Mensagem: payload.message,
+            'Consentimento LGPD': payload.lgpdConsent ? 'Sim' : 'Não',
+            Origem: payload.source
+        };
+        Object.keys(body).forEach((k) => { if (!body[k]) delete body[k]; });
+
+        const response = await fetch(`https://formsubmit.co/ajax/${SUPPORT_EMAIL}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+            body: JSON.stringify(body)
+        });
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok || String(data.success) !== 'true') {
+            throw new Error(`Não foi possível enviar agora. Escreva para ${SUPPORT_EMAIL} ou ligue 0800 000 5978.`);
+        }
+        return { message: 'Solicitação enviada para a equipe TOR. Retornaremos em breve.' };
+    }
+
     form.addEventListener('submit', async (event) => {
         event.preventDefault();
 
@@ -99,16 +158,11 @@
         }
 
         try {
-            const response = await fetch('/api/quote', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
+            const data = await sendToApi(payload).catch((err) => {
+                if (err.validation) throw err;
+                return sendToEmail(payload);
             });
-
-            const data = await response.json();
-            if (!response.ok) throw new Error(data.error || 'Não foi possível enviar a solicitação.');
-
-            showFeedback(`${data.message} Protocolo: ${data.id}`, 'success');
+            showFeedback(data.message + (data.id ? ` Protocolo: ${data.id}` : ''), 'success');
             form.reset();
         } catch (error) {
             showFeedback(error.message || 'Erro ao enviar. Tente novamente ou ligue para 0800 000 5978.', 'error');

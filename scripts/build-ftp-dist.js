@@ -8,6 +8,7 @@ const copyDirs = ['assets', 'icons', 'en'];
 const copyFiles = [
     'admin.html',
     'admin.js',
+    'api.php',
     'catalog-data.js',
     'catalog.js',
     'chatbot.js',

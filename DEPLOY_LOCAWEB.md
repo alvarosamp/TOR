@@ -40,6 +40,14 @@ Para apontar o domínio para a Locaweb, configure os nameservers no provedor ond
 
 A propagação pode levar até 24 horas.
 
-## Observação Importante
+## Formulário e painel PHP
 
-Deploy por FTP publica a parte estática do site. Recursos que dependem de backend Node, como `/api/admin/*`, chatbot com API e gravação de leads, precisam de hospedagem com Node.js ativo ou outro backend separado.
+A publicação inclui `api.php`. A hospedagem precisa executar PHP 8.0 ou superior com mbstring e permitir gravação na pasta do site. A API cria `tor-dados` com arquivos PHP protegidos, fora do conteúdo gerado pelo build. Preserve essa pasta em novos deploys e backups.
+
+O formulário tenta Node primeiro, depois PHP. O PHP salva toda solicitação como chamado com status novo antes de confirmar o recebimento. Não depende da ativação do FormSubmit. FormSubmit é apenas alternativa quando nenhum backend responde; nesse caso não há gravação no painel.
+
+O envio usa `mail()` da hospedagem, com `governo@tor.tec.br` como From e Return-Path e o endereço do cliente em Reply-To. No Linux usa o parâmetro `-r`, conforme a orientação da Locaweb. Não exige secrets SMTP. A aceitação pelo servidor não confirma entrega na caixa: verifique recebimento e spam. Se a hospedagem bloquear mail(), configure envio autenticado em uma próxima etapa; os chamados continuam salvos.
+
+Para acessar `/admin.html`, cadastre os secrets `ADMIN_EMAIL` e `ADMIN_PASSWORD` no GitHub e execute novamente o workflow. São credenciais próprias do painel, independentes da senha do e-mail. O deploy gera `tor-config.php` com hash de senha; nunca publique senhas ou arquivos de dados no Git.
+
+Na versão PHP, Chamados, respostas e solicitações funcionam; edição de catálogo/configurações e contas de clientes ainda dependem de Node. O chatbot com API também precisa de backend próprio.

@@ -4068,7 +4068,13 @@ p {
     line-height: 1.5;
 }
 
+.checkbox-group label > span {
+    flex: 1;
+    min-width: 0;
+}
+
 .checkbox-group input {
+    flex: 0 0 auto;
     width: auto;
     margin-top: 3px;
 }

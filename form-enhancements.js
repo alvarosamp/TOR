@@ -87,16 +87,18 @@
 
     const SUPPORT_EMAIL = 'governo@tor.tec.br';
 
-    // Backend Node (quando disponível). Em hospedagem estática /api/quote devolve HTML,
-    // então qualquer resposta que não seja JSON cai no envio direto por e-mail.
+    // Na hospedagem FTP, respostas HTML da rota Node acionam o backend PHP.
     async function sendToApi(payload) {
-        const response = await fetch('/api/quote', {
+        const post = (url) => fetch(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
             body: JSON.stringify(payload)
         });
-        const type = response.headers.get('content-type') || '';
-        if (!type.includes('application/json')) throw new Error('api-indisponivel');
+        const isJson = (r) => (r.headers.get('content-type') || '').includes('application/json');
+        // Node (/api/quote) → backend PHP da Locaweb (/api.php) → envio direto por e-mail.
+        let response = await post('/api/quote').catch(() => null);
+        if (!response || !isJson(response)) response = await post('/api.php?r=/api/quote');
+        if (!isJson(response)) throw new Error('api-indisponivel');
         const data = await response.json();
         if (response.status === 400) {
             const err = new Error(data.error || 'Verifique os campos obrigatórios.');
@@ -165,7 +167,7 @@
             showFeedback(data.message + (data.id ? ` Protocolo: ${data.id}` : ''), 'success');
             form.reset();
         } catch (error) {
-            showFeedback(error.message || 'Erro ao enviar. Tente novamente ou ligue para 0800 000 5978.', 'error');
+            showFeedback(error.validation ? error.message : `Não foi possível enviar agora. Escreva para ${SUPPORT_EMAIL} ou ligue 0800 000 5978.`, 'error');
         } finally {
             if (submitButton) {
                 submitButton.disabled = false;

@@ -27,12 +27,24 @@
         loginFeedback.textContent = message;
     };
 
+    // Em hospedagem estática (Locaweb) não há Node: /api/* devolve HTML.
+    // Nesse caso usamos o backend PHP (api.php?r=/api/...).
+    let usePhp = false;
+    const request = (url, options) => fetch(usePhp ? `/api.php?r=${encodeURIComponent(url)}` : url, {
+        credentials: 'same-origin',
+        ...options,
+        headers: { ...headers(), ...(options.headers || {}) }
+    });
+    const isJson = (response) => (response.headers.get('content-type') || '').includes('application/json');
+
     const api = async (url, options = {}) => {
-        const response = await fetch(url, {
-            ...options,
-            headers: { ...headers(), ...(options.headers || {}) }
-        });
-        const data = await response.json();
+        let response = await request(url, options);
+        if (!usePhp && !isJson(response)) {
+            usePhp = true;
+            response = await request(url, options);
+        }
+        if (!isJson(response)) throw new Error('O painel está temporariamente indisponível. Tente novamente em alguns minutos.');
+        const data = await response.json().catch(() => { throw new Error('Resposta inválida do servidor. Tente novamente.'); });
         if (!response.ok) throw new Error(data.error || 'Erro na operação.');
         return data;
     };

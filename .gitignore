@@ -40,3 +40,5 @@ build/
 data/leads.json
 data/catalog-products.json
 data/site-settings.json
+tor-config.php
+tor-dados/

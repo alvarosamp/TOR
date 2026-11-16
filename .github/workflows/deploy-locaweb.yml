@@ -36,6 +36,19 @@ jobs:
       - name: Build FTP payload
         run: npm run build:ftp
 
+      - name: Gerar configuração do backend PHP (login admin)
+        env:
+          ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
+          ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
+        run: node scripts/build-php-config.js
+
+      - name: Validar backend PHP e integração
+        run: |
+          node tests/form-fallback.test.cjs
+          php -l api.php
+          php -l dist/tor-config.php
+          node tests/php-api.test.mjs
+
       - name: Verify FTP payload
         run: |
           echo "Files ready for FTP:"
@@ -50,6 +63,8 @@ jobs:
           echo "default.htm found"
           test -f dist/default.html
           echo "default.html found"
+          test -f dist/api.php
+          test -f dist/tor-config.php
           test -f dist/web.config
           echo "web.config found"
 

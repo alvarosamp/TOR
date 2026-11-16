@@ -555,7 +555,33 @@ app.post('/api/quote', async (req, res, next) => {
         const current = JSON.parse(await fs.readFile(LEADS_FILE, 'utf8'));
         current.push(record);
         await fs.writeFile(LEADS_FILE, `${JSON.stringify(current, null, 2)}\n`, 'utf8');
-        sendLeadEmail(record).catch(() => {});
+        // Se o e-mail para governo@tor.tec.br falhar, registra como chamado no painel admin.
+        const mail = await sendLeadEmail(record).catch((error) => ({ sent: false, error: error.message }));
+        if (!mail.sent) {
+            const tickets = JSON.parse(await fs.readFile(TICKETS_FILE, 'utf8'));
+            tickets.push({
+                id: `ticket_${Date.now()}`,
+                createdAt: record.createdAt,
+                status: 'novo',
+                origem: 'formulario-site',
+                leadId: record.id,
+                emailFalhou: true,
+                name: record.name,
+                organization: record.organization,
+                email: record.email,
+                phone: record.phone,
+                subject: `[${record.requestType}] ${record.subject}`,
+                message: [
+                    record.message,
+                    record.product && `Produto: ${record.product}`,
+                    record.quantity && `Quantidade: ${record.quantity}`,
+                    record.segment && `Segmento: ${record.segment}`,
+                    record.deadline && `Prazo: ${record.deadline}`,
+                    '(E-mail para governo@tor.tec.br não foi entregue — registrado aqui automaticamente.)'
+                ].filter(Boolean).join('\n').slice(0, 4000)
+            });
+            await fs.writeFile(TICKETS_FILE, `${JSON.stringify(tickets, null, 2)}\n`, 'utf8');
+        }
 
         res.status(201).json({
             ok: true,

@@ -1,0 +1,25 @@
+# Relay de e-mail da TOR: o PHP da Locaweb chama https://$RELAY_DOMAIN/send
+# e o relay entrega via SMTP autenticado da Hostinger.
+services:
+  relay:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    expose:
+      - "3000"
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    depends_on: [relay]
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      RELAY_DOMAIN: ${RELAY_DOMAIN}
+    command: caddy reverse-proxy --from ${RELAY_DOMAIN} --to relay:3000
+    volumes:
+      - caddy_data:/data
+
+volumes:
+  caddy_data:

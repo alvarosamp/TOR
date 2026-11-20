@@ -1,0 +1,9 @@
+{
+  "name": "tor-mail-relay",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Relay HTTP -> SMTP (Hostinger) usado pelo backend PHP da Locaweb para enviar e-mails do site TOR.",
+  "main": "server.js",
+  "scripts": { "start": "node server.js" },
+  "dependencies": { "nodemailer": "^6.9.16" }
+}

@@ -127,6 +127,33 @@ function require_admin(): void
     if (!admin_user()) respond(401, ['error' => 'É necessário estar logado como administrador.']);
 }
 
+function send_via_relay(string $to, string $subject, string $replyTo, string $text, string $html): bool
+{
+    $url = (string) ($GLOBALS['config']['relay_url'] ?? '');
+    $token = (string) ($GLOBALS['config']['relay_token'] ?? '');
+    if ($url === '' || $token === '' || !function_exists('curl_init')) return false;
+    $ch = curl_init(rtrim($url, '/') . '/send');
+    curl_setopt_array($ch, [
+        CURLOPT_POST => true,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_CONNECTTIMEOUT => 5,
+        CURLOPT_TIMEOUT => 20,
+        CURLOPT_HTTPHEADER => ['Content-Type: application/json', 'Authorization: Bearer ' . $token],
+        CURLOPT_POSTFIELDS => json_encode([
+            'to' => $to,
+            'subject' => $subject,
+            'replyTo' => filter_var($replyTo, FILTER_VALIDATE_EMAIL) ? $replyTo : '',
+            'text' => $text,
+            'html' => $html,
+        ], JSON_UNESCAPED_UNICODE),
+    ]);
+    $out = curl_exec($ch);
+    $status = (int) curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
+    curl_close($ch);
+    $data = is_string($out) ? json_decode($out, true) : null;
+    return $status === 200 && is_array($data) && !empty($data['ok']);
+}
+
 function send_support_mail(string $subject, string $replyTo, array $fields, string $message, string $recipient = SUPPORT_EMAIL): bool
 {
     if (!filter_var($recipient, FILTER_VALIDATE_EMAIL)) return false;
@@ -156,6 +183,10 @@ function send_support_mail(string $subject, string $replyTo, array $fields, stri
         . "--$boundary\r\nContent-Type: text/html; charset=UTF-8\r\n\r\n$html\r\n--$boundary--";
     $encodedSubject = '=?UTF-8?B?' . base64_encode($subject) . '?=';
 
+    // 1) Relay SMTP (Docker na Hostinger): envio autenticado, melhor entrega que mail().
+    if (send_via_relay($recipient, $subject, $replyTo, $text . "\nMensagem:\n" . $message, $html)) return true;
+
+    // 2) Reserva: mail() da hospedagem.
     try {
         if (PHP_OS_FAMILY === 'Windows') return mail($recipient, $encodedSubject, $body, $headers);
         return mail($recipient, $encodedSubject, $body, $headers, '-r' . $from);

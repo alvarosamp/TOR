@@ -18,8 +18,8 @@ function buildTransport() {
     if (DRY_RUN) return nodemailer.createTransport({ jsonTransport: true });
     const { SMTP_HOST, SMTP_USER, SMTP_PASS } = process.env;
     if (!SMTP_HOST || !SMTP_USER || !SMTP_PASS) {
-        console.error('Configure SMTP_HOST, SMTP_USER e SMTP_PASS.');
-        process.exit(1);
+        console.warn('SMTP não configurado (SMTP_HOST/SMTP_USER/SMTP_PASS): /send responderá 503 até configurar.');
+        return null;
     }
     const port = Number(process.env.SMTP_PORT || 465);
     return nodemailer.createTransport({
@@ -78,6 +78,7 @@ const server = http.createServer(async (req, res) => {
 
         if (req.method === 'POST' && req.url === '/send') {
             if (!authorized(req)) return send(res, 401, { error: 'Não autorizado.' });
+            if (!transport) return send(res, 503, { error: 'SMTP não configurado no relay.' });
             if (rateLimited()) return send(res, 429, { error: 'Limite de envios por minuto atingido.' });
 
             let payload;

@@ -13,7 +13,12 @@ Site (Locaweb) → api.php → HTTPS + token → relay (Docker, VPS Hostinger) �
 3. Um subdomínio (ex.: `relay.tor.tec.br`) com registro **A** apontando para o IP do VPS.
 4. Portas 80 e 443 abertas (HTTPS automático via Caddy).
 
-## 2. Subir o relay
+## Hostinger (VPS com Traefik já instalado)
+Use `docker-compose.hostinger.yml` (projeto isolado `tor-mail-relay`, sem build, usa o Traefik existente; sem portas novas).
+Endereço público: `https://srv1934808.hstgr.cloud/tor-relay`. Defina no projeto: `RELAY_TOKEN`, `SMTP_USER`, `SMTP_PASS` (e `MAIL_FROM`).
+Sem `SMTP_USER/SMTP_PASS` o relay sobe, mas `/send` responde 503 (o PHP usa `mail()` como reserva).
+
+## 2. Subir o relay (VPS sem Traefik)
 ```bash
 git clone https://github.com/alvarosamp/TOR.git && cd TOR/mail-relay
 cp .env.example .env      # preencha RELAY_DOMAIN, RELAY_TOKEN (openssl rand -hex 32), SMTP_USER, SMTP_PASS, MAIL_FROM
